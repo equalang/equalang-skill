@@ -1,57 +1,164 @@
-# Equalang-Skill
+# equalang-skill
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](../LICENSE)
+[![Agent Skill](https://img.shields.io/badge/Agent_Skills-open_standard-6E56CF.svg)](https://agentskills.io)
+[![Python](https://img.shields.io/badge/python-%3E%3D3.8-3776AB.svg)](https://python.org)
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Español](README.es.md) · [Français](README.fr.md) · **Deutsch** · [Português](README.pt.md) · [Italiano](README.it.md) · [Русский](README.ru.md) · [Polski](README.pl.md) · [Türkçe](README.tr.md) · [Tiếng Việt](README.vi.md) · [Bahasa Indonesia](README.id.md) · [ไทย](README.th.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md)
 
-Ein [Agent Skill](https://github.com/anthropics/skills), der Claude Code, Codex, Cursor und anderen Agenten [Equalang](https://equalang.com) gibt: ganze Dateien mit erhaltenem Layout übersetzen, Aufnahmen transkribieren, Strings in großen Mengen übersetzen.
+[Website](https://equalang.com) · [Preise](https://equalang.com/pricing) · [Entwicklerdokumentation](https://equalang.com/developers) · [API-Schlüssel](https://equalang.com/api-keys)
 
-- **Dokumente** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, TXT - kommen im selben Format zurück.
-- **Untertitel** (SRT, VTT) und **Bilder** (JPG, PNG, WebP, BMP).
-- **Audio und Video** kommen als übersetzte Untertitel zurück oder als Transkript in der gesprochenen Sprache.
+> **Stichwörter:** pdf übersetzen, pdf übersetzer, pdf übersetzen layout beibehalten, dokumente übersetzen, word dokument übersetzen, docx übersetzen, powerpoint übersetzen, excel übersetzen, epub übersetzen, untertitel übersetzen, srt übersetzen, bild übersetzen, text im bild übersetzen, video übersetzen, audio transkribieren, sprache in text, ki übersetzer, agent skill, claude code skill, codex skill, translation api
+
+**Datei übersetzen, Layout behalten.** Ein [Agent Skill](https://agentskills.io) für [Equalang](https://equalang.com) – einen KI-Übersetzer, der mit ganzen Dateien arbeitet: Ein PDF kommt als PDF zurück, eine Präsentation als Präsentation, Tabellen, Bilder und Formeln bleiben, wo sie waren. Er übersetzt außerdem Untertitel und Bilder, macht aus Audio und Video übersetzte Untertitel oder ein Transkript und übersetzt Strings in großen Mengen. Läuft in Claude Code, Codex, Cursor, CodeBuddy und jedem anderen Agenten, der Agent Skills lädt.
+
+## Funktionen
+
+- **Format rein, Format raus** – PDF, DOCX, PPTX, XLSX, EPUB, HTML und TXT kommen im selben Format zurück, weiterhin bearbeitbar, Tabellen, Bilder, Formeln und Seitenlayout an ihrem Platz
+- **Untertitel und Bilder** – SRT und VTT behalten ihr Timing, auf Wunsch mit der Originalzeile über der Übersetzung; JPG, PNG, WebP und BMP kommen mit übersetztem Text im Bild zurück
+- **Audio und Video** – aus MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM und MKV werden übersetzte Untertitel oder ein Transkript in der gesprochenen Sprache (SRT, VTT, TXT, JSON)
+- **Text in großen Mengen** – einzelne Strings, in ihrer Reihenfolge übersetzt, oder ein langer Text (bis zu 100.000 Zeichen), den Equalang selbst an Satzgrenzen teilt; über 100 Sprachen für Text, 12 für Dateien
+- **Ganze Dateien, kein Copy-and-paste** – bis zu 100 MB pro Datei, von einem Pfad oder einer öffentlichen URL; nichts, was man auf Textfelder aufteilen müsste
+- **Kostet keine Tokens** – die Datei geht an Equalang, zurück kommt ein Pfad; ein 300-seitiges PDF gelangt nie in die Unterhaltung
+- **Der Preis vor dem Auftrag** – `estimate` nennt kostenlos den Höchstbetrag, den ein Auftrag kosten kann; fehlgeschlagene und abgebrochene Aufträge kosten nichts; eine Aufnahme wird nach der tatsächlich gehörten Sprache berechnet; Credits verfallen nie
+- **Nichts zu installieren** – ein einziges Python-Skript, nur Standardbibliothek, Python 3.8+
+
+## Schlüssel holen
+
+Registriere dich unter <https://equalang.com> und erstelle einen Schlüssel unter <https://equalang.com/api-keys>. Neue Konten starten mit kostenlosen Credits – genug, um ein Dokument durchlaufen zu lassen und zu sehen, was zurückkommt.
+
+```bash
+export EQUALANG_API_KEY=el_your_key
+```
+
+Oder kopiere `.env.example` in diesem Verzeichnis nach `.env` – die Datei wird von git ignoriert. Der Schlüssel wird nur einmal angezeigt; Equalang speichert lediglich einen Hash davon.
 
 ## Installation
 
-Füge das bei deinem Agenten ein:
+Der kürzeste Weg – füge das bei deinem Agenten ein:
 
 > Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
 
-Oder von Hand - ein Skill ist ein Ordner:
+<details open>
+<summary><b>Claude Code</b> (Plugin)</summary>
+
+```
+/plugin marketplace add equalang/equalang-skill
+/plugin install equalang@equalang
+```
+</details>
+
+<details>
+<summary><b>Claude Code</b> (von Hand)</summary>
 
 ```bash
-git clone https://github.com/equalang/equalang-skill ~/.claude/skills/equalang     # Claude Code
-git clone https://github.com/equalang/equalang-skill ~/.codex/skills/equalang      # Codex
-export EQUALANG_API_KEY=el_...        # Schlüssel erstellen unter https://equalang.com/api-keys
+git clone https://github.com/equalang/equalang-skill ~/.claude/skills/equalang
 ```
 
-Als Claude Code-Plugin: `/plugin marketplace add equalang/equalang-skill`, dann `/plugin install equalang@equalang`.
+Lieber nur für ein Projekt? Klone nach `.claude/skills/equalang` im Repository.
+</details>
 
-`python3` (3.8+) ist alles, was nötig ist; es gibt nichts per `pip install` zu installieren.
-
-## Was der Agent ausführt
+<details>
+<summary><b>OpenAI Codex</b></summary>
 
 ```bash
-python3 scripts/equalang.py estimate report.pdf                  # was würde es kosten? (kostenlos)
-python3 scripts/equalang.py translate report.pdf --to zh-CN      # Ergebnis landet neben der Quelldatei
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+Codex liest auch `.agents/skills/` innerhalb eines Repositorys, um den Skill auf ein Projekt zu beschränken.
+</details>
+
+<details>
+<summary><b>CodeBuddy / WorkBuddy</b></summary>
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.codebuddy/skills/equalang
+```
+
+Nur für ein Projekt: Klone nach `.codebuddy/skills/equalang` im Projektstamm.
+</details>
+
+<details>
+<summary><b>Cursor, Gemini CLI, OpenCode, Copilot, Goose, Amp, Kiro und andere</b></summary>
+
+Das ist ein ganz normaler [Agent Skill](https://agentskills.io): ein Ordner mit einer `SKILL.md` darin. Jeder Client, der den Standard umsetzt, lädt denselben Ordner – nur das Verzeichnis, das er durchsucht, ist ein anderes, und jeder dokumentiert sein eigenes. Klone das Repository in dieses Verzeichnis, und der Skill ist installiert.
+
+```bash
+git clone https://github.com/equalang/equalang-skill
+```
+</details>
+
+Lieber ein MCP-Server? [equalang-mcp](https://github.com/equalang/equalang-mcp) bietet dieselben Operationen als Tools an und läuft auch in Claude Desktop, Cursor, Windsurf, Cline und OpenCode.
+
+## Befehle
+
+```bash
+# Was würde es kosten? Kostenlos, und nichts wird gestartet
+python3 scripts/equalang.py estimate report.pdf
+
+# Eine Datei übersetzen; das Ergebnis landet neben der Quelldatei
+python3 scripts/equalang.py translate report.pdf --to zh-CN
+
+# Von einer öffentlichen URL (Equalang ruft sie selbst ab), in einen Ordner
 python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o ./out
+
+# Was in einer Aufnahme gesagt wird, als Text mit Zeitmarken
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
+
+# Einzelne Strings, in ihrer Reihenfolge
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
-python3 scripts/equalang.py text --file notes.md --to ja -o notes.ja.md   # ein langer Text, von Equalang an Satzgrenzen geteilt
-python3 scripts/equalang.py status <job_id> · cancel <job_id> · balance · languages chinese
+
+# Ein langer Text, von Equalang an Satzgrenzen geteilt
+python3 scripts/equalang.py text --file notes.md --to ja -o notes.ja.md
+
+# Ein Auftrag, der noch läuft, das Guthaben und die Sprachcodes
+python3 scripts/equalang.py status <job_id>
+python3 scripts/equalang.py cancel <job_id>
+python3 scripts/equalang.py balance
+python3 scripts/equalang.py languages chinese
 ```
 
-**Sprachen.** Codes sehen aus wie `en`, `zh-CN`, `ja`. In den Skill ist keine Liste eingebaut: `languages` liest Codes und Namen aus der Live-API (`--kind text` für die größere Auswahl, die `text` annimmt), sodass eine Sprache, die Equalang hinzufügt, ohne Update verfügbar ist.
+Jeder Befehl gibt ein einziges JSON-Objekt aus – Pfade und Credits, nie Dateiinhalte – oder `{"error", "code", "retryable"}` mit Exit-Code 1. `--help` listet bei jedem Befehl dessen Optionen auf. [SKILL.md](../SKILL.md) ist das, was der Agent liest.
 
-**Credits.** Arbeit verbraucht die Credits des Kontos, dasselbe Guthaben wie auf der Website. SKILL.md lässt den Agenten zuerst die Kosten nennen - aus `estimate` - und die Zustimmung einholen.
+## Drei Dinge, die man wissen sollte
 
-Jeder Befehl gibt ein einziges JSON-Objekt aus - Pfade und Credits, nie Dateiinhalte - oder `{"error", "code", "retryable"}` mit Exit-Code 1. [SKILL.md](../SKILL.md) ist das, was der Agent liest.
+**Sprachen.** Codes sehen aus wie `en`, `zh-CN`, `ja`. In den Skill ist keine Liste eingebaut: `languages` liest Codes und Namen aus der Live-API (`--kind text` für die größere Auswahl, die `text` annimmt), sodass eine Sprache, die Equalang hinzufügt, ohne Update verfügbar ist. Lass die Quellsprache weg, damit sie erkannt wird.
+
+**Credits.** Arbeit verbraucht die Credits des Kontos, dasselbe Guthaben wie auf der Website. SKILL.md lässt den Agenten die Kosten nennen – aus `estimate` – und die Zustimmung einholen, bevor er einen Auftrag startet.
+
+**Aufträge dauern Minuten.** Der Befehl wartet und pausiert so lange, wie das `Retry-After` der API verlangt. Ihn zu unterbrechen bricht den Auftrag nicht ab – `status <job_id>` nimmt ihn wieder auf und lädt das Ergebnis herunter.
+
+## Häufige Fragen
+
+**Behält das übersetzte PDF sein Layout?**
+Ja – genau darum geht es. Der Text wird dorthin zurückgesetzt, wo er war, und Tabellen, Bilder und Formeln bleiben an ihrem Platz; ein DOCX, PPTX oder XLSX bleibt bearbeitbar.
+
+**Wird mein Dokument an das Modell geschickt?**
+Nein. Das Skript lädt die Datei zu Equalang hoch und gibt einen Pfad aus. Ein 300-seitiges Paper kostet keine Tokens.
+
+**Kann er den Text in einem Bild übersetzen?**
+Ja. Text in einem JPG, PNG, WebP oder BMP wird erkannt, übersetzt und wieder ins Bild gezeichnet.
+
+**Was kostet ein Auftrag?**
+Das sagt `estimate`, bevor irgendetwas startet, und zwar kostenlos. Die Preise stehen unter <https://equalang.com/pricing>.
 
 ## Wie er gebaut ist
 
-Dieselben drei Entscheidungen wie beim [MCP-Server](https://github.com/equalang/equalang-mcp), der dieselben Operationen als Tools anbietet:
+Dieselben drei Entscheidungen wie beim [MCP-Server](https://github.com/equalang/equalang-mcp):
 
-1. **Eine Datei läuft nie durch das Modell** - Befehle nehmen entgegen, wo eine Datei liegt (ein Pfad oder eine öffentliche URL, die Equalang selbst abruft), und geben aus, wohin die Ergebnisse geschrieben wurden.
-2. **Ein Auftrag lebt innerhalb eines Befehls** - hochladen, warten (mit Pausen, so lang das `Retry-After` der API verlangt), herunterladen. Das Warten zu unterbrechen bricht den Auftrag nicht ab; `status` nimmt ihn wieder auf.
-3. **Die Antworten der API werden wiedergegeben, nicht erraten** - wiederholt wird nur, was die API als `retryable` markiert; die Kosten sind das `quote` der API; die Sprachliste wird aus ihrem OpenAPI-Dokument gelesen; ein `Idempotency-Key` pro angelegtem Auftrag, sodass aus einer verlorenen Antwort kein zweiter, berechneter Auftrag werden kann.
+1. **Eine Datei läuft nie durch das Modell** – Befehle nehmen entgegen, wo eine Datei liegt (ein Pfad oder eine öffentliche URL, die Equalang selbst abruft), und geben aus, wohin die Ergebnisse geschrieben wurden.
+2. **Ein Auftrag lebt innerhalb eines Befehls** – hochladen, warten, herunterladen. `status` nimmt einen Auftrag wieder auf, dessen Warten unterbrochen wurde.
+3. **Die Antworten der API werden wiedergegeben, nicht erraten** – wiederholt wird nur, was die API als `retryable` markiert; die Kosten sind das `quote` der API; die Sprachliste wird aus ihrem OpenAPI-Dokument gelesen; ein `Idempotency-Key` pro angelegtem Auftrag, sodass aus einer verlorenen Antwort kein zweiter, berechneter Auftrag werden kann.
 
-`python3 scripts/check_api.py` prüft ohne Schlüssel, dass jeder Pfad und jedes Feld, das das Skript verwendet - und jedes Format, das SKILL.md verspricht - noch im Vertrag der API steht. Die API selbst: <https://equalang.com/llms.txt>.
+`python3 scripts/check_api.py` prüft ohne Schlüssel, dass jeder Pfad und jedes Feld, das das Skript verwendet – und jedes Format, das SKILL.md verspricht –, noch im Vertrag der API steht.
 
-Apache-2.0.
+## Links
+
+- [Equalang](https://equalang.com) · [Preise](https://equalang.com/pricing) · [Entwicklerdokumentation](https://equalang.com/developers)
+- API für Agenten: [llms.txt](https://equalang.com/llms.txt) · [llms-full.txt](https://equalang.com/llms-full.txt) · [OpenAPI](https://equalang.com/api/backend/v1/openapi.json)
+- [equalang-mcp](https://github.com/equalang/equalang-mcp) – dieselben Operationen als MCP-Server
+- Fragen: <support@equalang.com>
+
+## Lizenz
+
+[Apache-2.0](../LICENSE) © Equalang

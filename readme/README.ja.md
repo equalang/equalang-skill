@@ -1,57 +1,164 @@
-# Equalang スキル
+# equalang-skill
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](../LICENSE)
+[![Agent Skill](https://img.shields.io/badge/Agent_Skills-open_standard-6E56CF.svg)](https://agentskills.io)
+[![Python](https://img.shields.io/badge/python-%3E%3D3.8-3776AB.svg)](https://python.org)
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · **日本語** · [한국어](README.ko.md) · [Español](README.es.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Português](README.pt.md) · [Italiano](README.it.md) · [Русский](README.ru.md) · [Polski](README.pl.md) · [Türkçe](README.tr.md) · [Tiếng Việt](README.vi.md) · [Bahasa Indonesia](README.id.md) · [ไทย](README.th.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md)
 
-Claude Code、Codex、Cursor などのエージェントで [Equalang](https://equalang.com) を使えるようにする [Agent Skill](https://github.com/anthropics/skills) です。レイアウトを保ったままファイルを丸ごと翻訳し、録音を文字に起こし、文字列を一括翻訳します。
+[ウェブサイト](https://equalang.com) · [料金](https://equalang.com/pricing) · [開発者向けドキュメント](https://equalang.com/developers) · [API キー](https://equalang.com/api-keys)
 
-- **ドキュメント** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, TXT - 同じ形式のまま返ってきます。
-- **字幕** (SRT, VTT) と **画像** (JPG, PNG, WebP, BMP)。
-- **音声と動画** は、翻訳済みの字幕、または話されている言語のままの書き起こしとして返ってきます。
+> **キーワード:** ドキュメント翻訳, PDF 翻訳, PDF 翻訳 レイアウト保持, PDF 翻訳 レイアウトそのまま, Word 翻訳, パワーポイント 翻訳, エクセル 翻訳, EPUB 翻訳, 論文 翻訳, 字幕翻訳, SRT 翻訳, 画像翻訳, 動画翻訳, 音声 文字起こし, 動画 文字起こし, AI 翻訳, agent skill, claude code skill, codex skill, translation api
+
+**ファイルを翻訳しても、レイアウトはそのまま。** [Equalang](https://equalang.com) の [Agent Skill](https://agentskills.io) です。Equalang はファイルを丸ごと扱う AI 翻訳ツールで、PDF は PDF のまま、スライドはスライドのまま、表・画像・数式も元の位置で返ってきます。字幕や画像の翻訳、音声・動画からの翻訳済み字幕や書き起こしの作成、文字列の一括翻訳にも対応。Claude Code、Codex、Cursor、CodeBuddy をはじめ、Agent Skills を読み込めるあらゆるエージェントで動きます。
+
+## 特長
+
+- **形式はそのまま** - PDF、DOCX、PPTX、XLSX、EPUB、HTML、TXT は同じ形式のまま、編集可能な状態で返ってきます。表、画像、数式、ページレイアウトも元の位置のままです
+- **字幕と画像** - SRT と VTT はタイミングを保持し、訳文の上に原文を併記することもできます。JPG、PNG、WebP、BMP は画像内の文字が翻訳された状態で返ってきます
+- **音声と動画** - MP3、M4A、WAV、FLAC、OGG、AAC、Opus、MP4、MOV、WebM、MKV を、翻訳済みの字幕、または話されている言語のままの書き起こし (SRT、VTT、TXT、JSON) にします
+- **テキストの一括翻訳** - 個別の文字列を順番どおりに翻訳。長いテキスト 1 件 (100,000 文字まで) も渡せ、その場合は Equalang が文の区切りで分割します。テキストは 100 以上、ファイルは 12 の言語に対応
+- **ファイル丸ごと、コピペ不要** - 1 ファイル 100 MB まで、パスまたは公開 URL で指定。テキストボックスに小分けで貼り付ける必要はありません
+- **トークンを消費しない** - ファイルは Equalang に送られ、返ってくるのはパスだけ。300 ページの PDF が会話に入ることはありません
+- **始める前に料金がわかる** - `estimate` がジョブの費用の上限を無料で答えます。失敗したジョブとキャンセルしたジョブは無料。録音は実際に聞き取られた発話分だけ課金。クレジットに有効期限はありません
+- **インストール不要** - Python スクリプト 1 本、標準ライブラリのみ、Python 3.8+
+
+## キーを取得する
+
+<https://equalang.com> で登録し、<https://equalang.com/api-keys> でキーを作成します。新規アカウントには無料クレジットが付いてきます。ドキュメントを 1 本通して、仕上がりを確かめるには十分な量です。
+
+```bash
+export EQUALANG_API_KEY=el_your_key
+```
+
+または、このディレクトリの `.env.example` を `.env` にコピーします (gitignore 済みです)。キーが表示されるのは一度だけで、Equalang が保持するのはそのハッシュだけです。
 
 ## インストール
 
-これをエージェントに貼り付けます:
+いちばん手軽な方法は、これをエージェントに貼り付けることです:
 
 > Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
 
-または手動で - スキルはただのフォルダーです:
+<details open>
+<summary><b>Claude Code</b> (プラグイン)</summary>
+
+```
+/plugin marketplace add equalang/equalang-skill
+/plugin install equalang@equalang
+```
+</details>
+
+<details>
+<summary><b>Claude Code</b> (手動)</summary>
 
 ```bash
-git clone https://github.com/equalang/equalang-skill ~/.claude/skills/equalang     # Claude Code
-git clone https://github.com/equalang/equalang-skill ~/.codex/skills/equalang      # Codex
-export EQUALANG_API_KEY=el_...        # https://equalang.com/api-keys で作成
+git clone https://github.com/equalang/equalang-skill ~/.claude/skills/equalang
 ```
 
-Claude Code プラグインとして: `/plugin marketplace add equalang/equalang-skill` の後に `/plugin install equalang@equalang`。
+プロジェクト単位で使いたい場合は、リポジトリ内の `.claude/skills/equalang` にクローンします。
+</details>
 
-必要なのは `python3` (3.8+) だけで、`pip install` するものはありません。
-
-## エージェントが実行するコマンド
+<details>
+<summary><b>OpenAI Codex</b></summary>
 
 ```bash
-python3 scripts/equalang.py estimate report.pdf                  # 費用はいくら? (無料)
-python3 scripts/equalang.py translate report.pdf --to zh-CN      # 結果は元ファイルの隣に保存
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+Codex はリポジトリ内の `.agents/skills/` も読み込むので、1 つのプロジェクトに限定することもできます。
+</details>
+
+<details>
+<summary><b>CodeBuddy / WorkBuddy</b></summary>
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.codebuddy/skills/equalang
+```
+
+プロジェクト単位の場合は、プロジェクトルートの `.codebuddy/skills/equalang` にクローンします。
+</details>
+
+<details>
+<summary><b>Cursor、Gemini CLI、OpenCode、Copilot、Goose、Amp、Kiro など</b></summary>
+
+これはごく普通の [Agent Skill](https://agentskills.io)、つまり `SKILL.md` が入ったフォルダーです。この標準を実装しているクライアントなら、どれも同じフォルダーを読み込みます。違うのはスキャンするディレクトリだけで、その場所は各クライアントのドキュメントに書かれています。そのディレクトリにリポジトリをクローンすれば、スキルのインストールは完了です。
+
+```bash
+git clone https://github.com/equalang/equalang-skill
+```
+</details>
+
+MCP サーバーのほうがよければ、[equalang-mcp](https://github.com/equalang/equalang-mcp) が同じ操作をツールとして提供しています。Claude Desktop、Cursor、Windsurf、Cline、OpenCode でも使えます。
+
+## コマンド
+
+```bash
+# いくらかかる? 無料で、何も開始されません
+python3 scripts/equalang.py estimate report.pdf
+
+# ファイルを翻訳する。結果は元ファイルの隣に保存されます
+python3 scripts/equalang.py translate report.pdf --to zh-CN
+
+# 公開 URL から (Equalang が自分で取得)、フォルダーに保存
 python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o ./out
+
+# 録音で話されている内容を、タイムスタンプ付きテキストに
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
+
+# 個別の文字列を、順番どおりに
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
-python3 scripts/equalang.py text --file notes.md --to ja -o notes.ja.md   # 長いテキスト 1 件、Equalang が文の区切りで分割
-python3 scripts/equalang.py status <job_id> · cancel <job_id> · balance · languages chinese
+
+# 長いテキスト 1 件を、Equalang が文の区切りで分割
+python3 scripts/equalang.py text --file notes.md --to ja -o notes.ja.md
+
+# 実行中のままのジョブ、残高、言語コード
+python3 scripts/equalang.py status <job_id>
+python3 scripts/equalang.py cancel <job_id>
+python3 scripts/equalang.py balance
+python3 scripts/equalang.py languages chinese
 ```
 
-**言語。** コードは `en`、`zh-CN`、`ja` のような形式です。スキルに言語リストは組み込まれていません。`languages` が稼働中の API からコードと名称を読み取る (`text` が受け付ける、より広い一覧は `--kind text`) ため、Equalang が追加した言語はアップデートなしで使えます。
+どのコマンドも JSON オブジェクトを 1 つ出力します。含まれるのはパスとクレジットだけで、ファイルの中身は含みません。失敗時は `{"error", "code", "retryable"}` を終了コード 1 で出力します。どのコマンドでも `--help` でフラグの一覧を確認できます。エージェントが読むのは [SKILL.md](../SKILL.md) です。
 
-**クレジット。** 処理はアカウントのクレジット、つまりウェブサイトと同じ残高を消費します。SKILL.md は、エージェントが先に費用 - `estimate` で得たもの - を伝え、同意を得るよう定めています。
+## 知っておきたい 3 つのこと
 
-どのコマンドも JSON オブジェクトを 1 つ出力します - パスとクレジットだけで、ファイルの中身は含みません - 失敗時は `{"error", "code", "retryable"}` を終了コード 1 で出力します。エージェントが読むのは [SKILL.md](../SKILL.md) です。
+**言語。** コードは `en`、`zh-CN`、`ja` のような形式です。スキルに言語リストは組み込まれていません。`languages` が稼働中の API からコードと名称を読み取る (`text` が受け付ける、より広い一覧は `--kind text`) ため、Equalang が追加した言語はアップデートなしで使えます。ソース言語を省略すると自動検出されます。
+
+**クレジット。** 処理はアカウントのクレジット、つまりウェブサイトと同じ残高を消費します。SKILL.md は、エージェントがジョブを開始する前に `estimate` で得た費用を伝え、同意を得るよう定めています。
+
+**ジョブには数分かかる。** コマンドは、API の `Retry-After` が求める時間だけ休みながら完了を待ちます。コマンドを中断してもジョブはキャンセルされません。`status <job_id>` で再開でき、結果もダウンロードされます。
+
+## よくある質問
+
+**翻訳した PDF のレイアウトは保たれますか?**
+はい、それこそがこのツールの狙いです。テキストは元の位置に戻され、表、画像、数式もそのままです。DOCX、PPTX、XLSX は編集可能なまま返ってきます。
+
+**ドキュメントはモデルに送られますか?**
+いいえ。スクリプトはファイルを Equalang にアップロードし、パスを出力するだけです。300 ページの論文でもトークンは消費しません。
+
+**画像の中の文字も翻訳できますか?**
+はい。JPG、PNG、WebP、BMP 内の文字を認識して翻訳し、画像の中に描き戻します。
+
+**ジョブの費用はいくらですか?**
+何かが始まる前に `estimate` が教えてくれます。しかも無料です。料金は <https://equalang.com/pricing> をご覧ください。
 
 ## 設計
 
-同じ操作をツールとして提供する [MCP サーバー](https://github.com/equalang/equalang-mcp) と同じ 3 つの判断です:
+[MCP サーバー](https://github.com/equalang/equalang-mcp) と同じ 3 つの判断です:
 
 1. **ファイルはモデルを通らない** - コマンドはファイルの場所 (パス、または Equalang が自分で取得する公開 URL) を受け取り、結果を書き出した場所を出力します。
-2. **ジョブは 1 つのコマンドの中で完結する** - アップロード、待機 (API の `Retry-After` が求める時間だけ休む)、ダウンロード。待機を中断してもジョブはキャンセルされず、`status` で再開できます。
+2. **ジョブは 1 つのコマンドの中で完結する** - アップロード、待機、ダウンロード。待機が中断されたジョブは `status` で再開できます。
 3. **API の答えは推測せず、そのまま伝える** - 再試行するのは API が `retryable` とした場合のみ。費用は API の `quote`。言語リストは API の OpenAPI ドキュメントから読み取る。作成するジョブごとに `Idempotency-Key` を 1 つ使うため、応答が失われても、課金される 2 つ目のジョブにはなりません。
 
-`python3 scripts/check_api.py` は、スクリプトが使うすべてのパスとフィールド - そして SKILL.md が約束するすべての形式 - が API のコントラクトに今も存在することを、キーなしで検証します。API 本体: <https://equalang.com/llms.txt>。
+`python3 scripts/check_api.py` は、スクリプトが使うすべてのパスとフィールド、そして SKILL.md が約束するすべての形式が API のコントラクトに今も存在することを、キーなしで検証します。
 
-Apache-2.0.
+## リンク
+
+- [Equalang](https://equalang.com) · [料金](https://equalang.com/pricing) · [開発者向けドキュメント](https://equalang.com/developers)
+- エージェント向け API: [llms.txt](https://equalang.com/llms.txt) · [llms-full.txt](https://equalang.com/llms-full.txt) · [OpenAPI](https://equalang.com/api/backend/v1/openapi.json)
+- [equalang-mcp](https://github.com/equalang/equalang-mcp) - 同じ操作を MCP サーバーとして提供
+- お問い合わせ: <support@equalang.com>
+
+## ライセンス
+
+[Apache-2.0](../LICENSE) © Equalang

@@ -2,9 +2,41 @@
   "name": "equalang",
   "version": "0.1.0",
   "description": "Translate documents, subtitles, pictures, audio and video with their layout kept, and transcribe recordings.",
-  "author": { "name": "Equalang", "email": "support@equalang.com", "url": "https://equalang.com" },
+  "author": {
+    "name": "Equalang",
+    "email": "support@equalang.com",
+    "url": "https://equalang.com"
+  },
   "homepage": "https://equalang.com/developers",
   "license": "Apache-2.0",
-  "keywords": ["agent-skill", "agent-skills", "claude-code", "codex", "cursor", "translation", "document-translation", "pdf-translation", "subtitle-translation", "transcription", "speech-to-text", "docx", "pptx", "xlsx", "epub", "srt", "equalang"],
-  "skills": ["./"]
+  "keywords": [
+    "agent-skill",
+    "agent-skills",
+    "claude-code",
+    "claude-code-skill",
+    "codex",
+    "codex-skill",
+    "cursor",
+    "ai-agent",
+    "translation",
+    "ai-translation",
+    "document-translation",
+    "pdf-translation",
+    "pdf-translator",
+    "image-translation",
+    "subtitle-translation",
+    "video-translation",
+    "transcription",
+    "speech-to-text",
+    "localization",
+    "docx",
+    "pptx",
+    "xlsx",
+    "epub",
+    "srt",
+    "equalang"
+  ],
+  "skills": [
+    "./"
+  ]
 }
