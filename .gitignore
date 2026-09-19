@@ -2,3 +2,8 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Instructions for coding agents are local, never published.
+AGENTS.md
+CLAUDE.md
+.claude/
