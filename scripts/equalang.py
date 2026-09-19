@@ -224,13 +224,33 @@ def cmd_transcribe(args):
 
 
 def cmd_text(args):
-    body = {'texts': args.texts, 'target_language': args.to, 'source_language': args.source_language}
+    """Separate strings, each on its own -- or one whole text, which the API cuts at sentences itself."""
+    if bool(args.texts) == bool(args.file):
+        raise EqualangError('Give the texts to translate, or --file with one whole text, not both.', 'INVALID_REQUEST')
+    if args.file:
+        path = Path(args.file).expanduser().resolve()
+        if not path.is_file():
+            raise EqualangError(f'no such file: {path}', 'FILE_NOT_FOUND')
+        body = {'text': path.read_text(encoding='utf-8')}
+    else:
+        body = {'texts': args.texts}
+    body.update({'target_language': args.to, 'source_language': args.source_language})
     answer, _ = _call('POST', '/text/translate', body=json.dumps({k: v for k, v in body.items() if v}).encode(),
                       content_type='application/json', creates=True)
+    charged = answer['usage']['credits_charged']
+    if args.file and args.output:
+        # A whole text in, a whole text out: to a file, so that it stays out of the conversation.
+        only = answer['translations'][0]
+        if only['error']:
+            raise EqualangError(only['error']['message'], only['error']['code'], only['error']['retryable'])
+        target = _free_name(Path(args.output).expanduser().resolve().parent, Path(args.output).name)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(only['translated_text'], encoding='utf-8')
+        return {'path': str(target), 'credits_charged': charged}
     return {'translations': [
         {'error': item['error']['message'], 'code': item['error']['code'], 'retryable': item['error']['retryable']} if item['error']
         else {'text': item['translated_text'], 'detected_source_language': item['detected_source_language']}
-        for item in answer['translations']], 'credits_charged': answer['usage']['credits_charged']}
+        for item in answer['translations']], 'credits_charged': charged}
 
 
 def cmd_estimate(args):
@@ -285,7 +305,9 @@ def main(argv=None):
     job_command('transcribe', cmd_transcribe, 'write down what a recording says, as timed text (spends credits)')
 
     text = commands.add_parser('text', help='translate short plain texts (spends a little)')
-    text.add_argument('texts', nargs='+', help='the texts, each translated on its own')
+    text.add_argument('texts', nargs='*', help='separate strings, each translated on its own (at most 50)')
+    text.add_argument('--file', help='one whole text instead - an article, notes, Markdown: read from this UTF-8 file and cut at sentences by Equalang')
+    text.add_argument('-o', '--output', help='with --file: write the translation here and print the path, not the text')
     text.add_argument('--to', required=True)
     text.add_argument('--source-language')
     text.set_defaults(function=cmd_text)

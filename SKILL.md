@@ -36,8 +36,10 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 python3 scripts/equalang.py translate talk.mp4 --to en --bilingual --format srt --format txt
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Strings in bulk (each translated on its own; at most 50 per call).
+# Strings in bulk (each translated on its own; at most 50 of 5,000 characters, 20,000 per call).
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
+# One long plain text - an article, notes, a .md - up to 100,000 characters. Equalang cuts it at sentences: never split it yourself.
+python3 scripts/equalang.py text --file notes.md --to ja -o notes.ja.md
 
 # Look a job up again · stop one · the balance · language codes (no key needed)
 python3 scripts/equalang.py status <job_id> -o ./out

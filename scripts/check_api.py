@@ -53,6 +53,13 @@ def main():
     wrong = sorted(promised - accepted) + sorted(accepted - promised - {'jpeg'})
     failures += bool(wrong)
     print(f'  [{"OK " if not wrong else "FAIL"}] SKILL.md names exactly the formats the API accepts' + (f' - {wrong}' if wrong else ''))
+    request_schema = schemas['PublicTextTranslateRequest']['properties']
+    skill = (root / 'SKILL.md').read_text(encoding='utf-8')
+    limits = (f"at most {request_schema['texts']['maxItems']} of {request_schema['texts']['items']['maxLength']:,} characters, "
+              f"{request_schema['texts']['x-max-total-characters']:,} per call", f"up to {request_schema.get('text', {}).get('maxLength', 0):,} characters")
+    stated = all(limit in skill for limit in limits)
+    failures += not stated
+    print(f'  [{"OK " if stated else "FAIL"}] SKILL.md states the text limits the API enforces')
     version = re.search(r"^VERSION = '([^']+)'", SOURCE, re.M).group(1)
     manifests = [json.loads((root / '.claude-plugin' / name).read_text()) for name in ('plugin.json', 'marketplace.json')]
     same = manifests[0]['version'] == version and manifests[1]['plugins'][0]['version'] == version

@@ -34,6 +34,7 @@ python3 scripts/equalang.py translate report.pdf --to zh-CN      # 結果は元�
 python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o ./out
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
+python3 scripts/equalang.py text --file notes.md --to ja -o notes.ja.md   # 長いテキスト 1 件、Equalang が文の区切りで分割
 python3 scripts/equalang.py status <job_id> · cancel <job_id> · balance · languages chinese
 ```
 
