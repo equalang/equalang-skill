@@ -1,6 +1,6 @@
 # Equalang skill
 
-[简体中文](README.zh-CN.md)
+**English** · [简体中文](readme/README.zh-CN.md) · [日本語](readme/README.ja.md) · [한국어](readme/README.ko.md) · [Español](readme/README.es.md) · [Français](readme/README.fr.md) · [Deutsch](readme/README.de.md) · [Português](readme/README.pt.md) · [Italiano](readme/README.it.md) · [Русский](readme/README.ru.md) · [Polski](readme/README.pl.md) · [Türkçe](readme/README.tr.md) · [Tiếng Việt](readme/README.vi.md) · [Bahasa Indonesia](readme/README.id.md) · [ไทย](readme/README.th.md) · [हिन्दी](readme/README.hi.md) · [العربية](readme/README.ar.md)
 
 An [Agent Skill](https://github.com/anthropics/skills) that gives Claude Code, Codex, Cursor and other agents [Equalang](https://equalang.com): translate whole files with their layout kept, transcribe recordings, translate strings in bulk.
 
@@ -37,6 +37,10 @@ python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 python3 scripts/equalang.py status <job_id> · cancel <job_id> · balance · languages chinese
 ```
 
+**Languages.** Codes look like `en`, `zh-CN`, `ja`. No list is built into the skill: `languages` reads the codes and names from the live API (`--kind text` for the wider set `text` takes), so a language Equalang adds is available without an update.
+
+**Credits.** Work spends the account's credits, the same balance as the website. SKILL.md has the agent name the cost - from `estimate` - and get agreement first.
+
 Every command prints one JSON object - paths and credits, never file contents - or `{"error", "code", "retryable"}` with exit code 1. [SKILL.md](SKILL.md) is what the agent reads.
 
 ## How it is built
@@ -47,6 +51,6 @@ The same three decisions as the [MCP server](https://github.com/equalang/equalan
 2. **A job lives inside one command** - upload, wait (pausing as long as the API's `Retry-After` asks), download. Interrupting the wait does not cancel the job; `status` picks it up.
 3. **The API's answers are repeated, not guessed** - retry only what the API marks `retryable`; the cost is the API's `quote`; the language list is read from its OpenAPI document; one `Idempotency-Key` per created job, so a lost answer cannot become a second, charged job.
 
-`python3 scripts/check_api.py` verifies, without a key, that every path and field the script uses is still in the API's contract. The API itself: <https://equalang.com/llms.txt>.
+`python3 scripts/check_api.py` verifies, without a key, that every path and field the script uses - and every format SKILL.md promises - is still in the API's contract. The API itself: <https://equalang.com/llms.txt>.
 
 Apache-2.0.

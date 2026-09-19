@@ -45,6 +45,19 @@ def main():
         missing = [field for field in fields if field not in schemas.get(schema, {}).get('properties', {})]
         failures += bool(missing)
         print(f'  [{"OK " if not missing else "FAIL"}] {schema} still has {", ".join(fields)}' + (f' - missing {missing}' if missing else ''))
+    # What SKILL.md promises an agent is checked too: a format the API dropped would be a lie told on every load.
+    root = Path(__file__).parent.parent
+    formats = re.search(r'\*\*Formats\.\*\*(.*)', (root / 'SKILL.md').read_text(encoding='utf-8')).group(1)
+    promised = set(re.findall(r'\b[a-z0-9]{2,5}\b(?=[,.])', formats.split('Up to')[0]))
+    accepted = set(schemas['File']['properties']['extension']['enum'])
+    wrong = sorted(promised - accepted) + sorted(accepted - promised - {'jpeg'})
+    failures += bool(wrong)
+    print(f'  [{"OK " if not wrong else "FAIL"}] SKILL.md names exactly the formats the API accepts' + (f' - {wrong}' if wrong else ''))
+    version = re.search(r"^VERSION = '([^']+)'", SOURCE, re.M).group(1)
+    manifests = [json.loads((root / '.claude-plugin' / name).read_text()) for name in ('plugin.json', 'marketplace.json')]
+    same = manifests[0]['version'] == version and manifests[1]['plugins'][0]['version'] == version
+    failures += not same
+    print(f'  [{"OK " if same else "FAIL"}] the script and both manifests name version {version}')
     print(f'{failures} FAILURES' if failures else 'The skill matches the contract.')
     return 1 if failures else 0
 

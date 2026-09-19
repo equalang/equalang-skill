@@ -187,7 +187,8 @@ def report(job, destination):
     for output in job['outputs']:
         if not output.get('download_url'):
             raise EqualangError(f'{output["filename"]} is no longer kept', 'FILE_EXPIRED')
-        path = _free_name(destination, output['filename'])
+        # The name is the API's; only its last component is trusted with a path on this machine.
+        path = _free_name(destination, Path(output['filename']).name)
         # A signed, short-lived link: a plain GET, without the key.
         with request.urlopen(output['download_url'], timeout=300) as response:
             path.write_bytes(response.read())
