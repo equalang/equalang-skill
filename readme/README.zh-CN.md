@@ -17,11 +17,8 @@
 - **什么格式进，什么格式出**：PDF、DOCX、PPTX、XLSX、EPUB、HTML 和 TXT 译完仍是原格式，依然可编辑，表格、图片、公式和页面版式都在原位
 - **字幕和图片**：SRT 和 VTT 保留时间轴，还可以选择把原文放在译文上方；JPG、PNG、WebP 和 BMP 返回时，图中的文字已经译好
 - **音频和视频**：MP3、M4A、WAV、FLAC、OGG、AAC、Opus、MP4、MOV、WebM 和 MKV 可变成翻译好的字幕，或原语言的转写文本（SRT、VTT、TXT、JSON）
-- **批量文本**：多条独立的字符串按顺序翻译，或一整篇长文本（最多 100,000 字符），由 Equalang 自行按句切分；文本支持 100+ 种语言，文件支持 12 种
-- **整份文件，不用粘贴**：单个文件最大 100 MB，来自路径或公开 URL；不必拆开了往文本框里贴
-- **不花 token**：文件交给 Equalang，回来的是一个路径；一份 300 页的 PDF 从头到尾不进入对话
-- **先报价，再开工**：`estimate` 免费告诉你一个任务最多要花多少；失败和取消的任务不收费；录音按实际听到的语音计费；积分永不过期
-- **无需安装任何东西**：一个 Python 脚本，只用标准库，Python 3.8+
+- **批量文本**：多条独立的字符串按顺序翻译，或一整篇长文本（最多 100,000 字符），由 Equalang 自行按句切分
+- **100+ 种语言**：文本 100+ 种，文件 12 种；不填源语言则自动检测
 
 ## 获取密钥
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 也可以把本目录下的 `.env.example` 复制为 `.env`——它已被 git 忽略。密钥只显示一次；Equalang 只保存它的哈希值。
 
 ## 安装
+
+需要 `python3` 3.8 或更高版本，除此之外别无所需：脚本只用标准库。
 
 最省事的办法——把这句话粘贴给你的智能体：
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 每条命令输出一个 JSON 对象——只有路径和积分，绝不含文件内容——或者输出 `{"error", "code", "retryable"}` 并以退出码 1 结束。任何命令加上 `--help` 都会列出它的参数。[SKILL.md](../SKILL.md) 是智能体读的那份文件。
 
-## 值得知道的三件事
-
-**语言。** 代码形如 `en`、`zh-CN`、`ja`。技能不内置语言列表：`languages` 从线上 API 读取代码和名称（用 `--kind text` 查看 `text` 支持的更大集合），所以 Equalang 新增的语言无需更新即可使用。不填源语言则自动检测。
-
-**积分。** 任务消耗账户的积分，与网站是同一个余额。SKILL.md 要求智能体在启动任务前先报出费用（来自 `estimate`）并征得同意。
-
-**任务要跑几分钟。** 命令会一直等，每次暂停的时长按 API 的 `Retry-After` 来。中断命令不会取消任务——用 `status <job_id>` 可以重新接上，并下载结果。
+语言代码形如 `en`、`zh-CN`、`ja`；`languages` 从线上 API 读取代码和名称，所以 Equalang 新增的语言无需更新即可使用。任务要跑几分钟——命令会一直等，中断了也不要紧，用 `status <job_id>` 可以重新接上。
 
 ## 常见问题
 
@@ -141,16 +134,6 @@ python3 scripts/equalang.py languages chinese
 
 **一个任务要花多少？**
 `estimate` 会在任何任务开始之前告诉你，而且免费。价格见 <https://equalang.com/pricing>。
-
-## 设计思路
-
-与 [MCP 服务器](https://github.com/equalang/equalang-mcp)相同的三个决定：
-
-1. **文件从不经过模型**：命令接收的是文件在哪里（路径，或由 Equalang 自己抓取的公开 URL），输出的是结果写到了哪里。
-2. **一个任务活在一条命令里**：上传、等待、下载。等待被中断的任务，用 `status` 可以重新接上。
-3. **API 的回答是转述的，不是猜的**：只重试 API 标为 `retryable` 的失败；费用是 API 的 `quote`；语言列表读自它的 OpenAPI 文档；每个创建的任务对应一个 `Idempotency-Key`，所以一次丢失的响应不会变成第二个被计费的任务。
-
-`python3 scripts/check_api.py` 无需密钥即可验证：脚本用到的每个路径和字段，以及 SKILL.md 承诺的每种格式，仍在 API 的契约里。
 
 ## 链接
 

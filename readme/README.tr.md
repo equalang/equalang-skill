@@ -17,11 +17,8 @@
 - **Hangi biçimde girdiyse o biçimde çıkar** – PDF, DOCX, PPTX, XLSX, EPUB, HTML ve TXT aynı biçimde, düzenlenebilir halde geri gelir; tablolar, görseller, formüller ve sayfa düzeni yerinde kalır
 - **Altyazılar ve resimler** – SRT ve VTT zamanlamasını korur, istenirse kaynak satır çevirinin üstünde yer alır; JPG, PNG, WebP ve BMP, resmin içindeki metin çevrilmiş olarak geri gelir
 - **Ses ve video** – MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM ve MKV çevrilmiş altyazıya ya da konuşulan dilde bir döküme dönüşür (SRT, VTT, TXT, JSON)
-- **Toplu metin** – ayrı dizeler sırasıyla çevrilir ya da Equalang'ın cümle sınırlarından kendisinin böldüğü tek bir uzun metin (100.000 karaktere kadar); metin için 100+, dosyalar için 12 dil
-- **Bütün dosyalar, kopyala-yapıştır yok** – dosya başına en fazla 100 MB, bir yoldan ya da herkese açık bir URL'den; metin kutularına bölüp yapıştıracak bir şey yok
-- **Token harcamaz** – dosya Equalang'a gider, geriye bir yol gelir; 300 sayfalık bir PDF konuşmaya hiç girmez
-- **İşten önce fiyat** – `estimate`, bir işin en fazla kaça mal olabileceğini ücretsiz söyler; başarısız olan ve iptal edilen işler ücretlendirilmez; bir kayıt, gerçekten duyulan konuşma kadar ücretlendirilir; kredilerin süresi dolmaz
-- **Kurulacak bir şey yok** – tek bir Python betiği, yalnızca standart kitaplık, Python 3.8+
+- **Toplu metin** – ayrı dizeler sırasıyla çevrilir ya da Equalang'ın cümle sınırlarından kendisinin böldüğü tek bir uzun metin (100.000 karaktere kadar)
+- **100+ dil** – metin için 100+, dosyalar için 12; kaynak dili boş bıraktığınızda otomatik olarak algılanır
 
 ## Anahtar alın
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Ya da bu dizinde `.env.example` dosyasını `.env` olarak kopyalayın – git tarafından yok sayılır. Anahtar yalnızca bir kez gösterilir; Equalang onun sadece hash'ini saklar.
 
 ## Kurulum
+
+`python3` 3.8 veya üzeri gerekir, başka bir şey gerekmez: betik yalnızca standart kitaplığı kullanır.
 
 En kısa yol – bunu ajanınıza yapıştırın:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Her komut tek bir JSON nesnesi yazdırır – yollar ve krediler, asla dosya içeriği değil – ya da çıkış kodu 1 ile `{"error", "code", "retryable"}`. Herhangi bir komutta `--help`, o komutun bayraklarını listeler. Ajanın okuduğu dosya [SKILL.md](../SKILL.md)'dir.
 
-## Bilmeye değer üç şey
-
-**Diller.** Kodlar `en`, `zh-CN`, `ja` biçimindedir. Beceriye gömülü bir liste yoktur: `languages` kodları ve adları canlı API'den okur (`text` komutunun kabul ettiği daha geniş küme için `--kind text`), böylece Equalang'ın eklediği bir dil güncelleme gerekmeden kullanılabilir. Kaynak dilin algılanması için onu boş bırakın.
-
-**Krediler.** İşler hesabın kredilerini harcar; web sitesindekiyle aynı bakiye. SKILL.md, ajanın bir işi başlatmadan önce maliyeti – `estimate` komutundan alarak – söylemesini ve onay almasını sağlar.
-
-**İşler dakikalar sürer.** Komut bekler; API'nin `Retry-After` değerinin istediği kadar duraklar. Komutu kesmek işi iptal etmez – `status <job_id>` işi yeniden ele alır ve sonucu indirir.
+Dil kodları `en`, `zh-CN`, `ja` biçimindedir; `languages` bunları canlı API'den okur, böylece Equalang'ın eklediği bir dil güncelleme gerekmeden kullanılabilir. İşler dakikalar sürer – komut bekler ve komutu kesersen `status <job_id>` işi yeniden ele alır.
 
 ## Sık sorulan sorular
 
@@ -141,16 +134,6 @@ Evet. JPG, PNG, WebP ya da BMP içindeki metin tanınır, çevrilir ve resme yen
 
 **Bir iş kaça mal olur?**
 `estimate` bunu hiçbir şey başlamadan önce söyler ve ücretsizdir. Fiyatlar <https://equalang.com/pricing> adresindedir.
-
-## Nasıl tasarlandı
-
-[MCP sunucusu](https://github.com/equalang/equalang-mcp) ile aynı üç karar:
-
-1. **Dosya asla modelin içinden geçmez** – komutlar dosyanın nerede olduğunu alır (bir yol ya da Equalang'ın kendisinin çektiği herkese açık bir URL) ve sonuçların nereye yazıldığını yazdırır.
-2. **Bir iş tek bir komutun içinde yaşar** – yükle, bekle, indir. `status`, beklemesi yarıda kesilmiş bir işi yeniden ele alır.
-3. **API'nin yanıtları tahmin edilmez, aktarılır** – yalnızca API'nin `retryable` olarak işaretlediği yeniden denenir; maliyet API'nin `quote` değeridir; dil listesi onun OpenAPI belgesinden okunur; oluşturulan her iş için tek bir `Idempotency-Key`, böylece kaybolan bir yanıt ikinci, ücretlendirilmiş bir işe dönüşemez.
-
-`python3 scripts/check_api.py`, betiğin kullandığı her yolun ve alanın – ve SKILL.md'nin vaat ettiği her biçimin – hâlâ API'nin sözleşmesinde olduğunu anahtar gerekmeden doğrular.
 
 ## Bağlantılar
 

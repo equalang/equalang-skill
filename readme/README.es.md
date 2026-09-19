@@ -17,11 +17,8 @@
 - **El formato que entra es el que sale**: PDF, DOCX, PPTX, XLSX, EPUB, HTML y TXT vuelven en el mismo formato, todavía editables, con tablas, imágenes, fórmulas y maquetación de página en su sitio
 - **Subtítulos e imágenes**: SRT y VTT conservan sus tiempos, con la línea original encima de la traducción si se quiere; JPG, PNG, WebP y BMP vuelven con el texto de la imagen traducido
 - **Audio y vídeo**: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM y MKV se convierten en subtítulos traducidos, o en una transcripción en el idioma hablado (SRT, VTT, TXT, JSON)
-- **Texto en lote**: cadenas separadas traducidas en orden, o un solo texto largo (hasta 100.000 caracteres) que Equalang corta por frases por sí mismo; más de 100 idiomas para texto, 12 para archivos
-- **Archivos enteros, sin copiar y pegar**: hasta 100 MB por archivo, desde una ruta o una URL pública; nada que trocear en cuadros de texto
-- **No gasta tokens**: el archivo va a Equalang y vuelve una ruta; un PDF de 300 páginas nunca entra en la conversación
-- **El precio antes del trabajo**: `estimate` responde, gratis, con lo máximo que puede costar un trabajo; los trabajos fallidos y cancelados no cuestan nada; una grabación se cobra por el habla realmente escuchada; los créditos no caducan
-- **Nada que instalar**: un único script de Python, solo biblioteca estándar, Python 3.8+
+- **Texto en lote**: cadenas separadas traducidas en orden, o un solo texto largo (hasta 100.000 caracteres) que Equalang corta por frases por sí mismo
+- **Más de 100 idiomas**: más de 100 para texto y 12 para archivos, con el idioma de origen detectado cuando no lo indicas
 
 ## Consigue una clave
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 O copia `.env.example` a `.env` en este directorio; git lo ignora. La clave se muestra una sola vez; Equalang solo guarda un hash de ella.
 
 ## Instalación
+
+Necesita `python3` 3.8 o posterior, y nada más: el script solo usa la biblioteca estándar.
 
 La forma más corta es pegarle esto a tu agente:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Cada comando imprime un único objeto JSON (rutas y créditos, nunca el contenido de los archivos) o `{"error", "code", "retryable"}` con código de salida 1. `--help` en cualquier comando lista sus opciones. [SKILL.md](../SKILL.md) es lo que lee el agente.
 
-## Tres cosas que conviene saber
-
-**Idiomas.** Los códigos tienen la forma `en`, `zh-CN`, `ja`. El skill no incluye ninguna lista: `languages` lee los códigos y los nombres de la API en vivo (`--kind text` para el conjunto más amplio que admite `text`), de modo que un idioma que Equalang añada está disponible sin actualizar. No indiques el idioma de origen y se detectará.
-
-**Créditos.** El trabajo gasta los créditos de la cuenta, el mismo saldo que en el sitio web. SKILL.md hace que el agente diga el coste, a partir de `estimate`, y obtenga la conformidad antes de iniciar un trabajo.
-
-**Los trabajos tardan minutos.** El comando espera, haciendo las pausas que pida el `Retry-After` de la API. Interrumpirlo no cancela el trabajo: `status <job_id>` lo retoma y descarga el resultado.
+Los códigos de idioma tienen la forma `en`, `zh-CN`, `ja`; `languages` los lee de la API en vivo, de modo que un idioma que Equalang añada está disponible sin actualizar. Los trabajos tardan minutos: el comando espera, y `status <job_id>` lo retoma si lo interrumpes.
 
 ## Preguntas frecuentes
 
@@ -141,16 +134,6 @@ Sí. El texto de un JPG, PNG, WebP o BMP se reconoce, se traduce y se vuelve a d
 
 **¿Cuánto cuesta un trabajo?**
 `estimate` lo dice antes de que empiece nada, y es gratis. Los precios están en <https://equalang.com/pricing>.
-
-## Cómo está construido
-
-Las mismas tres decisiones que el [servidor MCP](https://github.com/equalang/equalang-mcp):
-
-1. **Un archivo nunca pasa por el modelo**: los comandos reciben dónde está un archivo (una ruta, o una URL pública que Equalang descarga por su cuenta) e imprimen dónde se escribieron los resultados.
-2. **Un trabajo vive dentro de un solo comando**: subir, esperar, descargar. `status` retoma un trabajo cuya espera se interrumpió.
-3. **Las respuestas de la API se repiten, no se adivinan**: se reintenta solo lo que la API marca como `retryable`; el coste es el `quote` de la API; la lista de idiomas se lee de su documento OpenAPI; un `Idempotency-Key` por trabajo creado, de modo que una respuesta perdida no puede convertirse en un segundo trabajo cobrado.
-
-`python3 scripts/check_api.py` verifica, sin clave, que cada ruta y cada campo que usa el script, y cada formato que promete SKILL.md, sigue en el contrato de la API.
 
 ## Enlaces
 

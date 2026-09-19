@@ -17,11 +17,8 @@
 - **Format rein, Format raus** – PDF, DOCX, PPTX, XLSX, EPUB, HTML und TXT kommen im selben Format zurück, weiterhin bearbeitbar, Tabellen, Bilder, Formeln und Seitenlayout an ihrem Platz
 - **Untertitel und Bilder** – SRT und VTT behalten ihr Timing, auf Wunsch mit der Originalzeile über der Übersetzung; JPG, PNG, WebP und BMP kommen mit übersetztem Text im Bild zurück
 - **Audio und Video** – aus MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM und MKV werden übersetzte Untertitel oder ein Transkript in der gesprochenen Sprache (SRT, VTT, TXT, JSON)
-- **Text in großen Mengen** – einzelne Strings, in ihrer Reihenfolge übersetzt, oder ein langer Text (bis zu 100.000 Zeichen), den Equalang selbst an Satzgrenzen teilt; über 100 Sprachen für Text, 12 für Dateien
-- **Ganze Dateien, kein Copy-and-paste** – bis zu 100 MB pro Datei, von einem Pfad oder einer öffentlichen URL; nichts, was man auf Textfelder aufteilen müsste
-- **Kostet keine Tokens** – die Datei geht an Equalang, zurück kommt ein Pfad; ein 300-seitiges PDF gelangt nie in die Unterhaltung
-- **Der Preis vor dem Auftrag** – `estimate` nennt kostenlos den Höchstbetrag, den ein Auftrag kosten kann; fehlgeschlagene und abgebrochene Aufträge kosten nichts; eine Aufnahme wird nach der tatsächlich gehörten Sprache berechnet; Credits verfallen nie
-- **Nichts zu installieren** – ein einziges Python-Skript, nur Standardbibliothek, Python 3.8+
+- **Text in großen Mengen** – einzelne Strings, in ihrer Reihenfolge übersetzt, oder ein langer Text (bis zu 100.000 Zeichen), den Equalang selbst an Satzgrenzen teilt
+- **Über 100 Sprachen** – über 100 für Text und 12 für Dateien, wobei die Quellsprache erkannt wird, wenn du sie weglässt
 
 ## Schlüssel holen
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Oder kopiere `.env.example` in diesem Verzeichnis nach `.env` – die Datei wird von git ignoriert. Der Schlüssel wird nur einmal angezeigt; Equalang speichert lediglich einen Hash davon.
 
 ## Installation
+
+Benötigt `python3` 3.8 oder neuer, sonst nichts: Das Skript verwendet nur die Standardbibliothek.
 
 Der kürzeste Weg – füge das bei deinem Agenten ein:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Jeder Befehl gibt ein einziges JSON-Objekt aus – Pfade und Credits, nie Dateiinhalte – oder `{"error", "code", "retryable"}` mit Exit-Code 1. `--help` listet bei jedem Befehl dessen Optionen auf. [SKILL.md](../SKILL.md) ist das, was der Agent liest.
 
-## Drei Dinge, die man wissen sollte
-
-**Sprachen.** Codes sehen aus wie `en`, `zh-CN`, `ja`. In den Skill ist keine Liste eingebaut: `languages` liest Codes und Namen aus der Live-API (`--kind text` für die größere Auswahl, die `text` annimmt), sodass eine Sprache, die Equalang hinzufügt, ohne Update verfügbar ist. Lass die Quellsprache weg, damit sie erkannt wird.
-
-**Credits.** Arbeit verbraucht die Credits des Kontos, dasselbe Guthaben wie auf der Website. SKILL.md lässt den Agenten die Kosten nennen – aus `estimate` – und die Zustimmung einholen, bevor er einen Auftrag startet.
-
-**Aufträge dauern Minuten.** Der Befehl wartet und pausiert so lange, wie das `Retry-After` der API verlangt. Ihn zu unterbrechen bricht den Auftrag nicht ab – `status <job_id>` nimmt ihn wieder auf und lädt das Ergebnis herunter.
+Sprachcodes sehen aus wie `en`, `zh-CN`, `ja`; `languages` liest sie aus der Live-API, sodass eine Sprache, die Equalang hinzufügt, ohne Update verfügbar ist. Ein Auftrag dauert Minuten – der Befehl wartet, und `status <job_id>` nimmt ihn wieder auf, wenn du ihn unterbrichst.
 
 ## Häufige Fragen
 
@@ -141,16 +134,6 @@ Ja. Text in einem JPG, PNG, WebP oder BMP wird erkannt, übersetzt und wieder in
 
 **Was kostet ein Auftrag?**
 Das sagt `estimate`, bevor irgendetwas startet, und zwar kostenlos. Die Preise stehen unter <https://equalang.com/pricing>.
-
-## Wie er gebaut ist
-
-Dieselben drei Entscheidungen wie beim [MCP-Server](https://github.com/equalang/equalang-mcp):
-
-1. **Eine Datei läuft nie durch das Modell** – Befehle nehmen entgegen, wo eine Datei liegt (ein Pfad oder eine öffentliche URL, die Equalang selbst abruft), und geben aus, wohin die Ergebnisse geschrieben wurden.
-2. **Ein Auftrag lebt innerhalb eines Befehls** – hochladen, warten, herunterladen. `status` nimmt einen Auftrag wieder auf, dessen Warten unterbrochen wurde.
-3. **Die Antworten der API werden wiedergegeben, nicht erraten** – wiederholt wird nur, was die API als `retryable` markiert; die Kosten sind das `quote` der API; die Sprachliste wird aus ihrem OpenAPI-Dokument gelesen; ein `Idempotency-Key` pro angelegtem Auftrag, sodass aus einer verlorenen Antwort kein zweiter, berechneter Auftrag werden kann.
-
-`python3 scripts/check_api.py` prüft ohne Schlüssel, dass jeder Pfad und jedes Feld, das das Skript verwendet – und jedes Format, das SKILL.md verspricht –, noch im Vertrag der API steht.
 
 ## Links
 

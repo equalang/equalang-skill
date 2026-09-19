@@ -17,11 +17,8 @@
 - **Format masuk, format yang sama keluar** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, dan TXT kembali dalam format yang sama, tetap bisa diedit, dengan tabel, gambar, rumus, dan tata letak halaman tetap di tempatnya
 - **Subtitle dan gambar** - SRT dan VTT mempertahankan timing-nya, dengan opsi baris asli di atas terjemahan; JPG, PNG, WebP, dan BMP kembali dengan teks di dalam gambar sudah diterjemahkan
 - **Audio dan video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM, dan MKV menjadi subtitle terjemahan, atau transkrip dalam bahasa yang diucapkan (SRT, VTT, TXT, JSON)
-- **Teks secara massal** - string-string terpisah diterjemahkan sesuai urutan, atau satu teks panjang (hingga 100,000 karakter) yang dipotong sendiri oleh Equalang per kalimat; 100+ bahasa untuk teks, 12 untuk file
-- **File utuh, tanpa salin-tempel** - hingga 100 MB per file, dari path atau URL publik; tidak ada yang perlu dipecah ke kotak teks
-- **Tidak memakan token** - file dikirim ke Equalang dan yang kembali adalah path; PDF 300 halaman tidak pernah masuk ke percakapan
-- **Harga sebelum job dimulai** - `estimate` menjawab dengan biaya maksimum sebuah job, gratis; job yang gagal atau dibatalkan tidak dikenai biaya; rekaman ditagih berdasarkan ucapan yang benar-benar terdengar; kredit tidak pernah kedaluwarsa
-- **Tidak ada yang perlu diinstal** - satu skrip Python, hanya pustaka standar, Python 3.8+
+- **Teks secara massal** - string-string terpisah diterjemahkan sesuai urutan, atau satu teks panjang (hingga 100,000 karakter) yang dipotong sendiri oleh Equalang per kalimat
+- **100+ bahasa** - 100+ untuk teks dan 12 untuk file, dengan bahasa sumber terdeteksi otomatis saat Anda mengosongkannya
 
 ## Dapatkan kunci
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Atau salin `.env.example` menjadi `.env` di direktori ini - file itu sudah masuk gitignore. Kunci hanya ditampilkan sekali; Equalang hanya menyimpan hash-nya.
 
 ## Instalasi
+
+Membutuhkan `python3` 3.8 atau lebih baru, dan tidak ada lagi selain itu: skrip ini hanya memakai pustaka standar.
 
 Cara tersingkat - tempelkan ini ke agen Anda:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Setiap perintah mencetak satu objek JSON - path dan kredit, tidak pernah isi file - atau `{"error", "code", "retryable"}` dengan kode keluar 1. `--help` pada perintah mana pun menampilkan daftar flag-nya. [SKILL.md](../SKILL.md) adalah yang dibaca agen.
 
-## Tiga hal yang perlu diketahui
-
-**Bahasa.** Kode berbentuk seperti `en`, `zh-CN`, `ja`. Tidak ada daftar yang ditanam dalam skill: `languages` membaca kode dan nama dari API secara langsung (`--kind text` untuk kumpulan lebih luas yang diterima `text`), sehingga bahasa yang ditambahkan Equalang langsung tersedia tanpa pembaruan. Kosongkan bahasa sumber agar terdeteksi otomatis.
-
-**Kredit.** Pekerjaan memakai kredit akun, saldo yang sama dengan di situs web. SKILL.md membuat agen menyebutkan biayanya - dari `estimate` - dan mendapat persetujuan sebelum memulai job.
-
-**Job memakan waktu beberapa menit.** Perintah akan menunggu, berhenti sejenak selama yang diminta `Retry-After` dari API. Menghentikannya tidak membatalkan job - `status <job_id>` melanjutkannya dan mengunduh hasilnya.
+Kode bahasa berbentuk seperti `en`, `zh-CN`, `ja`; `languages` membacanya dari API secara langsung, sehingga bahasa yang ditambahkan Equalang tidak memerlukan pembaruan di sini. Job memakan waktu beberapa menit - perintah akan menunggu, dan `status <job_id>` melanjutkannya lagi jika Anda menghentikannya.
 
 ## Pertanyaan yang sering diajukan
 
@@ -141,16 +134,6 @@ Bisa. Teks dalam JPG, PNG, WebP, atau BMP dikenali, diterjemahkan, lalu digambar
 
 **Berapa biaya sebuah job?**
 `estimate` memberi tahu sebelum apa pun dimulai, dan itu gratis. Daftar harga ada di <https://equalang.com/pricing>.
-
-## Cara pembuatannya
-
-Tiga keputusan yang sama dengan [server MCP](https://github.com/equalang/equalang-mcp):
-
-1. **File tidak pernah melewati model** - perintah menerima lokasi file (path, atau URL publik yang diambil sendiri oleh Equalang) dan mencetak lokasi hasil ditulis.
-2. **Sebuah job hidup di dalam satu perintah** - unggah, tunggu, unduh. `status` melanjutkan job yang penantiannya terhenti.
-3. **Jawaban API diteruskan, bukan ditebak** - coba ulang hanya yang ditandai `retryable` oleh API; biayanya adalah `quote` dari API; daftar bahasa dibaca dari dokumen OpenAPI-nya; satu `Idempotency-Key` per job yang dibuat, sehingga jawaban yang hilang tidak bisa menjadi job kedua yang ikut ditagih.
-
-`python3 scripts/check_api.py` memverifikasi, tanpa kunci, bahwa setiap path dan field yang dipakai skrip - dan setiap format yang dijanjikan SKILL.md - masih ada dalam kontrak API.
 
 ## Tautan
 

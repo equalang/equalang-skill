@@ -17,11 +17,8 @@
 - **Format in, format out** - PDF, DOCX, PPTX, XLSX, EPUB, HTML and TXT come back in the same format, still editable, with tables, images, formulas and page layout in place
 - **Subtitles and pictures** - SRT and VTT keep their timing, optionally with the source line above the translation; JPG, PNG, WebP and BMP come back with the text in the picture translated
 - **Audio and video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM and MKV become translated subtitles, or a transcript in the language spoken (SRT, VTT, TXT, JSON)
-- **Text in bulk** - separate strings translated in order, or one long text (up to 100,000 characters) that Equalang cuts at sentences itself; 100+ languages for text, 12 for files
-- **Whole files, no pasting** - up to 100 MB a file, from a path or a public URL; nothing to split into text boxes
-- **Costs no tokens** - the file goes to Equalang and a path comes back; a 300-page PDF never enters the conversation
-- **The price before the job** - `estimate` answers with the most a job can cost, for free; failed and cancelled jobs cost nothing; a recording is charged for the speech actually heard; credits never expire
-- **Nothing to install** - one Python script, standard library only, Python 3.8+
+- **Text in bulk** - separate strings translated in order, or one long text (up to 100,000 characters) that Equalang cuts at sentences itself
+- **100+ languages** - 100+ for text and 12 for files, with the source language detected when you leave it out
 
 ## Get a key
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Or copy `.env.example` to `.env` in this directory - it is gitignored. The key is shown once; Equalang keeps only a hash of it.
 
 ## Install
+
+Needs `python3` 3.8 or later, and nothing else: the script uses only the standard library.
 
 The shortest way - paste this to your agent:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Every command prints one JSON object - paths and credits, never file contents - or `{"error", "code", "retryable"}` with exit code 1. `--help` on any command lists its flags. [SKILL.md](SKILL.md) is what the agent reads.
 
-## Three things worth knowing
-
-**Languages.** Codes look like `en`, `zh-CN`, `ja`. No list is built into the skill: `languages` reads the codes and names from the live API (`--kind text` for the wider set `text` takes), so a language Equalang adds is available without an update. Leave the source language out to have it detected.
-
-**Credits.** Work spends the account's credits, the same balance as the website. SKILL.md has the agent name the cost - from `estimate` - and get agreement before it starts a job.
-
-**Jobs take minutes.** The command waits, pausing as long as the API's `Retry-After` asks. Interrupting it does not cancel the job - `status <job_id>` picks it back up and downloads the result.
+Language codes look like `en`, `zh-CN`, `ja`; `languages` reads them from the live API, so a language Equalang adds needs no update here. A job takes minutes - the command waits, and `status <job_id>` picks it up again if you interrupt it.
 
 ## Questions people ask
 
@@ -141,16 +134,6 @@ Yes. Text in a JPG, PNG, WebP or BMP is recognised, translated and drawn back in
 
 **What does a job cost?**
 `estimate` says before anything starts, and it is free. Prices are at <https://equalang.com/pricing>.
-
-## How it is built
-
-The same three decisions as the [MCP server](https://github.com/equalang/equalang-mcp):
-
-1. **A file never passes through the model** - commands take where a file is (a path, or a public URL that Equalang fetches itself) and print where the results were written.
-2. **A job lives inside one command** - upload, wait, download. `status` picks up a job whose wait was interrupted.
-3. **The API's answers are repeated, not guessed** - retry only what the API marks `retryable`; the cost is the API's `quote`; the language list is read from its OpenAPI document; one `Idempotency-Key` per created job, so a lost answer cannot become a second, charged job.
-
-`python3 scripts/check_api.py` verifies, without a key, that every path and field the script uses - and every format SKILL.md promises - is still in the API's contract.
 
 ## Links
 

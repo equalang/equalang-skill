@@ -17,11 +17,8 @@
 - **Ten sam format na wejściu i na wyjściu** – PDF, DOCX, PPTX, XLSX, EPUB, HTML i TXT wracają w tym samym formacie, nadal edytowalne, z tabelami, obrazami, wzorami i układem strony na swoich miejscach
 - **Napisy i obrazy** – SRT i VTT zachowują znaczniki czasu, opcjonalnie z oryginalną linią nad tłumaczeniem; JPG, PNG, WebP i BMP wracają z przetłumaczonym tekstem na obrazie
 - **Audio i wideo** – MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM i MKV stają się przetłumaczonymi napisami albo transkrypcją w języku nagrania (SRT, VTT, TXT, JSON)
-- **Teksty hurtowo** – osobne ciągi znaków tłumaczone po kolei albo jeden długi tekst (do 100 000 znaków), który Equalang sam dzieli na zdania; ponad 100 języków dla tekstu, 12 dla plików
-- **Całe pliki, bez wklejania** – do 100 MB na plik, ze ścieżki lub publicznego URL; niczego nie trzeba dzielić na kawałki i wklejać w pola tekstowe
-- **Nie kosztuje tokenów** – plik trafia do Equalang, a wraca ścieżka; 300-stronicowy PDF nigdy nie trafia do rozmowy
-- **Cena przed zadaniem** – `estimate` podaje, za darmo, maksymalny koszt zadania; zadania nieudane i anulowane nic nie kosztują; za nagranie płaci się tylko za faktycznie usłyszaną mowę; kredyty nigdy nie wygasają
-- **Nic do instalowania** – jeden skrypt w Pythonie, tylko biblioteka standardowa, Python 3.8+
+- **Teksty hurtowo** – osobne ciągi znaków tłumaczone po kolei albo jeden długi tekst (do 100 000 znaków), który Equalang sam dzieli na zdania
+- **Ponad 100 języków** – ponad 100 dla tekstu i 12 dla plików, a język źródłowy jest wykrywany, gdy go pominiesz
 
 ## Zdobądź klucz
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Albo skopiuj `.env.example` do `.env` w tym katalogu – plik jest ignorowany przez git. Klucz jest pokazywany tylko raz; Equalang przechowuje wyłącznie jego hash.
 
 ## Instalacja
+
+Wymaga `python3` 3.8 lub nowszego i niczego więcej: skrypt korzysta wyłącznie z biblioteki standardowej.
 
 Najkrótsza droga – wklej to swojemu agentowi:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Każde polecenie wypisuje jeden obiekt JSON – ścieżki i kredyty, nigdy zawartość plików – albo `{"error", "code", "retryable"}` z kodem wyjścia 1. `--help` przy dowolnym poleceniu wyświetla jego flagi. [SKILL.md](../SKILL.md) to plik, który czyta agent.
 
-## Trzy rzeczy, które warto wiedzieć
-
-**Języki.** Kody wyglądają tak: `en`, `zh-CN`, `ja`. W skillu nie ma wbudowanej listy: `languages` odczytuje kody i nazwy z działającego API (`--kind text` dla szerszego zestawu, który przyjmuje `text`), więc język dodany przez Equalang jest dostępny bez aktualizacji. Pomiń język źródłowy, aby został wykryty automatycznie.
-
-**Kredyty.** Praca zużywa kredyty konta, to samo saldo co na stronie. SKILL.md każe agentowi podać koszt – z `estimate` – i uzyskać zgodę, zanim uruchomi zadanie.
-
-**Zadania trwają minuty.** Polecenie czeka, robiąc przerwy tak długie, jak każe `Retry-After` z API. Przerwanie go nie anuluje zadania – `status <job_id>` wraca do niego i pobiera wynik.
+Kody języków wyglądają tak: `en`, `zh-CN`, `ja`; `languages` odczytuje je z działającego API, więc język dodany przez Equalang jest dostępny bez aktualizacji. Zadania trwają minuty – polecenie czeka, a `status <job_id>` wraca do zadania, jeśli je przerwiesz.
 
 ## Częste pytania
 
@@ -141,16 +134,6 @@ Tak. Tekst w pliku JPG, PNG, WebP lub BMP jest rozpoznawany, tłumaczony i nanos
 
 **Ile kosztuje zadanie?**
 `estimate` podaje koszt, zanim cokolwiek ruszy, i jest bezpłatne. Cennik: <https://equalang.com/pricing>.
-
-## Jak to jest zbudowane
-
-Te same trzy decyzje co w [serwerze MCP](https://github.com/equalang/equalang-mcp):
-
-1. **Plik nigdy nie przechodzi przez model** – polecenia przyjmują to, gdzie plik się znajduje (ścieżkę albo publiczny URL, który Equalang pobiera sam), i wypisują, gdzie zapisano wyniki.
-2. **Zadanie żyje w obrębie jednego polecenia** – przesłanie, oczekiwanie, pobranie. `status` wraca do zadania, na które oczekiwanie zostało przerwane.
-3. **Odpowiedzi API są powtarzane, a nie zgadywane** – ponawiane jest tylko to, co API oznacza jako `retryable`; koszt to `quote` z API; lista języków jest odczytywana z jego dokumentu OpenAPI; jeden `Idempotency-Key` na każde tworzone zadanie, więc utracona odpowiedź nie zamieni się w drugie, płatne zadanie.
-
-`python3 scripts/check_api.py` sprawdza, bez klucza, czy każda ścieżka i każde pole używane przez skrypt – oraz każdy format obiecany w SKILL.md – nadal są w kontrakcie API.
 
 ## Linki
 

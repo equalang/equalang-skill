@@ -17,11 +17,8 @@
 - **Định dạng nào vào, định dạng ấy ra** - PDF, DOCX, PPTX, XLSX, EPUB, HTML và TXT trả về đúng định dạng cũ, vẫn chỉnh sửa được, bảng, hình ảnh, công thức và bố cục trang giữ nguyên
 - **Phụ đề và hình ảnh** - SRT và VTT giữ nguyên mốc thời gian, tùy chọn kèm dòng gốc phía trên bản dịch; JPG, PNG, WebP và BMP trả về với phần chữ trong ảnh đã được dịch
 - **Âm thanh và video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM và MKV trở thành phụ đề đã dịch, hoặc bản chép lời bằng chính ngôn ngữ được nói (SRT, VTT, TXT, JSON)
-- **Văn bản hàng loạt** - các chuỗi riêng lẻ được dịch theo đúng thứ tự, hoặc một văn bản dài (tối đa 100,000 ký tự) do Equalang tự cắt theo câu; hơn 100 ngôn ngữ cho văn bản, 12 cho tệp
-- **Trọn tệp, không cần dán** - tối đa 100 MB mỗi tệp, từ một đường dẫn hoặc URL công khai; không phải chia nhỏ vào các ô văn bản
-- **Không tốn token** - tệp đi thẳng đến Equalang và thứ trả về là một đường dẫn; một PDF 300 trang không bao giờ đi vào cuộc hội thoại
-- **Biết giá trước khi chạy** - `estimate` cho biết mức tối đa một tác vụ có thể tốn, miễn phí; tác vụ thất bại hoặc bị hủy không mất gì; bản ghi âm được tính phí theo phần lời nói thực sự nghe được; credit không bao giờ hết hạn
-- **Không phải cài gì** - một script Python, chỉ dùng thư viện chuẩn, Python 3.8+
+- **Văn bản hàng loạt** - các chuỗi riêng lẻ được dịch theo đúng thứ tự, hoặc một văn bản dài (tối đa 100,000 ký tự) do Equalang tự cắt theo câu
+- **Hơn 100 ngôn ngữ** - hơn 100 cho văn bản và 12 cho tệp, tự động phát hiện ngôn ngữ nguồn khi bạn bỏ trống
 
 ## Lấy khóa
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Hoặc sao chép `.env.example` thành `.env` trong thư mục này - tệp đó đã được gitignore. Khóa chỉ hiển thị một lần; Equalang chỉ lưu giá trị băm của nó.
 
 ## Cài đặt
+
+Cần `python3` 3.8 trở lên, và không cần gì khác: script chỉ dùng thư viện chuẩn.
 
 Cách ngắn nhất - dán câu này cho agent của bạn:
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Mỗi lệnh in ra một đối tượng JSON - đường dẫn và credit, không bao giờ là nội dung tệp - hoặc `{"error", "code", "retryable"}` với mã thoát 1. Thêm `--help` vào bất kỳ lệnh nào để xem các cờ của nó. [SKILL.md](../SKILL.md) là thứ agent đọc.
 
-## Ba điều nên biết
-
-**Ngôn ngữ.** Mã có dạng `en`, `zh-CN`, `ja`. Skill không kèm sẵn danh sách nào: `languages` đọc mã và tên từ API đang chạy (`--kind text` cho tập rộng hơn mà `text` nhận), nên ngôn ngữ Equalang mới thêm dùng được ngay mà không cần cập nhật. Bỏ trống ngôn ngữ nguồn để tự động phát hiện.
-
-**Credit.** Công việc tiêu credit của tài khoản, cùng số dư với trang web. SKILL.md yêu cầu agent nêu chi phí - lấy từ `estimate` - và được đồng ý trước khi bắt đầu tác vụ.
-
-**Tác vụ mất vài phút.** Lệnh sẽ chờ, nghỉ đúng bằng thời gian `Retry-After` của API yêu cầu. Ngắt lệnh không hủy tác vụ - `status <job_id>` tiếp tục theo dõi nó và tải kết quả về.
+Mã ngôn ngữ có dạng `en`, `zh-CN`, `ja`; `languages` đọc chúng từ API đang chạy, nên ngôn ngữ Equalang mới thêm dùng được ngay mà không cần cập nhật ở đây. Tác vụ mất vài phút - lệnh sẽ chờ, và `status <job_id>` tiếp tục theo dõi nó nếu bạn ngắt giữa chừng.
 
 ## Câu hỏi thường gặp
 
@@ -141,16 +134,6 @@ Có. Chữ trong JPG, PNG, WebP hoặc BMP được nhận dạng, dịch và v�
 
 **Một tác vụ tốn bao nhiêu?**
 `estimate` cho biết trước khi bất cứ thứ gì bắt đầu, và hoàn toàn miễn phí. Bảng giá có tại <https://equalang.com/pricing>.
-
-## Cách nó được xây dựng
-
-Vẫn ba quyết định như của [máy chủ MCP](https://github.com/equalang/equalang-mcp):
-
-1. **Tệp không bao giờ đi qua mô hình** - lệnh nhận tệp nằm ở đâu (một đường dẫn, hoặc một URL công khai mà Equalang tự tải) và in ra kết quả được ghi ở đâu.
-2. **Một tác vụ nằm gọn trong một lệnh** - tải lên, chờ, tải về. `status` tiếp tục theo dõi tác vụ bị ngắt giữa lúc chờ.
-3. **Câu trả lời của API được thuật lại, không phải đoán** - chỉ thử lại những gì API đánh dấu `retryable`; chi phí là `quote` của API; danh sách ngôn ngữ được đọc từ tài liệu OpenAPI của nó; mỗi tác vụ được tạo có một `Idempotency-Key`, nên một câu trả lời bị mất không thể biến thành tác vụ thứ hai bị tính phí.
-
-`python3 scripts/check_api.py` kiểm tra, không cần khóa, rằng mọi đường dẫn và trường mà script dùng - cùng mọi định dạng SKILL.md cam kết - vẫn còn trong hợp đồng của API.
 
 ## Liên kết
 

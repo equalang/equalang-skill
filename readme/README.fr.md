@@ -17,11 +17,8 @@
 - **Le format à l'entrée, le même à la sortie** : PDF, DOCX, PPTX, XLSX, EPUB, HTML et TXT reviennent dans le même format, toujours modifiables, tableaux, images, formules et mise en page à leur place
 - **Sous-titres et images** : SRT et VTT gardent leur minutage, avec au besoin la ligne d'origine au-dessus de la traduction ; JPG, PNG, WebP et BMP reviennent avec le texte de l'image traduit
 - **Audio et vidéo** : MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM et MKV deviennent des sous-titres traduits, ou une transcription dans la langue parlée (SRT, VTT, TXT, JSON)
-- **Texte par lots** : des chaînes séparées traduites dans l'ordre, ou un seul long texte (jusqu'à 100 000 caractères) qu'Equalang découpe lui-même par phrases ; plus de 100 langues pour le texte, 12 pour les fichiers
-- **Des fichiers entiers, sans copier-coller** : jusqu'à 100 MB par fichier, depuis un chemin ou une URL publique ; rien à découper dans des zones de texte
-- **Aucun token consommé** : le fichier part chez Equalang et un chemin revient ; un PDF de 300 pages n'entre jamais dans la conversation
-- **Le prix avant la tâche** : `estimate` répond, gratuitement, avec le coût maximal d'une tâche ; les tâches échouées ou annulées ne coûtent rien ; un enregistrement est facturé pour la parole réellement entendue ; les crédits n'expirent jamais
-- **Rien à installer** : un seul script Python, bibliothèque standard uniquement, Python 3.8+
+- **Texte par lots** : des chaînes séparées traduites dans l'ordre, ou un seul long texte (jusqu'à 100 000 caractères) qu'Equalang découpe lui-même par phrases
+- **Plus de 100 langues** : plus de 100 pour le texte et 12 pour les fichiers, avec la langue source détectée quand vous l'omettez
 
 ## Obtenir une clé
 
@@ -34,6 +31,8 @@ export EQUALANG_API_KEY=el_your_key
 Ou copiez `.env.example` vers `.env` dans ce répertoire ; il est ignoré par git. La clé n'est affichée qu'une fois ; Equalang n'en conserve qu'un hash.
 
 ## Installation
+
+Nécessite `python3` 3.8 ou plus récent, et rien d'autre : le script n'utilise que la bibliothèque standard.
 
 Le plus court : collez ceci à votre agent.
 
@@ -120,13 +119,7 @@ python3 scripts/equalang.py languages chinese
 
 Chaque commande affiche un seul objet JSON (des chemins et des crédits, jamais le contenu des fichiers) ou `{"error", "code", "retryable"}` avec le code de sortie 1. `--help` sur n'importe quelle commande liste ses options. [SKILL.md](../SKILL.md) est ce que lit l'agent.
 
-## Trois choses à savoir
-
-**Langues.** Les codes ressemblent à `en`, `zh-CN`, `ja`. Aucune liste n'est intégrée au skill : `languages` lit les codes et les noms depuis l'API en direct (`--kind text` pour l'ensemble plus large qu'accepte `text`), de sorte qu'une langue ajoutée par Equalang est disponible sans mise à jour. N'indiquez pas la langue source pour qu'elle soit détectée.
-
-**Crédits.** Le travail consomme les crédits du compte, le même solde que sur le site web. SKILL.md fait annoncer le coût par l'agent, d'après `estimate`, et obtenir un accord avant de lancer une tâche.
-
-**Les tâches prennent des minutes.** La commande attend, en marquant les pauses que demande le `Retry-After` de l'API. L'interrompre n'annule pas la tâche : `status <job_id>` la reprend et télécharge le résultat.
+Les codes de langue ressemblent à `en`, `zh-CN`, `ja` ; `languages` les lit depuis l'API en direct, de sorte qu'une langue ajoutée par Equalang est disponible sans mise à jour. Une tâche prend des minutes : la commande attend, et `status <job_id>` la reprend si vous l'interrompez.
 
 ## Questions fréquentes
 
@@ -141,16 +134,6 @@ Oui. Le texte d'un JPG, PNG, WebP ou BMP est reconnu, traduit puis redessiné da
 
 **Combien coûte une tâche ?**
 `estimate` le dit avant que quoi que ce soit ne démarre, et c'est gratuit. Les tarifs sont sur <https://equalang.com/pricing>.
-
-## Comment il est construit
-
-Les trois mêmes décisions que le [serveur MCP](https://github.com/equalang/equalang-mcp) :
-
-1. **Un fichier ne passe jamais par le modèle** : les commandes reçoivent où se trouve un fichier (un chemin, ou une URL publique qu'Equalang récupère lui-même) et affichent où les résultats ont été écrits.
-2. **Une tâche vit à l'intérieur d'une seule commande** : envoi, attente, téléchargement. `status` reprend une tâche dont l'attente a été interrompue.
-3. **Les réponses de l'API sont répétées, pas devinées** : on ne retente que ce que l'API marque `retryable` ; le coût est le `quote` de l'API ; la liste des langues est lue dans son document OpenAPI ; un `Idempotency-Key` par tâche créée, de sorte qu'une réponse perdue ne peut pas devenir une seconde tâche facturée.
-
-`python3 scripts/check_api.py` vérifie, sans clé, que chaque chemin et chaque champ utilisés par le script, ainsi que chaque format promis par SKILL.md, figurent toujours dans le contrat de l'API.
 
 ## Liens
 
