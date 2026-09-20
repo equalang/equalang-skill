@@ -121,20 +121,6 @@ Chaque commande affiche un seul objet JSON (des chemins et des crédits, jamais 
 
 Les codes de langue ressemblent à `en`, `zh-CN`, `ja` ; `languages` les lit depuis l'API en direct, de sorte qu'une langue ajoutée par Equalang est disponible sans mise à jour. Une tâche prend des minutes : la commande attend, et `status <job_id>` la reprend si vous l'interrompez.
 
-## Questions fréquentes
-
-**Le PDF traduit garde-t-il sa mise en page ?**
-Oui, c'est tout l'intérêt. Le texte est remis là où il était, et les tableaux, images et formules restent en place ; un DOCX, PPTX ou XLSX reste modifiable.
-
-**Mon document est-il envoyé au modèle ?**
-Non. Le script envoie le fichier à Equalang et affiche un chemin. Un article de 300 pages ne coûte aucun token.
-
-**Peut-il traduire le texte à l'intérieur d'une image ?**
-Oui. Le texte d'un JPG, PNG, WebP ou BMP est reconnu, traduit puis redessiné dans l'image.
-
-**Combien coûte une tâche ?**
-`estimate` le dit avant que quoi que ce soit ne démarre, et c'est gratuit. Les tarifs sont sur <https://equalang.com/pricing>.
-
 ## Liens
 
 - [Equalang](https://equalang.com) · [Tarifs](https://equalang.com/pricing) · [Documentation développeur](https://equalang.com/developers)

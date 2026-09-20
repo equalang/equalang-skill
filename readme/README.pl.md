@@ -121,20 +121,6 @@ Każde polecenie wypisuje jeden obiekt JSON – ścieżki i kredyty, nigdy zawar
 
 Kody języków wyglądają tak: `en`, `zh-CN`, `ja`; `languages` odczytuje je z działającego API, więc język dodany przez Equalang jest dostępny bez aktualizacji. Zadania trwają minuty – polecenie czeka, a `status <job_id>` wraca do zadania, jeśli je przerwiesz.
 
-## Częste pytania
-
-**Czy przetłumaczony PDF zachowuje układ?**
-Tak – właśnie o to chodzi. Tekst wraca tam, gdzie był, a tabele, obrazy i wzory zostają na miejscu; DOCX, PPTX i XLSX pozostają edytowalne.
-
-**Czy mój dokument jest wysyłany do modelu?**
-Nie. Skrypt przesyła plik do Equalang i wypisuje ścieżkę. 300-stronicowa praca nie kosztuje żadnych tokenów.
-
-**Czy potrafi przetłumaczyć tekst na obrazie?**
-Tak. Tekst w pliku JPG, PNG, WebP lub BMP jest rozpoznawany, tłumaczony i nanoszony z powrotem na obraz.
-
-**Ile kosztuje zadanie?**
-`estimate` podaje koszt, zanim cokolwiek ruszy, i jest bezpłatne. Cennik: <https://equalang.com/pricing>.
-
 ## Linki
 
 - [Equalang](https://equalang.com) · [Cennik](https://equalang.com/pricing) · [Dokumentacja dla programistów](https://equalang.com/developers)

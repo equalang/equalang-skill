@@ -121,20 +121,6 @@ Mỗi lệnh in ra một đối tượng JSON - đường dẫn và credit, khô
 
 Mã ngôn ngữ có dạng `en`, `zh-CN`, `ja`; `languages` đọc chúng từ API đang chạy, nên ngôn ngữ Equalang mới thêm dùng được ngay mà không cần cập nhật ở đây. Tác vụ mất vài phút - lệnh sẽ chờ, và `status <job_id>` tiếp tục theo dõi nó nếu bạn ngắt giữa chừng.
 
-## Câu hỏi thường gặp
-
-**PDF đã dịch có giữ nguyên bố cục không?**
-Có - đó chính là mục đích. Văn bản được đặt lại đúng chỗ cũ, bảng, hình ảnh và công thức nằm nguyên vị trí; DOCX, PPTX hay XLSX vẫn chỉnh sửa được.
-
-**Tài liệu của tôi có bị gửi cho mô hình không?**
-Không. Script tải tệp lên Equalang và in ra một đường dẫn. Một bài báo 300 trang không tốn token nào.
-
-**Có dịch được chữ bên trong hình ảnh không?**
-Có. Chữ trong JPG, PNG, WebP hoặc BMP được nhận dạng, dịch và vẽ lại vào ảnh.
-
-**Một tác vụ tốn bao nhiêu?**
-`estimate` cho biết trước khi bất cứ thứ gì bắt đầu, và hoàn toàn miễn phí. Bảng giá có tại <https://equalang.com/pricing>.
-
 ## Liên kết
 
 - [Equalang](https://equalang.com) · [Bảng giá](https://equalang.com/pricing) · [Tài liệu cho nhà phát triển](https://equalang.com/developers)

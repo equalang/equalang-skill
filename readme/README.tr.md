@@ -121,20 +121,6 @@ Her komut tek bir JSON nesnesi yazdırır – yollar ve krediler, asla dosya iç
 
 Dil kodları `en`, `zh-CN`, `ja` biçimindedir; `languages` bunları canlı API'den okur, böylece Equalang'ın eklediği bir dil güncelleme gerekmeden kullanılabilir. İşler dakikalar sürer – komut bekler ve komutu kesersen `status <job_id>` işi yeniden ele alır.
 
-## Sık sorulan sorular
-
-**Çevrilen PDF düzenini korur mu?**
-Evet – zaten bütün mesele bu. Metin eski yerine konur; tablolar, görseller ve formüller yerinde kalır; DOCX, PPTX ya da XLSX düzenlenebilir kalır.
-
-**Belgem modele gönderiliyor mu?**
-Hayır. Betik dosyayı Equalang'a yükler ve bir yol yazdırır. 300 sayfalık bir makale hiç token harcamaz.
-
-**Bir resmin içindeki metni çevirebilir mi?**
-Evet. JPG, PNG, WebP ya da BMP içindeki metin tanınır, çevrilir ve resme yeniden işlenir.
-
-**Bir iş kaça mal olur?**
-`estimate` bunu hiçbir şey başlamadan önce söyler ve ücretsizdir. Fiyatlar <https://equalang.com/pricing> adresindedir.
-
 ## Bağlantılar
 
 - [Equalang](https://equalang.com) · [Fiyatlandırma](https://equalang.com/pricing) · [Geliştirici belgeleri](https://equalang.com/developers)

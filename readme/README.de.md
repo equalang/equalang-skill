@@ -121,20 +121,6 @@ Jeder Befehl gibt ein einziges JSON-Objekt aus – Pfade und Credits, nie Dateii
 
 Sprachcodes sehen aus wie `en`, `zh-CN`, `ja`; `languages` liest sie aus der Live-API, sodass eine Sprache, die Equalang hinzufügt, ohne Update verfügbar ist. Ein Auftrag dauert Minuten – der Befehl wartet, und `status <job_id>` nimmt ihn wieder auf, wenn du ihn unterbrichst.
 
-## Häufige Fragen
-
-**Behält das übersetzte PDF sein Layout?**
-Ja – genau darum geht es. Der Text wird dorthin zurückgesetzt, wo er war, und Tabellen, Bilder und Formeln bleiben an ihrem Platz; ein DOCX, PPTX oder XLSX bleibt bearbeitbar.
-
-**Wird mein Dokument an das Modell geschickt?**
-Nein. Das Skript lädt die Datei zu Equalang hoch und gibt einen Pfad aus. Ein 300-seitiges Paper kostet keine Tokens.
-
-**Kann er den Text in einem Bild übersetzen?**
-Ja. Text in einem JPG, PNG, WebP oder BMP wird erkannt, übersetzt und wieder ins Bild gezeichnet.
-
-**Was kostet ein Auftrag?**
-Das sagt `estimate`, bevor irgendetwas startet, und zwar kostenlos. Die Preise stehen unter <https://equalang.com/pricing>.
-
 ## Links
 
 - [Equalang](https://equalang.com) · [Preise](https://equalang.com/pricing) · [Entwicklerdokumentation](https://equalang.com/developers)

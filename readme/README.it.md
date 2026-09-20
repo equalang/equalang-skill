@@ -121,20 +121,6 @@ Ogni comando stampa un solo oggetto JSON – percorsi e crediti, mai il contenut
 
 I codici delle lingue hanno la forma `en`, `zh-CN`, `ja`; `languages` li legge dall'API in tempo reale, quindi una lingua aggiunta da Equalang è disponibile senza aggiornamenti. I job durano minuti – il comando aspetta, e `status <job_id>` lo riprende se lo interrompi.
 
-## Domande frequenti
-
-**Il PDF tradotto conserva l'impaginazione?**
-Sì, è proprio questo il punto. Il testo viene rimesso dov'era, e tabelle, immagini e formule restano al loro posto; un DOCX, PPTX o XLSX resta modificabile.
-
-**Il mio documento viene inviato al modello?**
-No. Lo script carica il file su Equalang e stampa un percorso. Un articolo di 300 pagine non costa alcun token.
-
-**Può tradurre il testo dentro un'immagine?**
-Sì. Il testo in un JPG, PNG, WebP o BMP viene riconosciuto, tradotto e ridisegnato nell'immagine.
-
-**Quanto costa un job?**
-Lo dice `estimate` prima che parta qualsiasi cosa, ed è gratuito. I prezzi sono su <https://equalang.com/pricing>.
-
 ## Link
 
 - [Equalang](https://equalang.com) · [Prezzi](https://equalang.com/pricing) · [Documentazione per sviluppatori](https://equalang.com/developers)

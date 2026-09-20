@@ -121,20 +121,6 @@ Setiap perintah mencetak satu objek JSON - path dan kredit, tidak pernah isi fil
 
 Kode bahasa berbentuk seperti `en`, `zh-CN`, `ja`; `languages` membacanya dari API secara langsung, sehingga bahasa yang ditambahkan Equalang tidak memerlukan pembaruan di sini. Job memakan waktu beberapa menit - perintah akan menunggu, dan `status <job_id>` melanjutkannya lagi jika Anda menghentikannya.
 
-## Pertanyaan yang sering diajukan
-
-**Apakah PDF hasil terjemahan mempertahankan tata letaknya?**
-Ya - justru itu intinya. Teks dikembalikan ke posisi semula, dan tabel, gambar, serta rumus tetap di tempatnya; DOCX, PPTX, atau XLSX tetap bisa diedit.
-
-**Apakah dokumen saya dikirim ke model?**
-Tidak. Skrip mengunggah file ke Equalang dan mencetak sebuah path. Makalah 300 halaman tidak memakan token sama sekali.
-
-**Bisakah ia menerjemahkan teks di dalam gambar?**
-Bisa. Teks dalam JPG, PNG, WebP, atau BMP dikenali, diterjemahkan, lalu digambar kembali ke dalam gambar.
-
-**Berapa biaya sebuah job?**
-`estimate` memberi tahu sebelum apa pun dimulai, dan itu gratis. Daftar harga ada di <https://equalang.com/pricing>.
-
 ## Tautan
 
 - [Equalang](https://equalang.com) · [Harga](https://equalang.com/pricing) · [Dokumentasi developer](https://equalang.com/developers)
