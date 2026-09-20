@@ -10,25 +10,25 @@
 
 > **Stichwörter:** pdf übersetzen, pdf übersetzer, pdf übersetzen layout beibehalten, dokumente übersetzen, word dokument übersetzen, docx übersetzen, powerpoint übersetzen, excel übersetzen, epub übersetzen, untertitel übersetzen, srt übersetzen, bild übersetzen, text im bild übersetzen, video übersetzen, audio transkribieren, sprache in text, ki übersetzer, agent skill, claude code skill, codex skill, translation api
 
-**Datei übersetzen, Layout behalten.** Ein [Agent Skill](https://agentskills.io) für [Equalang](https://equalang.com) – einen KI-Übersetzer, der mit ganzen Dateien arbeitet: Ein PDF kommt als PDF zurück, eine Präsentation als Präsentation, Tabellen, Bilder und Formeln bleiben, wo sie waren. Er übersetzt außerdem Untertitel und Bilder, macht aus Audio und Video übersetzte Untertitel oder ein Transkript und übersetzt Strings in großen Mengen. Läuft in Claude Code, Codex, Cursor, CodeBuddy und jedem anderen Agenten, der Agent Skills lädt.
+**Datei übersetzen, Layout behalten.** Ein [Agent Skill](https://agentskills.io) für [Equalang](https://equalang.com) – einen KI-Übersetzer, der mit ganzen Dateien arbeitet: Ein PDF kommt als PDF zurück, eine Präsentation als Präsentation, Tabellen, Bilder und Formeln bleiben, wo sie waren. Er übersetzt außerdem Untertitel und Bilder, macht aus Audio und Video übersetzte Untertitel oder ein Transkript und übersetzt kurze Texte in großen Mengen. Läuft in Claude Code, Codex, Cursor, CodeBuddy und jedem anderen Agenten, der Agent Skills lädt.
 
 ## Funktionen
 
-- **Format rein, Format raus** – PDF, DOCX, PPTX, XLSX, EPUB, HTML und TXT kommen im selben Format zurück, weiterhin bearbeitbar, Tabellen, Bilder, Formeln und Seitenlayout an ihrem Platz
+- **Dokumente** – PDF, DOCX, PPTX, XLSX, EPUB, HTML und TXT kommen im selben Format zurück, weiterhin bearbeitbar, Tabellen, Bilder, Formeln und Seitenlayout an ihrem Platz
 - **Untertitel und Bilder** – SRT und VTT behalten ihr Timing, auf Wunsch mit der Originalzeile über der Übersetzung; JPG, PNG, WebP und BMP kommen mit übersetztem Text im Bild zurück
 - **Audio und Video** – aus MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM und MKV werden übersetzte Untertitel oder ein Transkript in der gesprochenen Sprache (SRT, VTT, TXT, JSON)
-- **Text in großen Mengen** – einzelne Strings, in ihrer Reihenfolge übersetzt, oder ein langer Text (bis zu 100.000 Zeichen), den Equalang selbst an Satzgrenzen teilt
-- **Über 100 Sprachen** – über 100 für Text und 12 für Dateien, wobei die Quellsprache erkannt wird, wenn du sie weglässt
+- **Text in großen Mengen** – kurze Texte, in ihrer Reihenfolge übersetzt, oder ein langer Text (bis zu 100.000 Zeichen), den Equalang selbst an Satzgrenzen teilt
+- **Sprachen** – über 100 für Text und 12 für Dateien, wobei die Quellsprache erkannt wird, wenn du sie weglässt
 
 ## Schlüssel holen
 
-Registriere dich unter <https://equalang.com> und erstelle einen Schlüssel unter <https://equalang.com/api-keys>. Neue Konten starten mit kostenlosen Credits – genug, um ein Dokument durchlaufen zu lassen und zu sehen, was zurückkommt.
+Registriere dich unter <https://equalang.com> und erstelle einen Schlüssel unter <https://equalang.com/api-keys>. Neue Konten bekommen kostenlose Credits – genug, um ein Dokument zu übersetzen und es auszuprobieren.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-Oder kopiere `.env.example` in diesem Verzeichnis nach `.env` – die Datei wird von git ignoriert. Der Schlüssel wird nur einmal angezeigt; Equalang speichert lediglich einen Hash davon.
+Oder kopiere `.env.example` in diesem Verzeichnis nach `.env` – die Datei wird von git ignoriert.
 
 ## Installation
 
@@ -36,7 +36,7 @@ Benötigt `python3` 3.8 oder neuer, sonst nichts: Das Skript verwendet nur die S
 
 Der kürzeste Weg – füge das bei deinem Agenten ein:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> Installiere den Equalang-Skill, indem du der Anleitung unter https://equalang.com/install/skill-install.md folgst.
 
 <details open>
 <summary><b>Claude Code</b> (Plugin)</summary>
@@ -92,7 +92,7 @@ Lieber ein MCP-Server? [equalang-mcp](https://github.com/equalang/equalang-mcp) 
 ## Befehle
 
 ```bash
-# Was würde es kosten? Kostenlos, und nichts wird gestartet
+# Was würde es kosten? Kostenlos, und es wird nichts übersetzt
 python3 scripts/equalang.py estimate report.pdf
 
 # Eine Datei übersetzen; das Ergebnis landet neben der Quelldatei
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # Was in einer Aufnahme gesagt wird, als Text mit Zeitmarken
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Einzelne Strings, in ihrer Reihenfolge
+# Kurze Texte, in ihrer Reihenfolge
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # Ein langer Text, von Equalang an Satzgrenzen geteilt
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Jeder Befehl gibt ein einziges JSON-Objekt aus – Pfade und Credits, nie Dateiinhalte – oder `{"error", "code", "retryable"}` mit Exit-Code 1. `--help` listet bei jedem Befehl dessen Optionen auf. [SKILL.md](../SKILL.md) ist das, was der Agent liest.
+Jeder Befehl gibt JSON aus: wohin die Dateien geschrieben wurden und was sie gekostet haben, oder was schiefgegangen ist. Hänge `--help` an einen beliebigen Befehl, um dessen Optionen zu sehen. Der Agent selbst liest [SKILL.md](../SKILL.md).
 
-Sprachcodes sehen aus wie `en`, `zh-CN`, `ja`; `languages` liest sie aus der Live-API, sodass eine Sprache, die Equalang hinzufügt, ohne Update verfügbar ist. Ein Auftrag dauert Minuten – der Befehl wartet, und `status <job_id>` nimmt ihn wieder auf, wenn du ihn unterbrichst.
+Sprachcodes sehen aus wie `en`, `zh-CN`, `ja`. Mit `languages` bekommst du die Liste, mit `languages chinese` suchst du darin. Ein Auftrag dauert Minuten – der Befehl wartet, und `status <job_id>` nimmt ihn wieder auf, wenn du ihn unterbrichst.
 
 ## Links
 

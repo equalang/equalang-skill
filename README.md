@@ -10,25 +10,25 @@
 
 > **Keywords:** document translation, pdf translator, translate pdf keep layout, docx translation, pptx translation, excel translation, epub translation, subtitle translation, srt translator, image translation, video translation, audio transcription, speech to text, ai translator, agent skill, claude code skill, codex skill, translation api
 
-**Translate the file, keep the layout.** An [Agent Skill](https://agentskills.io) for [Equalang](https://equalang.com) - an AI translator that works on whole files: a PDF comes back as a PDF, a deck as a deck, with tables, images and formulas where they were. It also translates subtitles and pictures, turns audio and video into translated subtitles or a transcript, and translates strings in bulk. Works in Claude Code, Codex, Cursor, CodeBuddy and every other agent that loads Agent Skills.
+**Translate the file, keep the layout.** An [Agent Skill](https://agentskills.io) for [Equalang](https://equalang.com) - an AI translator that works on whole files: a PDF comes back as a PDF, a deck as a deck, with tables, images and formulas where they were. It also translates subtitles and pictures, turns audio and video into translated subtitles or a transcript, and translates short texts in bulk. Works in Claude Code, Codex, Cursor, CodeBuddy and every other agent that loads Agent Skills.
 
 ## Features
 
-- **Format in, format out** - PDF, DOCX, PPTX, XLSX, EPUB, HTML and TXT come back in the same format, still editable, with tables, images, formulas and page layout in place
+- **Documents** - PDF, DOCX, PPTX, XLSX, EPUB, HTML and TXT come back in the same format, still editable, with tables, images, formulas and page layout in place
 - **Subtitles and pictures** - SRT and VTT keep their timing, optionally with the source line above the translation; JPG, PNG, WebP and BMP come back with the text in the picture translated
 - **Audio and video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM and MKV become translated subtitles, or a transcript in the language spoken (SRT, VTT, TXT, JSON)
-- **Text in bulk** - separate strings translated in order, or one long text (up to 100,000 characters) that Equalang cuts at sentences itself
-- **100+ languages** - 100+ for text and 12 for files, with the source language detected when you leave it out
+- **Text in bulk** - short texts translated in order, or one long text (up to 100,000 characters) that Equalang cuts at sentences itself
+- **Languages** - 100+ for text and 12 for files; leave the source language out and it is detected
 
 ## Get a key
 
-Sign up at <https://equalang.com> and create a key at <https://equalang.com/api-keys>. New accounts start with free credits - enough to put a document through and see what comes back.
+Sign up at <https://equalang.com> and create a key at <https://equalang.com/api-keys>. New accounts start with free credits, enough to put a document through.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-Or copy `.env.example` to `.env` in this directory - it is gitignored. The key is shown once; Equalang keeps only a hash of it.
+Or copy `.env.example` to `.env` in this directory - it is gitignored.
 
 ## Install
 
@@ -92,7 +92,7 @@ Prefer an MCP server? [equalang-mcp](https://github.com/equalang/equalang-mcp) o
 ## Commands
 
 ```bash
-# What would it cost? Free, and nothing is started
+# What would it cost? Free, and nothing starts translating
 python3 scripts/equalang.py estimate report.pdf
 
 # Translate a file; the result lands beside the source
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # What a recording says, as timed text
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Separate strings, in order
+# Short texts, in order
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # One long text, cut at sentences by Equalang
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Every command prints one JSON object - paths and credits, never file contents - or `{"error", "code", "retryable"}` with exit code 1. `--help` on any command lists its flags. [SKILL.md](SKILL.md) is what the agent reads.
+Every command prints JSON: where the files were written and what they cost, or what went wrong. Add `--help` to any command to see its flags. The agent itself reads [SKILL.md](SKILL.md).
 
-Language codes look like `en`, `zh-CN`, `ja`; `languages` reads them from the live API, so a language Equalang adds needs no update here. A job takes minutes - the command waits, and `status <job_id>` picks it up again if you interrupt it.
+Language codes look like `en`, `zh-CN`, `ja`. Run `languages` to list them, or `languages chinese` to search. A job takes minutes - the command waits for it, and `status <job_id>` picks it up again if you interrupt it.
 
 ## Links
 

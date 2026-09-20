@@ -10,25 +10,25 @@
 
 > **Kata kunci:** terjemahan dokumen, translate pdf, terjemahkan pdf tanpa merusak format, translate file word, translate docx, translate ppt, translate file excel, translate epub, translate subtitle, terjemahkan file srt, translate teks di gambar, translate video, transkripsi audio, ubah suara jadi teks, penerjemah ai, api terjemahan, agent skill, claude code skill, codex skill, translation api
 
-**Terjemahkan filenya, pertahankan tata letaknya.** Sebuah [Agent Skill](https://agentskills.io) untuk [Equalang](https://equalang.com) - penerjemah AI yang bekerja pada file utuh: PDF kembali sebagai PDF, presentasi sebagai presentasi, dengan tabel, gambar, dan rumus tetap di tempatnya. Ia juga menerjemahkan subtitle dan gambar, mengubah audio dan video menjadi subtitle terjemahan atau transkrip, serta menerjemahkan string secara massal. Berjalan di Claude Code, Codex, Cursor, CodeBuddy, dan semua agen lain yang memuat Agent Skills.
+**Terjemahkan filenya, pertahankan tata letaknya.** Sebuah [Agent Skill](https://agentskills.io) untuk [Equalang](https://equalang.com) - penerjemah AI yang bekerja pada file utuh: PDF kembali sebagai PDF, presentasi sebagai presentasi, dengan tabel, gambar, dan rumus tetap di tempatnya. Ia juga menerjemahkan subtitle dan gambar, mengubah audio dan video menjadi subtitle terjemahan atau transkrip, serta menerjemahkan teks-teks pendek secara massal. Berjalan di Claude Code, Codex, Cursor, CodeBuddy, dan semua agen lain yang memuat Agent Skills.
 
 ## Fitur
 
-- **Format masuk, format yang sama keluar** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, dan TXT kembali dalam format yang sama, tetap bisa diedit, dengan tabel, gambar, rumus, dan tata letak halaman tetap di tempatnya
+- **Dokumen** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, dan TXT kembali dalam format yang sama, tetap bisa diedit, dengan tabel, gambar, rumus, dan tata letak halaman tetap di tempatnya
 - **Subtitle dan gambar** - SRT dan VTT mempertahankan timing-nya, dengan opsi baris asli di atas terjemahan; JPG, PNG, WebP, dan BMP kembali dengan teks di dalam gambar sudah diterjemahkan
 - **Audio dan video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM, dan MKV menjadi subtitle terjemahan, atau transkrip dalam bahasa yang diucapkan (SRT, VTT, TXT, JSON)
-- **Teks secara massal** - string-string terpisah diterjemahkan sesuai urutan, atau satu teks panjang (hingga 100,000 karakter) yang dipotong sendiri oleh Equalang per kalimat
-- **100+ bahasa** - 100+ untuk teks dan 12 untuk file, dengan bahasa sumber terdeteksi otomatis saat Anda mengosongkannya
+- **Teks secara massal** - teks-teks pendek diterjemahkan sesuai urutan, atau satu teks panjang (hingga 100,000 karakter) yang dipotong sendiri oleh Equalang per kalimat
+- **Bahasa** - 100+ untuk teks dan 12 untuk file, dengan bahasa sumber terdeteksi otomatis saat Anda mengosongkannya
 
 ## Dapatkan kunci
 
-Daftar di <https://equalang.com> dan buat kunci di <https://equalang.com/api-keys>. Akun baru langsung mendapat kredit gratis - cukup untuk mencoba satu dokumen dan melihat hasilnya.
+Daftar di <https://equalang.com> dan buat kunci di <https://equalang.com/api-keys>. Akun baru langsung mendapat kredit gratis, cukup untuk mencoba satu dokumen.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-Atau salin `.env.example` menjadi `.env` di direktori ini - file itu sudah masuk gitignore. Kunci hanya ditampilkan sekali; Equalang hanya menyimpan hash-nya.
+Atau salin `.env.example` menjadi `.env` di direktori ini - file itu sudah masuk gitignore.
 
 ## Instalasi
 
@@ -36,7 +36,7 @@ Membutuhkan `python3` 3.8 atau lebih baru, dan tidak ada lagi selain itu: skrip 
 
 Cara tersingkat - tempelkan ini ke agen Anda:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> Instal skill Equalang dengan mengikuti petunjuk di https://equalang.com/install/skill-install.md
 
 <details open>
 <summary><b>Claude Code</b> (plugin)</summary>
@@ -92,7 +92,7 @@ Lebih suka server MCP? [equalang-mcp](https://github.com/equalang/equalang-mcp) 
 ## Perintah
 
 ```bash
-# Berapa biayanya? Gratis, dan belum ada yang dimulai
+# Berapa biayanya? Gratis, dan belum ada yang diterjemahkan
 python3 scripts/equalang.py estimate report.pdf
 
 # Terjemahkan file; hasil disimpan di samping file sumber
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # Apa yang diucapkan dalam rekaman, sebagai teks berpenanda waktu
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# String-string terpisah, sesuai urutan
+# Teks-teks pendek, sesuai urutan
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # Satu teks panjang, dipotong per kalimat oleh Equalang
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Setiap perintah mencetak satu objek JSON - path dan kredit, tidak pernah isi file - atau `{"error", "code", "retryable"}` dengan kode keluar 1. `--help` pada perintah mana pun menampilkan daftar flag-nya. [SKILL.md](../SKILL.md) adalah yang dibaca agen.
+Setiap perintah mencetak JSON: di mana file ditulis dan berapa biayanya, atau apa yang tidak beres. `--help` pada perintah mana pun menampilkan daftar flag-nya. [SKILL.md](../SKILL.md) adalah yang dibaca agen itu sendiri.
 
-Kode bahasa berbentuk seperti `en`, `zh-CN`, `ja`; `languages` membacanya dari API secara langsung, sehingga bahasa yang ditambahkan Equalang tidak memerlukan pembaruan di sini. Job memakan waktu beberapa menit - perintah akan menunggu, dan `status <job_id>` melanjutkannya lagi jika Anda menghentikannya.
+Kode bahasa berbentuk seperti `en`, `zh-CN`, `ja`. Jalankan `languages` untuk melihat semuanya, atau `languages chinese` untuk mencari. Job memakan waktu beberapa menit - perintah akan menunggu, dan `status <job_id>` melanjutkannya lagi jika Anda menghentikannya.
 
 ## Tautan
 

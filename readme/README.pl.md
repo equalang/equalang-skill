@@ -10,25 +10,25 @@
 
 > **Słowa kluczowe:** tłumaczenie dokumentów, tłumacz dokumentów, tłumaczenie pdf, tłumacz pdf, tłumaczenie pdf z zachowaniem formatowania, tłumaczenie plików word, tłumaczenie prezentacji powerpoint, tłumaczenie excel, tłumaczenie epub, tłumaczenie napisów, tłumaczenie napisów srt, tłumaczenie tekstu ze zdjęcia, tłumaczenie filmów, transkrypcja nagrań, zamiana mowy na tekst, tłumacz ai, agent skill, claude code skill, codex skill, translation api
 
-**Przetłumacz plik, zachowaj układ.** [Agent Skill](https://agentskills.io) dla [Equalang](https://equalang.com) – tłumacza AI, który pracuje na całych plikach: PDF wraca jako PDF, prezentacja jako prezentacja, a tabele, obrazy i wzory zostają tam, gdzie były. Tłumaczy też napisy i obrazy, zamienia audio i wideo w przetłumaczone napisy albo transkrypcję i hurtowo tłumaczy teksty. Działa w Claude Code, Codex, Cursor, CodeBuddy i każdym innym agencie, który ładuje Agent Skills.
+**Przetłumacz plik, zachowaj układ.** [Agent Skill](https://agentskills.io) dla [Equalang](https://equalang.com) – tłumacza AI, który pracuje na całych plikach: PDF wraca jako PDF, prezentacja jako prezentacja, a tabele, obrazy i wzory zostają tam, gdzie były. Tłumaczy też napisy i obrazy, zamienia audio i wideo w przetłumaczone napisy albo transkrypcję i hurtowo tłumaczy krótkie teksty. Działa w Claude Code, Codex, Cursor, CodeBuddy i każdym innym agencie, który ładuje Agent Skills.
 
 ## Funkcje
 
-- **Ten sam format na wejściu i na wyjściu** – PDF, DOCX, PPTX, XLSX, EPUB, HTML i TXT wracają w tym samym formacie, nadal edytowalne, z tabelami, obrazami, wzorami i układem strony na swoich miejscach
+- **Dokumenty** – PDF, DOCX, PPTX, XLSX, EPUB, HTML i TXT wracają w tym samym formacie, nadal edytowalne, z tabelami, obrazami, wzorami i układem strony na swoich miejscach
 - **Napisy i obrazy** – SRT i VTT zachowują znaczniki czasu, opcjonalnie z oryginalną linią nad tłumaczeniem; JPG, PNG, WebP i BMP wracają z przetłumaczonym tekstem na obrazie
 - **Audio i wideo** – MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM i MKV stają się przetłumaczonymi napisami albo transkrypcją w języku nagrania (SRT, VTT, TXT, JSON)
-- **Teksty hurtowo** – osobne ciągi znaków tłumaczone po kolei albo jeden długi tekst (do 100 000 znaków), który Equalang sam dzieli na zdania
-- **Ponad 100 języków** – ponad 100 dla tekstu i 12 dla plików, a język źródłowy jest wykrywany, gdy go pominiesz
+- **Teksty hurtowo** – krótkie teksty tłumaczone po kolei albo jeden długi tekst (do 100 000 znaków), który Equalang sam dzieli na zdania
+- **Języki** – ponad 100 dla tekstu i 12 dla plików, a język źródłowy jest wykrywany, gdy go pominiesz
 
 ## Zdobądź klucz
 
-Zarejestruj się na <https://equalang.com> i utwórz klucz na <https://equalang.com/api-keys>. Nowe konta zaczynają z darmowymi kredytami – wystarczy, żeby przepuścić dokument i zobaczyć, co wróci.
+Zarejestruj się na <https://equalang.com> i utwórz klucz na <https://equalang.com/api-keys>. Nowe konta zaczynają z darmowymi kredytami – wystarczy, żeby przetłumaczyć jeden dokument na próbę.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-Albo skopiuj `.env.example` do `.env` w tym katalogu – plik jest ignorowany przez git. Klucz jest pokazywany tylko raz; Equalang przechowuje wyłącznie jego hash.
+Albo skopiuj `.env.example` do `.env` w tym katalogu – plik jest ignorowany przez git.
 
 ## Instalacja
 
@@ -36,7 +36,7 @@ Wymaga `python3` 3.8 lub nowszego i niczego więcej: skrypt korzysta wyłącznie
 
 Najkrótsza droga – wklej to swojemu agentowi:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> Zainstaluj skill Equalang, postępując zgodnie z instrukcją na https://equalang.com/install/skill-install.md
 
 <details open>
 <summary><b>Claude Code</b> (wtyczka)</summary>
@@ -92,7 +92,7 @@ Wolisz serwer MCP? [equalang-mcp](https://github.com/equalang/equalang-mcp) udos
 ## Polecenia
 
 ```bash
-# Ile by to kosztowało? Za darmo, nic nie jest uruchamiane
+# Ile by to kosztowało? Za darmo, nic nie zaczyna się tłumaczyć
 python3 scripts/equalang.py estimate report.pdf
 
 # Przetłumacz plik; wynik ląduje obok oryginału
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # Co pada w nagraniu, jako tekst ze znacznikami czasu
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Osobne ciągi znaków, po kolei
+# Krótkie teksty, po kolei
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # Jeden długi tekst, dzielony na zdania przez Equalang
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Każde polecenie wypisuje jeden obiekt JSON – ścieżki i kredyty, nigdy zawartość plików – albo `{"error", "code", "retryable"}` z kodem wyjścia 1. `--help` przy dowolnym poleceniu wyświetla jego flagi. [SKILL.md](../SKILL.md) to plik, który czyta agent.
+Każde polecenie wypisuje JSON: gdzie zapisano pliki i ile kosztowały albo co poszło nie tak. Dodaj `--help` do dowolnego polecenia, żeby zobaczyć jego flagi. [SKILL.md](../SKILL.md) to plik, który czyta agent.
 
-Kody języków wyglądają tak: `en`, `zh-CN`, `ja`; `languages` odczytuje je z działającego API, więc język dodany przez Equalang jest dostępny bez aktualizacji. Zadania trwają minuty – polecenie czeka, a `status <job_id>` wraca do zadania, jeśli je przerwiesz.
+Kody języków wyglądają tak: `en`, `zh-CN`, `ja`. Uruchom `languages`, żeby wyświetlić listę, albo `languages chinese`, żeby wyszukać. Zadania trwają minuty – polecenie czeka, a `status <job_id>` wraca do zadania, jeśli je przerwiesz.
 
 ## Linki
 

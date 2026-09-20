@@ -10,25 +10,25 @@
 
 > **Anahtar kelimeler:** belge çevirisi, doküman çeviri, pdf çeviri, pdf çevirici, pdf çeviri format bozulmadan, word belgesi çeviri, powerpoint sunum çeviri, excel çeviri, epub çeviri, altyazı çeviri, srt çeviri, resimdeki yazıyı çevirme, video çeviri, ses dosyasını yazıya çevirme, sesi yazıya dökme, yapay zeka çeviri, agent skill, claude code skill, codex skill, translation api
 
-**Dosyayı çevirin, düzeni koruyun.** [Equalang](https://equalang.com) için bir [Agent Skill](https://agentskills.io). Equalang, dosyaları bütün halinde çeviren bir yapay zekâ çevirmenidir: PDF yine PDF olarak, sunum yine sunum olarak geri gelir; tablolar, görseller ve formüller yerli yerinde kalır. Altyazıları ve resimleri de çevirir, ses ve videoyu çevrilmiş altyazıya ya da döküme dönüştürür, metinleri toplu halde çevirir. Claude Code, Codex, Cursor, CodeBuddy ve Agent Skills yükleyen diğer tüm ajanlarda çalışır.
+**Dosyayı çevirin, düzeni koruyun.** [Equalang](https://equalang.com) için bir [Agent Skill](https://agentskills.io). Equalang, dosyaları bütün halinde çeviren bir yapay zekâ çevirmenidir: PDF yine PDF olarak, sunum yine sunum olarak geri gelir; tablolar, görseller ve formüller yerli yerinde kalır. Altyazıları ve resimleri de çevirir, ses ve videoyu çevrilmiş altyazıya ya da döküme dönüştürür, kısa metinleri toplu halde çevirir. Claude Code, Codex, Cursor, CodeBuddy ve Agent Skills yükleyen diğer tüm ajanlarda çalışır.
 
 ## Özellikler
 
-- **Hangi biçimde girdiyse o biçimde çıkar** – PDF, DOCX, PPTX, XLSX, EPUB, HTML ve TXT aynı biçimde, düzenlenebilir halde geri gelir; tablolar, görseller, formüller ve sayfa düzeni yerinde kalır
+- **Belgeler** – PDF, DOCX, PPTX, XLSX, EPUB, HTML ve TXT aynı biçimde, düzenlenebilir halde geri gelir; tablolar, görseller, formüller ve sayfa düzeni yerinde kalır
 - **Altyazılar ve resimler** – SRT ve VTT zamanlamasını korur, istenirse kaynak satır çevirinin üstünde yer alır; JPG, PNG, WebP ve BMP, resmin içindeki metin çevrilmiş olarak geri gelir
 - **Ses ve video** – MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM ve MKV çevrilmiş altyazıya ya da konuşulan dilde bir döküme dönüşür (SRT, VTT, TXT, JSON)
-- **Toplu metin** – ayrı dizeler sırasıyla çevrilir ya da Equalang'ın cümle sınırlarından kendisinin böldüğü tek bir uzun metin (100.000 karaktere kadar)
-- **100+ dil** – metin için 100+, dosyalar için 12; kaynak dili boş bıraktığınızda otomatik olarak algılanır
+- **Toplu metin** – kısa metinler sırasıyla çevrilir ya da Equalang'ın cümle sınırlarından kendisinin böldüğü tek bir uzun metin (100.000 karaktere kadar)
+- **Diller** – metin için 100+, dosyalar için 12; kaynak dili boş bıraktığınızda otomatik olarak algılanır
 
 ## Anahtar alın
 
-<https://equalang.com> adresinde kaydolun ve <https://equalang.com/api-keys> adresinde bir anahtar oluşturun. Yeni hesaplar ücretsiz kredilerle başlar – bir belgeyi çevirtip geriye ne geldiğini görmeye yeter.
+<https://equalang.com> adresinde kaydolun ve <https://equalang.com/api-keys> adresinde bir anahtar oluşturun. Yeni hesaplar ücretsiz kredilerle başlar – bir belgeyi çevirip denemeye yeter.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-Ya da bu dizinde `.env.example` dosyasını `.env` olarak kopyalayın – git tarafından yok sayılır. Anahtar yalnızca bir kez gösterilir; Equalang onun sadece hash'ini saklar.
+Ya da bu dizinde `.env.example` dosyasını `.env` olarak kopyalayın – git tarafından yok sayılır.
 
 ## Kurulum
 
@@ -36,7 +36,7 @@ Ya da bu dizinde `.env.example` dosyasını `.env` olarak kopyalayın – git ta
 
 En kısa yol – bunu ajanınıza yapıştırın:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> Equalang becerisini https://equalang.com/install/skill-install.md adresindeki yönergeleri izleyerek kurun.
 
 <details open>
 <summary><b>Claude Code</b> (eklenti)</summary>
@@ -92,7 +92,7 @@ MCP sunucusu mu tercih edersiniz? [equalang-mcp](https://github.com/equalang/equ
 ## Komutlar
 
 ```bash
-# Kaça mal olur? Ücretsizdir ve hiçbir şey başlatılmaz
+# Kaça mal olur? Ücretsizdir, çeviri başlamaz
 python3 scripts/equalang.py estimate report.pdf
 
 # Bir dosyayı çevirir; sonuç kaynağın yanına kaydedilir
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # Bir kayıtta söylenenler, zaman damgalı metin olarak
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Ayrı dizeler, sırasıyla
+# Kısa metinler, sırasıyla
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # Equalang'ın cümle sınırlarından böldüğü tek bir uzun metin
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Her komut tek bir JSON nesnesi yazdırır – yollar ve krediler, asla dosya içeriği değil – ya da çıkış kodu 1 ile `{"error", "code", "retryable"}`. Herhangi bir komutta `--help`, o komutun bayraklarını listeler. Ajanın okuduğu dosya [SKILL.md](../SKILL.md)'dir.
+Her komut JSON yazdırır: dosyaların nereye yazıldığını ve kaça mal olduğunu ya da neyin ters gittiğini. Bayraklarını görmek için herhangi bir komuta `--help` ekleyin. Ajanın okuduğu dosya [SKILL.md](../SKILL.md)'dir.
 
-Dil kodları `en`, `zh-CN`, `ja` biçimindedir; `languages` bunları canlı API'den okur, böylece Equalang'ın eklediği bir dil güncelleme gerekmeden kullanılabilir. İşler dakikalar sürer – komut bekler ve komutu kesersen `status <job_id>` işi yeniden ele alır.
+Dil kodları `en`, `zh-CN`, `ja` biçimindedir. Hepsini listelemek için `languages`, aramak için `languages chinese` çalıştırın. İşler dakikalar sürer – komut bekler ve komutu kesersen `status <job_id>` işi yeniden ele alır.
 
 ## Bağlantılar
 

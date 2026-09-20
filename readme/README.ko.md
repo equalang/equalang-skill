@@ -10,25 +10,25 @@
 
 > **키워드:** 문서 번역, PDF 번역, PDF 번역 레이아웃 유지, 서식 유지 번역, 워드 번역, PPT 번역, 엑셀 번역, EPUB 번역, 논문 번역, 자막 번역, SRT 자막 번역, 이미지 번역, 영상 번역, 음성 텍스트 변환, 녹음 받아쓰기, AI 번역기, agent skill, claude code skill, codex skill, translation api
 
-**파일은 번역하고, 레이아웃은 그대로.** [Equalang](https://equalang.com)을 위한 [Agent Skill](https://agentskills.io)입니다. Equalang은 파일을 통째로 다루는 AI 번역기입니다. PDF는 PDF로, 슬라이드는 슬라이드로 돌아오고 표와 이미지, 수식은 제자리에 남습니다. 자막과 이미지도 번역하고, 오디오와 비디오를 번역된 자막이나 전사문으로 바꾸며, 문자열을 대량으로 번역합니다. Claude Code, Codex, Cursor, CodeBuddy를 비롯해 Agent Skills를 불러오는 모든 에이전트에서 동작합니다.
+**파일은 번역하고, 레이아웃은 그대로.** [Equalang](https://equalang.com)을 위한 [Agent Skill](https://agentskills.io)입니다. Equalang은 파일을 통째로 다루는 AI 번역기입니다. PDF는 PDF로, 슬라이드는 슬라이드로 돌아오고 표와 이미지, 수식은 제자리에 남습니다. 자막과 이미지도 번역하고, 오디오와 비디오를 번역된 자막이나 전사문으로 바꾸며, 짧은 텍스트를 대량으로 번역합니다. Claude Code, Codex, Cursor, CodeBuddy를 비롯해 Agent Skills를 불러오는 모든 에이전트에서 동작합니다.
 
 ## 기능
 
-- **넣은 형식 그대로** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, TXT는 같은 형식으로, 편집 가능한 상태로 돌아오며 표와 이미지, 수식, 페이지 레이아웃이 제자리에 남습니다
+- **문서** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, TXT는 같은 형식으로, 편집 가능한 상태로 돌아오며 표와 이미지, 수식, 페이지 레이아웃이 제자리에 남습니다
 - **자막과 이미지** - SRT와 VTT는 타이밍을 유지하고, 원하면 번역문 위에 원문을 함께 넣을 수 있습니다. JPG, PNG, WebP, BMP는 이미지 속 글자가 번역된 채로 돌아옵니다
 - **오디오와 비디오** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM, MKV는 번역된 자막으로, 또는 원래 말한 언어의 전사문(SRT, VTT, TXT, JSON)으로 바뀝니다
-- **대량 텍스트** - 개별 문자열을 순서대로 번역하거나, 긴 텍스트 하나(최대 100,000자)를 Equalang이 직접 문장 단위로 나눠 번역합니다
-- **100개 이상의 언어** - 텍스트는 100개 이상, 파일은 12개 언어를 지원하며, 원본 언어를 생략하면 자동으로 감지합니다
+- **대량 텍스트** - 짧은 텍스트를 순서대로 번역하거나, 긴 텍스트 하나(최대 100,000자)를 Equalang이 직접 문장 단위로 나눠 번역합니다
+- **언어** - 텍스트는 100개 이상, 파일은 12개 언어를 지원하며, 원본 언어를 생략하면 자동으로 감지합니다
 
 ## 키 받기
 
-<https://equalang.com>에서 가입하고 <https://equalang.com/api-keys>에서 키를 만드세요. 새 계정에는 무료 크레딧이 들어 있습니다. 문서 하나를 돌려 보고 결과를 확인하기에 충분한 양입니다.
+<https://equalang.com>에서 가입하고 <https://equalang.com/api-keys>에서 키를 만드세요. 새 계정에는 무료 크레딧이 들어 있어, 문서 하나쯤은 번역해 볼 수 있습니다.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-또는 이 디렉터리의 `.env.example`을 `.env`로 복사하세요. 이 파일은 gitignore에 들어 있습니다. 키는 한 번만 표시되며, Equalang은 키의 해시만 보관합니다.
+또는 이 디렉터리의 `.env.example`을 `.env`로 복사하세요. 이 파일은 gitignore에 들어 있습니다.
 
 ## 설치
 
@@ -36,7 +36,7 @@ export EQUALANG_API_KEY=el_your_key
 
 가장 빠른 방법은 에이전트에게 다음을 붙여 넣는 것입니다.
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> https://equalang.com/install/skill-install.md 의 안내에 따라 Equalang 스킬을 설치해 주세요.
 
 <details open>
 <summary><b>Claude Code</b> (플러그인)</summary>
@@ -92,7 +92,7 @@ MCP 서버가 더 편하신가요? [equalang-mcp](https://github.com/equalang/eq
 ## 명령
 
 ```bash
-# 비용이 얼마나 들까? 무료이며 아무 작업도 시작되지 않습니다
+# 비용이 얼마나 들까? 무료이고, 번역이 시작되지는 않습니다
 python3 scripts/equalang.py estimate report.pdf
 
 # 파일을 번역합니다. 결과는 원본 옆에 저장됩니다
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # 녹음에서 말한 내용을 타임코드가 붙은 텍스트로
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# 개별 문자열을 순서대로
+# 짧은 텍스트를 순서대로
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # 긴 텍스트 하나, Equalang이 문장 단위로 나눕니다
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-모든 명령은 JSON 객체 하나를 출력합니다. 경로와 크레딧일 뿐 파일 내용은 절대 담기지 않습니다. 실패하면 `{"error", "code", "retryable"}`과 함께 종료 코드 1을 냅니다. 어떤 명령이든 `--help`를 붙이면 플래그 목록이 나옵니다. 에이전트가 읽는 것은 [SKILL.md](../SKILL.md)입니다.
+모든 명령은 JSON을 출력합니다. 파일을 어디에 저장했고 얼마가 들었는지, 잘못됐다면 무엇이 잘못됐는지 알려 줍니다. 어떤 명령이든 `--help`를 붙이면 플래그 목록이 나옵니다. 에이전트가 읽는 것은 [SKILL.md](../SKILL.md)입니다.
 
-언어 코드는 `en`, `zh-CN`, `ja`처럼 생겼습니다. `languages`가 실제 API에서 코드와 이름을 읽어 오므로, Equalang이 언어를 추가하면 업데이트 없이 바로 쓸 수 있습니다. 작업은 몇 분씩 걸립니다. 명령은 끝날 때까지 기다리고, 중간에 끊어도 `status <job_id>`로 다시 이어받습니다.
+언어 코드는 `en`, `zh-CN`, `ja`처럼 생겼습니다. `languages`를 실행하면 목록이 나오고, `languages chinese`로 검색할 수 있습니다. 작업은 몇 분씩 걸립니다. 명령은 끝날 때까지 기다리고, 중간에 끊어도 `status <job_id>`로 다시 이어받습니다.
 
 ## 링크
 

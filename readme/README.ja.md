@@ -10,25 +10,25 @@
 
 > **キーワード:** ドキュメント翻訳, PDF 翻訳, PDF 翻訳 レイアウト保持, PDF 翻訳 レイアウトそのまま, Word 翻訳, パワーポイント 翻訳, エクセル 翻訳, EPUB 翻訳, 論文 翻訳, 字幕翻訳, SRT 翻訳, 画像翻訳, 動画翻訳, 音声 文字起こし, 動画 文字起こし, AI 翻訳, agent skill, claude code skill, codex skill, translation api
 
-**ファイルを翻訳しても、レイアウトはそのまま。** [Equalang](https://equalang.com) の [Agent Skill](https://agentskills.io) です。Equalang はファイルを丸ごと扱う AI 翻訳ツールで、PDF は PDF のまま、スライドはスライドのまま、表・画像・数式も元の位置で返ってきます。字幕や画像の翻訳、音声・動画からの翻訳済み字幕や書き起こしの作成、文字列の一括翻訳にも対応。Claude Code、Codex、Cursor、CodeBuddy をはじめ、Agent Skills を読み込めるあらゆるエージェントで動きます。
+**ファイルを翻訳しても、レイアウトはそのまま。** [Equalang](https://equalang.com) の [Agent Skill](https://agentskills.io) です。Equalang はファイルを丸ごと扱う AI 翻訳ツールで、PDF は PDF のまま、スライドはスライドのまま、表・画像・数式も元の位置で返ってきます。字幕や画像の翻訳、音声・動画からの翻訳済み字幕や書き起こしの作成、短いテキストの一括翻訳にも対応。Claude Code、Codex、Cursor、CodeBuddy をはじめ、Agent Skills を読み込めるあらゆるエージェントで動きます。
 
 ## 特長
 
-- **形式はそのまま** - PDF、DOCX、PPTX、XLSX、EPUB、HTML、TXT は同じ形式のまま、編集可能な状態で返ってきます。表、画像、数式、ページレイアウトも元の位置のままです
+- **ドキュメント** - PDF、DOCX、PPTX、XLSX、EPUB、HTML、TXT は同じ形式のまま、編集可能な状態で返ってきます。表、画像、数式、ページレイアウトも元の位置のままです
 - **字幕と画像** - SRT と VTT はタイミングを保持し、訳文の上に原文を併記することもできます。JPG、PNG、WebP、BMP は画像内の文字が翻訳された状態で返ってきます
 - **音声と動画** - MP3、M4A、WAV、FLAC、OGG、AAC、Opus、MP4、MOV、WebM、MKV を、翻訳済みの字幕、または話されている言語のままの書き起こし (SRT、VTT、TXT、JSON) にします
-- **テキストの一括翻訳** - 個別の文字列を順番どおりに翻訳。長いテキスト 1 件 (100,000 文字まで) も渡せ、その場合は Equalang が文の区切りで分割します
-- **100 以上の言語** - テキストは 100 以上、ファイルは 12 の言語に対応。ソース言語を省略すると自動検出されます
+- **テキストの一括翻訳** - 短いテキストを順番どおりに翻訳。長いテキスト 1 件 (100,000 文字まで) も渡せ、その場合は Equalang が文の区切りで分割します
+- **言語** - テキストは 100 以上、ファイルは 12 の言語に対応。ソース言語を省略すると自動検出されます
 
 ## キーを取得する
 
-<https://equalang.com> で登録し、<https://equalang.com/api-keys> でキーを作成します。新規アカウントには無料クレジットが付いてきます。ドキュメントを 1 本通して、仕上がりを確かめるには十分な量です。
+<https://equalang.com> で登録し、<https://equalang.com/api-keys> でキーを作成します。新規アカウントには無料クレジットが付いてきます。ドキュメントを 1 本試すには十分です。
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-または、このディレクトリの `.env.example` を `.env` にコピーします (gitignore 済みです)。キーが表示されるのは一度だけで、Equalang が保持するのはそのハッシュだけです。
+または、このディレクトリの `.env.example` を `.env` にコピーします (gitignore 済みです)。
 
 ## インストール
 
@@ -36,7 +36,7 @@ export EQUALANG_API_KEY=el_your_key
 
 いちばん手軽な方法は、これをエージェントに貼り付けることです:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> https://equalang.com/install/skill-install.md の手順に従って、Equalang のスキルをインストールしてください。
 
 <details open>
 <summary><b>Claude Code</b> (プラグイン)</summary>
@@ -92,7 +92,7 @@ MCP サーバーのほうがよければ、[equalang-mcp](https://github.com/equ
 ## コマンド
 
 ```bash
-# いくらかかる? 無料で、何も開始されません
+# いくらかかる? 無料で、翻訳は始まりません
 python3 scripts/equalang.py estimate report.pdf
 
 # ファイルを翻訳する。結果は元ファイルの隣に保存されます
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # 録音で話されている内容を、タイムスタンプ付きテキストに
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# 個別の文字列を、順番どおりに
+# 短いテキストを、順番どおりに
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # 長いテキスト 1 件を、Equalang が文の区切りで分割
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-どのコマンドも JSON オブジェクトを 1 つ出力します。含まれるのはパスとクレジットだけで、ファイルの中身は含みません。失敗時は `{"error", "code", "retryable"}` を終了コード 1 で出力します。どのコマンドでも `--help` でフラグの一覧を確認できます。エージェントが読むのは [SKILL.md](../SKILL.md) です。
+どのコマンドも JSON を出力します。ファイルをどこに書いたか、いくらかかったか、うまくいかなかったときは何が起きたかが分かります。どのコマンドでも `--help` を付けるとフラグの一覧が出ます。エージェントが読むのは [SKILL.md](../SKILL.md) です。
 
-言語コードは `en`、`zh-CN`、`ja` のような形式です。`languages` が稼働中の API からコードと名称を読み取るため、Equalang が追加した言語はアップデートなしで使えます。ジョブには数分かかります。コマンドは完了を待ち、途中で中断しても `status <job_id>` で再開できます。
+言語コードは `en`、`zh-CN`、`ja` のような形式です。`languages` を実行すると一覧が出て、`languages chinese` で検索できます。ジョブには数分かかります。コマンドは完了を待ち、途中で中断しても `status <job_id>` で再開できます。
 
 ## リンク
 

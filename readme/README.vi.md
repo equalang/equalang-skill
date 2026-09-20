@@ -10,25 +10,25 @@
 
 > **Từ khóa:** dịch tài liệu, dịch pdf, dịch pdf giữ nguyên định dạng, dịch file word, dịch file docx, dịch powerpoint, dịch file excel, dịch epub, dịch phụ đề, dịch file srt, dịch chữ trong ảnh, dịch video, chuyển giọng nói thành văn bản, chép lời ghi âm, dịch bằng ai, api dịch thuật, agent skill, claude code skill, codex skill, translation api
 
-**Dịch tệp, giữ nguyên bố cục.** Một [Agent Skill](https://agentskills.io) cho [Equalang](https://equalang.com) - trình dịch AI làm việc trên trọn tệp: PDF trả về vẫn là PDF, bản trình chiếu vẫn là bản trình chiếu, bảng, hình ảnh và công thức nằm nguyên chỗ cũ. Nó còn dịch phụ đề và hình ảnh, biến âm thanh và video thành phụ đề đã dịch hoặc bản chép lời, và dịch hàng loạt chuỗi văn bản. Dùng được trong Claude Code, Codex, Cursor, CodeBuddy và mọi agent khác có tải Agent Skills.
+**Dịch tệp, giữ nguyên bố cục.** Một [Agent Skill](https://agentskills.io) cho [Equalang](https://equalang.com) - trình dịch AI làm việc trên trọn tệp: PDF trả về vẫn là PDF, bản trình chiếu vẫn là bản trình chiếu, bảng, hình ảnh và công thức nằm nguyên chỗ cũ. Nó còn dịch phụ đề và hình ảnh, biến âm thanh và video thành phụ đề đã dịch hoặc bản chép lời, và dịch hàng loạt văn bản ngắn. Dùng được trong Claude Code, Codex, Cursor, CodeBuddy và mọi agent khác có tải Agent Skills.
 
 ## Tính năng
 
-- **Định dạng nào vào, định dạng ấy ra** - PDF, DOCX, PPTX, XLSX, EPUB, HTML và TXT trả về đúng định dạng cũ, vẫn chỉnh sửa được, bảng, hình ảnh, công thức và bố cục trang giữ nguyên
+- **Tài liệu** - PDF, DOCX, PPTX, XLSX, EPUB, HTML và TXT trả về đúng định dạng cũ, vẫn chỉnh sửa được, bảng, hình ảnh, công thức và bố cục trang giữ nguyên
 - **Phụ đề và hình ảnh** - SRT và VTT giữ nguyên mốc thời gian, tùy chọn kèm dòng gốc phía trên bản dịch; JPG, PNG, WebP và BMP trả về với phần chữ trong ảnh đã được dịch
 - **Âm thanh và video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM và MKV trở thành phụ đề đã dịch, hoặc bản chép lời bằng chính ngôn ngữ được nói (SRT, VTT, TXT, JSON)
-- **Văn bản hàng loạt** - các chuỗi riêng lẻ được dịch theo đúng thứ tự, hoặc một văn bản dài (tối đa 100,000 ký tự) do Equalang tự cắt theo câu
-- **Hơn 100 ngôn ngữ** - hơn 100 cho văn bản và 12 cho tệp, tự động phát hiện ngôn ngữ nguồn khi bạn bỏ trống
+- **Văn bản hàng loạt** - các văn bản ngắn được dịch theo đúng thứ tự, hoặc một văn bản dài (tối đa 100,000 ký tự) do Equalang tự cắt theo câu
+- **Ngôn ngữ** - hơn 100 cho văn bản và 12 cho tệp, tự động phát hiện ngôn ngữ nguồn khi bạn bỏ trống
 
 ## Lấy khóa
 
-Đăng ký tại <https://equalang.com> và tạo khóa tại <https://equalang.com/api-keys>. Tài khoản mới có sẵn credit miễn phí - đủ để chạy thử một tài liệu và xem kết quả trả về.
+Đăng ký tại <https://equalang.com> và tạo khóa tại <https://equalang.com/api-keys>. Tài khoản mới có sẵn credit miễn phí, đủ để dịch thử một tài liệu.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-Hoặc sao chép `.env.example` thành `.env` trong thư mục này - tệp đó đã được gitignore. Khóa chỉ hiển thị một lần; Equalang chỉ lưu giá trị băm của nó.
+Hoặc sao chép `.env.example` thành `.env` trong thư mục này - tệp đó đã được gitignore.
 
 ## Cài đặt
 
@@ -36,7 +36,7 @@ Cần `python3` 3.8 trở lên, và không cần gì khác: script chỉ dùng t
 
 Cách ngắn nhất - dán câu này cho agent của bạn:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> Cài đặt skill Equalang bằng cách làm theo hướng dẫn tại https://equalang.com/install/skill-install.md
 
 <details open>
 <summary><b>Claude Code</b> (plugin)</summary>
@@ -92,7 +92,7 @@ Thích máy chủ MCP hơn? [equalang-mcp](https://github.com/equalang/equalang-
 ## Lệnh
 
 ```bash
-# Sẽ tốn bao nhiêu? Miễn phí, và chưa có gì được khởi chạy
+# Sẽ tốn bao nhiêu? Miễn phí, và chưa dịch gì cả
 python3 scripts/equalang.py estimate report.pdf
 
 # Dịch một tệp; kết quả nằm ngay cạnh tệp nguồn
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # Bản ghi âm nói gì, dưới dạng văn bản có mốc thời gian
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Các chuỗi riêng lẻ, theo đúng thứ tự
+# Các văn bản ngắn, theo đúng thứ tự
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # Một văn bản dài, Equalang tự cắt theo câu
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Mỗi lệnh in ra một đối tượng JSON - đường dẫn và credit, không bao giờ là nội dung tệp - hoặc `{"error", "code", "retryable"}` với mã thoát 1. Thêm `--help` vào bất kỳ lệnh nào để xem các cờ của nó. [SKILL.md](../SKILL.md) là thứ agent đọc.
+Mỗi lệnh đều in ra JSON: tệp được ghi ở đâu và tốn bao nhiêu, hoặc có gì trục trặc. Thêm `--help` vào bất kỳ lệnh nào để xem các cờ của nó. [SKILL.md](../SKILL.md) là thứ agent tự đọc.
 
-Mã ngôn ngữ có dạng `en`, `zh-CN`, `ja`; `languages` đọc chúng từ API đang chạy, nên ngôn ngữ Equalang mới thêm dùng được ngay mà không cần cập nhật ở đây. Tác vụ mất vài phút - lệnh sẽ chờ, và `status <job_id>` tiếp tục theo dõi nó nếu bạn ngắt giữa chừng.
+Mã ngôn ngữ có dạng `en`, `zh-CN`, `ja`. Chạy `languages` để xem toàn bộ, hoặc `languages chinese` để tìm. Tác vụ mất vài phút - lệnh sẽ chờ, và `status <job_id>` tiếp tục theo dõi nó nếu bạn ngắt giữa chừng.
 
 ## Liên kết
 

@@ -10,25 +10,25 @@
 
 > **Palabras clave:** traducir pdf, traductor de pdf, traducir pdf manteniendo formato, traductor de documentos, traducir documento word, traducir docx, traducir powerpoint, traducir excel, traducir epub, traducir subtítulos, traductor srt, traducir imagen, traducir texto de una imagen, traducir vídeo, transcribir audio a texto, traductor con ia, agent skill, claude code skill, codex skill, translation api
 
-**Traduce el archivo, conserva la maquetación.** Un [Agent Skill](https://agentskills.io) para [Equalang](https://equalang.com), un traductor con IA que trabaja con archivos enteros: un PDF vuelve como PDF y una presentación como presentación, con las tablas, las imágenes y las fórmulas donde estaban. También traduce subtítulos e imágenes, convierte audio y vídeo en subtítulos traducidos o en una transcripción, y traduce cadenas de texto en lote. Funciona en Claude Code, Codex, Cursor, CodeBuddy y cualquier otro agente que cargue Agent Skills.
+**Traduce el archivo, conserva la maquetación.** Un [Agent Skill](https://agentskills.io) para [Equalang](https://equalang.com), un traductor con IA que trabaja con archivos enteros: un PDF vuelve como PDF y una presentación como presentación, con las tablas, las imágenes y las fórmulas donde estaban. También traduce subtítulos e imágenes, convierte audio y vídeo en subtítulos traducidos o en una transcripción, y traduce textos cortos en lote. Funciona en Claude Code, Codex, Cursor, CodeBuddy y cualquier otro agente que cargue Agent Skills.
 
 ## Características
 
-- **El formato que entra es el que sale**: PDF, DOCX, PPTX, XLSX, EPUB, HTML y TXT vuelven en el mismo formato, todavía editables, con tablas, imágenes, fórmulas y maquetación de página en su sitio
+- **Documentos**: PDF, DOCX, PPTX, XLSX, EPUB, HTML y TXT vuelven en el mismo formato, todavía editables, con tablas, imágenes, fórmulas y maquetación de página en su sitio
 - **Subtítulos e imágenes**: SRT y VTT conservan sus tiempos, con la línea original encima de la traducción si se quiere; JPG, PNG, WebP y BMP vuelven con el texto de la imagen traducido
 - **Audio y vídeo**: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM y MKV se convierten en subtítulos traducidos, o en una transcripción en el idioma hablado (SRT, VTT, TXT, JSON)
-- **Texto en lote**: cadenas separadas traducidas en orden, o un solo texto largo (hasta 100.000 caracteres) que Equalang corta por frases por sí mismo
-- **Más de 100 idiomas**: más de 100 para texto y 12 para archivos, con el idioma de origen detectado cuando no lo indicas
+- **Texto en lote**: textos cortos traducidos en orden, o un solo texto largo (hasta 100.000 caracteres) que Equalang corta por frases por sí mismo
+- **Idiomas**: más de 100 para texto y 12 para archivos, con el idioma de origen detectado cuando no lo indicas
 
 ## Consigue una clave
 
-Regístrate en <https://equalang.com> y crea una clave en <https://equalang.com/api-keys>. Las cuentas nuevas empiezan con créditos gratis, suficientes para pasar un documento y ver qué vuelve.
+Regístrate en <https://equalang.com> y crea una clave en <https://equalang.com/api-keys>. Las cuentas nuevas vienen con créditos gratis, suficientes para traducir un documento y probarlo.
 
 ```bash
 export EQUALANG_API_KEY=el_your_key
 ```
 
-O copia `.env.example` a `.env` en este directorio; git lo ignora. La clave se muestra una sola vez; Equalang solo guarda un hash de ella.
+O copia `.env.example` a `.env` en este directorio; git lo ignora.
 
 ## Instalación
 
@@ -36,7 +36,7 @@ Necesita `python3` 3.8 o posterior, y nada más: el script solo usa la bibliotec
 
 La forma más corta es pegarle esto a tu agente:
 
-> Install the Equalang skill by following the instructions at https://equalang.com/install/skill-install.md
+> Instala el skill de Equalang siguiendo las instrucciones de https://equalang.com/install/skill-install.md
 
 <details open>
 <summary><b>Claude Code</b> (plugin)</summary>
@@ -92,7 +92,7 @@ git clone https://github.com/equalang/equalang-skill
 ## Comandos
 
 ```bash
-# ¿Cuánto costaría? Gratis, y no se inicia nada
+# ¿Cuánto costaría? Gratis, y no empieza a traducir nada
 python3 scripts/equalang.py estimate report.pdf
 
 # Traducir un archivo; el resultado queda junto al original
@@ -104,7 +104,7 @@ python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o .
 # Lo que dice una grabación, como texto con marcas de tiempo
 python3 scripts/equalang.py transcribe interview.mp3 --format srt --format txt
 
-# Cadenas separadas, en orden
+# Textos cortos, en orden
 python3 scripts/equalang.py text "Save changes" "Delete project" --to de
 
 # Un solo texto largo, que Equalang corta por frases
@@ -117,9 +117,9 @@ python3 scripts/equalang.py balance
 python3 scripts/equalang.py languages chinese
 ```
 
-Cada comando imprime un único objeto JSON (rutas y créditos, nunca el contenido de los archivos) o `{"error", "code", "retryable"}` con código de salida 1. `--help` en cualquier comando lista sus opciones. [SKILL.md](../SKILL.md) es lo que lee el agente.
+Cada comando imprime JSON: dónde se escribieron los archivos y cuánto costaron, o qué salió mal. Añade `--help` a cualquier comando para ver sus opciones. El propio agente lee [SKILL.md](../SKILL.md).
 
-Los códigos de idioma tienen la forma `en`, `zh-CN`, `ja`; `languages` los lee de la API en vivo, de modo que un idioma que Equalang añada está disponible sin actualizar. Los trabajos tardan minutos: el comando espera, y `status <job_id>` lo retoma si lo interrumpes.
+Los códigos de idioma tienen la forma `en`, `zh-CN`, `ja`. Ejecuta `languages` para verlos todos, o `languages chinese` para buscar. Los trabajos tardan minutos: el comando espera, y `status <job_id>` lo retoma si lo interrumpes.
 
 ## Enlaces
 
