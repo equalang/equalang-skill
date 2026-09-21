@@ -38,12 +38,11 @@
 Anahtarı bir kez `~/.config/equalang/.env` dosyasına kaydedin, kalıcı olarak geçerli olur: hangi ajanı kullanırsanız kullanın - Claude Code, Codex, WorkBuddy, Cursor ya da başka biri - her yeni oturumda, yeniden kurulum ve güncellemelerden sonra da, export gerekmeden. Equalang MCP sunucusu da aynı dosyayı okur.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# el_your_key yerine kendi anahtarınızı yazın
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-Ortamda tanımlı `EQUALANG_API_KEY` önceliklidir; tek bir projede farklı bir anahtar kullanmak için bunu kullanın.
+Önce `EQUALANG_API_KEY` ortam değişkenine bakılır, dosya yalnızca o yoksa okunur; böylece tek bir proje farklı bir anahtar kullanabilir.
 
 ## Kurulum
 

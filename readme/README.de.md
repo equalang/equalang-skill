@@ -38,12 +38,11 @@ Registriere dich unter <https://equalang.com> und erstelle einen Schlüssel unte
 Speichere ihn einmal in `~/.config/equalang/.env`, dann gilt er dauerhaft: in jedem Agenten – Claude Code, Codex, WorkBuddy, Cursor oder einem anderen –, in jeder neuen Sitzung und auch nach Neuinstallation oder Update, ganz ohne export. Der Equalang-MCP-Server liest dieselbe Datei.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# Ersetze el_your_key durch deinen Schlüssel
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-Ein in der Umgebung gesetztes `EQUALANG_API_KEY` hat Vorrang – für einen anderen Schlüssel in einem einzelnen Projekt.
+Zuerst wird die Umgebungsvariable `EQUALANG_API_KEY` geprüft, die Datei nur gelesen, wenn sie fehlt – so kann ein einzelnes Projekt einen anderen Schlüssel verwenden.
 
 ## Installation
 

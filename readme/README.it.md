@@ -38,12 +38,11 @@ Registrati su <https://equalang.com> e crea una chiave su <https://equalang.com/
 Salvala una volta in `~/.config/equalang/.env` e resta valida: in qualsiasi agente (Claude Code, Codex, WorkBuddy, Cursor o altri), in ogni nuova sessione e anche dopo reinstallazioni e aggiornamenti, senza export. Il server MCP di Equalang legge lo stesso file.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# Sostituisci el_your_key con la tua chiave
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-`EQUALANG_API_KEY` impostata nell'ambiente ha la precedenza: serve per usare un'altra chiave in un singolo progetto.
+Prima si guarda la variabile d'ambiente `EQUALANG_API_KEY`, e il file si legge solo se manca: così un singolo progetto può usare un'altra chiave.
 
 ## Installazione
 

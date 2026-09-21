@@ -38,12 +38,11 @@
 บันทึกคีย์ไว้ใน `~/.config/equalang/.env` ครั้งเดียวก็ใช้ได้ตลอด ทั้งใน Claude Code, Codex, WorkBuddy, Cursor หรือเอเจนต์อื่น ในทุกเซสชันใหม่ และหลังติดตั้งใหม่หรืออัปเดต โดยไม่ต้อง export เซิร์ฟเวอร์ Equalang MCP ก็อ่านไฟล์เดียวกันนี้
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# แทนที่ el_your_key ด้วยคีย์ของคุณ
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-ถ้าตั้ง `EQUALANG_API_KEY` ไว้ในตัวแปรสภาพแวดล้อม ค่านั้นจะมีผลก่อนไฟล์ - ใช้เมื่อโปรเจกต์ใดโปรเจกต์หนึ่งต้องใช้คีย์อื่น
+จะดูตัวแปรสภาพแวดล้อม `EQUALANG_API_KEY` ก่อน ถ้าไม่มีจึงอ่านไฟล์นี้ - โปรเจกต์ไหนต้องใช้คีย์อื่นก็ตั้งไว้ในตัวแปรสภาพแวดล้อมของโปรเจกต์นั้น
 
 ## ติดตั้ง
 

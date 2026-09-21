@@ -38,12 +38,11 @@
 키를 `~/.config/equalang/.env`에 한 번 저장하면 계속 유효합니다. Claude Code, Codex, WorkBuddy, Cursor 등 어떤 에이전트에서든, 새 세션에서도, 다시 설치하거나 업데이트한 뒤에도 쓸 수 있고 export할 필요가 없습니다. Equalang MCP 서버도 같은 파일을 읽습니다.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# el_your_key를 본인의 키로 바꾸세요
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-환경 변수 `EQUALANG_API_KEY`가 설정되어 있으면 그것이 우선합니다. 특정 프로젝트에서만 다른 키를 쓸 때 사용하세요.
+먼저 환경 변수 `EQUALANG_API_KEY`를 확인하고, 없을 때만 이 파일을 읽습니다. 특정 프로젝트에서 다른 키를 쓰려면 그 프로젝트의 환경 변수에 설정하세요.
 
 ## 설치
 

@@ -38,12 +38,11 @@
 Сохраните его один раз в `~/.config/equalang/.env` — и он будет действовать всегда: в любом агенте (Claude Code, Codex, WorkBuddy, Cursor или другом), в каждом новом сеансе, после переустановки и обновления, без всякого export. MCP-сервер Equalang читает тот же файл.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# Замените el_your_key своим ключом
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-Переменная окружения `EQUALANG_API_KEY` имеет приоритет — так можно задать другой ключ для отдельного проекта.
+Сначала проверяется переменная окружения `EQUALANG_API_KEY`, и только если её нет, читается файл — так отдельный проект может использовать другой ключ.
 
 ## Установка
 

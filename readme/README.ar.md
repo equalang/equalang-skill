@@ -38,12 +38,11 @@
 احفظه مرة واحدة في `~/.config/equalang/.env` فيبقى نافذًا: في أي وكيل - Claude Code أو Codex أو WorkBuddy أو Cursor أو غيرها - وفي كل جلسة جديدة، وبعد إعادة التثبيت والتحديث، دون أي export. ويقرأ خادم Equalang MCP الملف نفسه.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# استبدل el_your_key بمفتاحك
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-متغير البيئة `EQUALANG_API_KEY` له الأولوية - استخدمه حين يحتاج مشروع ما إلى مفتاح مختلف.
+يُفحص متغير البيئة `EQUALANG_API_KEY` أولًا، ولا يُقرأ الملف إلا إذا لم يكن موجودًا - وهكذا يمكن لمشروع ما أن يستخدم مفتاحًا مختلفًا.
 
 ## التثبيت
 

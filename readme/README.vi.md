@@ -38,12 +38,11 @@
 Lưu khóa một lần vào `~/.config/equalang/.env` là dùng được mãi: trong mọi agent - Claude Code, Codex, WorkBuddy, Cursor hay agent khác - ở mọi phiên mới, kể cả sau khi cài lại hay cập nhật, không cần export. Máy chủ MCP của Equalang cũng đọc chính tệp này.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# Thay el_your_key bằng khóa của bạn
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-`EQUALANG_API_KEY` đặt trong biến môi trường sẽ được ưu tiên - dùng khi một dự án cần khóa khác.
+Biến môi trường `EQUALANG_API_KEY` được xem trước; chỉ khi không có mới đọc tệp này - nhờ vậy một dự án có thể dùng khóa khác.
 
 ## Cài đặt
 

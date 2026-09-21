@@ -38,12 +38,11 @@ Daftar di <https://equalang.com> dan buat kunci di <https://equalang.com/api-key
 Simpan sekali di `~/.config/equalang/.env` dan kunci itu tetap berlaku: di agent mana pun - Claude Code, Codex, WorkBuddy, Cursor, atau lainnya - di setiap sesi baru, juga setelah dipasang ulang atau diperbarui, tanpa perlu export. Server MCP Equalang membaca file yang sama.
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# Ganti el_your_key dengan kunci Anda
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-`EQUALANG_API_KEY` yang diatur di environment lebih diutamakan - gunakan untuk kunci lain di satu proyek tertentu.
+Variabel environment `EQUALANG_API_KEY` diperiksa lebih dulu; file ini hanya dibaca bila variabel itu tidak ada - dengan begitu satu proyek bisa memakai kunci lain.
 
 ## Instalasi
 

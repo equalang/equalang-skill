@@ -38,12 +38,11 @@
 把密钥保存到 `~/.config/equalang/.env`，一次就永久生效：Claude Code、Codex、WorkBuddy、Cursor 等任何 Agent 都能用，每次新开会话、重装或升级之后也不受影响，不用每次 export。Equalang MCP 服务器读的也是这个文件。
 
 ```bash
-mkdir -p ~/.config/equalang
-echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
-chmod 600 ~/.config/equalang/.env
+# 把 el_your_key 换成你的密钥
+mkdir -p ~/.config/equalang && echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env && chmod 600 ~/.config/equalang/.env
 ```
 
-环境变量里设置的 `EQUALANG_API_KEY` 优先——某个项目要用另一把密钥时就用它。
+先看环境变量里有没有 `EQUALANG_API_KEY`，没有才读这个文件——某个项目要用另一把密钥，在那个项目的环境变量里设置即可。
 
 ## 安装
 
