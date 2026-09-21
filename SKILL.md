@@ -57,7 +57,7 @@ A failure prints `{"error", "code", "retryable"}` and exits 1. Retry only when `
 ## Worth knowing
 
 - **Formats.** Documents: pdf, docx, pptx, xlsx, epub, html, txt. Subtitles: srt, vtt. Pictures: jpg, png, webp, bmp. Recordings: mp3, m4a, wav, flac, ogg, aac, opus, mp4, mov, webm, mkv. Up to 100 MB. `transcribe` takes recordings only.
-- **Results never overwrite.** They land beside a local source (or in `-o DIR`, or the current directory for a URL) under the name Equalang gives them; a taken name gets ` (1)`.
+- **Results never overwrite.** They land beside a local source (or in `-o DIR`, or the current directory for a URL) under the name Equalang gives them; a taken name gets ` (1)`. Asking `status` again about a finished job names the files it already wrote rather than copying them.
 - **Minutes, not seconds, for long files.** The command waits and prints progress to stderr. Interrupting it does **not** cancel the job: `status <job_id>` picks it up, `cancel <job_id>` stops it. A cancelled or failed job is not charged.
 - **A recording is charged for the speech actually heard** - silence and music are not - so it usually costs less than `estimate` said; a document costs what `estimate` said.
 - **Language codes** look like `en`, `zh-CN`, `zh-TW`, `ja`, `pt`. They are read from the live API, never from memory: `languages` lists the ones files take, `languages --kind text` the wider set `text` takes, and `languages chinese` finds one by name. Omit `--source-language` to have it detected.

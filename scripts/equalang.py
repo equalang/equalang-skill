@@ -48,14 +48,20 @@ class EqualangError(Exception):
         self.code, self.retryable, self.data = code, retryable, data or {}
 
 
-def _api_key():
-    key = (os.environ.get('EQUALANG_API_KEY') or '').strip()
+def _setting(name):
+    """A variable from the environment, or else its line in this skill's .env."""
+    value = (os.environ.get(name) or '').strip()
     env_file = Path(__file__).resolve().parent.parent / '.env'
-    if not key and env_file.exists():
+    if not value and env_file.exists():
         for line in env_file.read_text(encoding='utf-8').splitlines():
-            name, _, value = line.partition('=')
-            if name.strip() == 'EQUALANG_API_KEY':
-                key = value.strip().strip('"').strip("'")
+            key, _, found = line.partition('=')
+            if key.strip() == name:
+                value = found.strip().strip('"').strip("'")
+    return value
+
+
+def _api_key():
+    key = _setting('EQUALANG_API_KEY')
     if not key:
         raise EqualangError(
             f'No API key. Ask the user for one, or to create one at {KEYS_URL}; then `export EQUALANG_API_KEY=el_...` '
@@ -64,7 +70,7 @@ def _api_key():
 
 
 def _base_url():
-    return (os.environ.get('EQUALANG_BASE_URL') or f'{SITE}/v1').rstrip('/')
+    return (_setting('EQUALANG_BASE_URL') or f'{SITE}/v1').rstrip('/')
 
 
 def _call(method, path, *, body=None, content_type=None, creates=False, keyless=False):
@@ -159,12 +165,19 @@ def wait(job_id, timeout_seconds):
         time.sleep(max(1.0, min(float(headers.get('Retry-After') or 2), deadline - time.monotonic())))
 
 
-def _free_name(directory, filename):
-    """A name that is free in `directory`: a result never overwrites what is already there."""
+def _save(directory, filename, content):
+    """Write a result so that it overwrites nothing and is not written twice.
+
+    A taken name gets ` (1)`; but a file already holding exactly these bytes is
+    this result, saved by an earlier look at the same job, and is named instead.
+    """
     stem, suffix = Path(filename).stem, Path(filename).suffix
     for n in range(10000):
         candidate = directory / (filename if n == 0 else f'{stem} ({n}){suffix}')
         if not candidate.exists():
+            candidate.write_bytes(content)
+            return candidate
+        if candidate.stat().st_size == len(content) and candidate.read_bytes() == content:
             return candidate
     raise EqualangError(f'no free name for {filename} in {directory}', 'NO_FREE_NAME')
 
@@ -187,11 +200,10 @@ def report(job, destination):
     for output in job['outputs']:
         if not output.get('download_url'):
             raise EqualangError(f'{output["filename"]} is no longer kept', 'FILE_EXPIRED')
-        # The name is the API's; only its last component is trusted with a path on this machine.
-        path = _free_name(destination, Path(output['filename']).name)
         # A signed, short-lived link: a plain GET, without the key.
         with request.urlopen(output['download_url'], timeout=300) as response:
-            path.write_bytes(response.read())
+            # The name is the API's; only its last component is trusted with a path on this machine.
+            path = _save(destination, Path(output['filename']).name, response.read())
         outputs.append({'kind': output['kind'], 'format': output['format'], 'path': str(path)})
     return {**summary, 'outputs': outputs}
 
@@ -243,9 +255,9 @@ def cmd_text(args):
         only = answer['translations'][0]
         if only['error']:
             raise EqualangError(only['error']['message'], only['error']['code'], only['error']['retryable'])
-        target = _free_name(Path(args.output).expanduser().resolve().parent, Path(args.output).name)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(only['translated_text'], encoding='utf-8')
+        directory = Path(args.output).expanduser().resolve().parent
+        directory.mkdir(parents=True, exist_ok=True)
+        target = _save(directory, Path(args.output).name, only['translated_text'].encode('utf-8'))
         return {'path': str(target), 'credits_charged': charged}
     return {'translations': [
         {'error': item['error']['message'], 'code': item['error']['code'], 'retryable': item['error']['retryable']} if item['error']
