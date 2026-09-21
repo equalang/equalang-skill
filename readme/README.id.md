@@ -12,6 +12,17 @@
 
 **Terjemahkan filenya, pertahankan tata letaknya.** Sebuah [Agent Skill](https://agentskills.io) untuk [Equalang](https://equalang.com) - penerjemah AI yang bekerja pada file utuh: PDF kembali sebagai PDF, presentasi sebagai presentasi, dengan tabel, gambar, dan rumus tetap di tempatnya. Ia juga menerjemahkan subtitle dan gambar, mengubah audio dan video menjadi subtitle terjemahan atau transkrip, serta menerjemahkan teks-teks pendek secara massal. Berjalan di Claude Code, Codex, Cursor, CodeBuddy, dan semua agen lain yang memuat Agent Skills.
 
+## Coba minta
+
+- “Terjemahkan ~/Documents/contract.pdf ke bahasa Indonesia, tata letaknya jangan berubah.”
+- “Terjemahkan pitch-deck.pptx ke bahasa Inggris dan Jepang.”
+- “Terjemahkan https://example.com/whitepaper.pdf ke bahasa Indonesia dan simpan di ~/Downloads.”
+- “Berapa biaya menerjemahkan thesis.docx ke bahasa Inggris?”
+- “Buatkan subtitle bahasa Indonesia untuk interview.mp4, dengan baris aslinya di atas setiap terjemahan.”
+- “Transkripsikan standup.m4a lengkap dengan stempel waktu.”
+- “Terjemahkan teks di menu.jpg ke bahasa Indonesia.”
+- “Terjemahkan string di locales/en.json ke bahasa Melayu, Thai, dan Vietnam.”
+
 ## Fitur
 
 - **Dokumen** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, dan TXT kembali dalam format yang sama, tetap bisa diedit, dengan tabel, gambar, rumus, dan tata letak halaman tetap di tempatnya

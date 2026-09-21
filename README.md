@@ -12,6 +12,17 @@
 
 **Translate the file, keep the layout.** An [Agent Skill](https://agentskills.io) for [Equalang](https://equalang.com) - an AI translator that works on whole files: a PDF comes back as a PDF, a deck as a deck, with tables, images and formulas where they were. It also translates subtitles and pictures, turns audio and video into translated subtitles or a transcript, and translates short texts in bulk. Works in Claude Code, Codex, Cursor, CodeBuddy and every other agent that loads Agent Skills.
 
+## Try asking
+
+- "Translate ~/Documents/contract.pdf into Chinese, keeping the layout."
+- "Translate pitch-deck.pptx into Japanese and German."
+- "Translate https://example.com/whitepaper.pdf into Spanish and save it in ~/Downloads."
+- "How much would it cost to translate thesis.docx into French?"
+- "Make Korean subtitles for interview.mp4, with the original line above each one."
+- "Transcribe standup.m4a with timestamps."
+- "Translate the text in menu.jpg into English."
+- "Translate the strings in locales/en.json into French, German and Spanish."
+
 ## Features
 
 - **Documents** - PDF, DOCX, PPTX, XLSX, EPUB, HTML and TXT come back in the same format, still editable, with tables, images, formulas and page layout in place

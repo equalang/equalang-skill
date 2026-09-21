@@ -12,6 +12,17 @@
 
 **Datei übersetzen, Layout behalten.** Ein [Agent Skill](https://agentskills.io) für [Equalang](https://equalang.com) – einen KI-Übersetzer, der mit ganzen Dateien arbeitet: Ein PDF kommt als PDF zurück, eine Präsentation als Präsentation, Tabellen, Bilder und Formeln bleiben, wo sie waren. Er übersetzt außerdem Untertitel und Bilder, macht aus Audio und Video übersetzte Untertitel oder ein Transkript und übersetzt kurze Texte in großen Mengen. Läuft in Claude Code, Codex, Cursor, CodeBuddy und jedem anderen Agenten, der Agent Skills lädt.
 
+## Beispielanfragen
+
+- „Übersetze ~/Documents/contract.pdf ins Deutsche und behalte das Layout bei.“
+- „Übersetze pitch-deck.pptx ins Englische und Französische.“
+- „Übersetze https://example.com/whitepaper.pdf ins Deutsche und speichere es in ~/Downloads.“
+- „Was würde es kosten, thesis.docx ins Englische zu übersetzen?“
+- „Erstelle deutsche Untertitel für interview.mp4, mit der Originalzeile über jeder Übersetzung.“
+- „Transkribiere standup.m4a mit Zeitstempeln.“
+- „Übersetze den Text in menu.jpg ins Deutsche.“
+- „Übersetze die Texte in locales/en.json ins Französische, Spanische und Italienische.“
+
 ## Funktionen
 
 - **Dokumente** – PDF, DOCX, PPTX, XLSX, EPUB, HTML und TXT kommen im selben Format zurück, weiterhin bearbeitbar, Tabellen, Bilder, Formeln und Seitenlayout an ihrem Platz

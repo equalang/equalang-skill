@@ -12,6 +12,17 @@
 
 **파일은 번역하고, 레이아웃은 그대로.** [Equalang](https://equalang.com)을 위한 [Agent Skill](https://agentskills.io)입니다. Equalang은 파일을 통째로 다루는 AI 번역기입니다. PDF는 PDF로, 슬라이드는 슬라이드로 돌아오고 표와 이미지, 수식은 제자리에 남습니다. 자막과 이미지도 번역하고, 오디오와 비디오를 번역된 자막이나 전사문으로 바꾸며, 짧은 텍스트를 대량으로 번역합니다. Claude Code, Codex, Cursor, CodeBuddy를 비롯해 Agent Skills를 불러오는 모든 에이전트에서 동작합니다.
 
+## 이렇게 말해 보세요
+
+- “~/Documents/contract.pdf를 한국어로 번역해 줘. 레이아웃은 그대로.”
+- “pitch-deck.pptx를 영어와 일본어로 번역해 줘.”
+- “https://example.com/whitepaper.pdf를 한국어로 번역해서 ~/Downloads에 저장해 줘.”
+- “thesis.docx를 영어로 번역하면 비용이 얼마나 들어?”
+- “interview.mp4에 한국어 자막을 만들어 줘. 각 줄 위에 원문도 남겨 줘.”
+- “standup.m4a를 타임스탬프와 함께 받아 적어 줘.”
+- “menu.jpg에 있는 글자를 한국어로 번역해 줘.”
+- “locales/en.json의 문구를 일본어, 중국어, 스페인어로 번역해 줘.”
+
 ## 기능
 
 - **문서** - PDF, DOCX, PPTX, XLSX, EPUB, HTML, TXT는 같은 형식으로, 편집 가능한 상태로 돌아오며 표와 이미지, 수식, 페이지 레이아웃이 제자리에 남습니다

@@ -12,6 +12,17 @@
 
 **翻译文件，版式不变。** 这是 [Equalang](https://equalang.com) 的 [Agent Skill](https://agentskills.io)。Equalang 是一款整份文件直接翻译的 AI 翻译工具：PDF 进去，PDF 出来；演示文稿进去，演示文稿出来，表格、图片和公式都在原位。它还能翻译字幕和图片，把音频和视频变成翻译好的字幕或转写文本，并批量翻译短文本。可用于 Claude Code、Codex、Cursor、CodeBuddy，以及其他所有能加载 Agent Skills 的智能体。
 
+## 试试这样说
+
+- “把 ~/Documents/contract.pdf 翻译成中文，排版保持不变。”
+- “把 pitch-deck.pptx 翻译成英文和日文。”
+- “把 https://example.com/whitepaper.pdf 翻译成中文，存到 ~/Downloads。”
+- “把 thesis.docx 翻译成英文，大概要花多少积分？”
+- “给 interview.mp4 做中文字幕，每句上面保留原文。”
+- “把 standup.m4a 转成带时间戳的文字稿。”
+- “把 menu.jpg 里的文字翻译成中文。”
+- “把 locales/en.json 里的文案翻译成日文、韩文和西班牙文。”
+
 ## 功能
 
 - **文档**：PDF、DOCX、PPTX、XLSX、EPUB、HTML 和 TXT 译完仍是原格式，依然可编辑，表格、图片、公式和页面版式都在原位

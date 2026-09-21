@@ -12,6 +12,17 @@
 
 **ファイルを翻訳しても、レイアウトはそのまま。** [Equalang](https://equalang.com) の [Agent Skill](https://agentskills.io) です。Equalang はファイルを丸ごと扱う AI 翻訳ツールで、PDF は PDF のまま、スライドはスライドのまま、表・画像・数式も元の位置で返ってきます。字幕や画像の翻訳、音声・動画からの翻訳済み字幕や書き起こしの作成、短いテキストの一括翻訳にも対応。Claude Code、Codex、Cursor、CodeBuddy をはじめ、Agent Skills を読み込めるあらゆるエージェントで動きます。
 
+## こんなふうに頼めます
+
+- 「~/Documents/contract.pdf を日本語に翻訳して。レイアウトはそのままで」
+- 「pitch-deck.pptx を英語と中国語に翻訳して」
+- 「https://example.com/whitepaper.pdf を日本語に翻訳して ~/Downloads に保存して」
+- 「thesis.docx を英語に翻訳すると、いくらかかる？」
+- 「interview.mp4 に日本語字幕を付けて。各行の上に原文も残して」
+- 「standup.m4a をタイムスタンプ付きで文字起こしして」
+- 「menu.jpg の文字を日本語に翻訳して」
+- 「locales/en.json の文言を韓国語・中国語・フランス語に翻訳して」
+
 ## 特長
 
 - **ドキュメント** - PDF、DOCX、PPTX、XLSX、EPUB、HTML、TXT は同じ形式のまま、編集可能な状態で返ってきます。表、画像、数式、ページレイアウトも元の位置のままです

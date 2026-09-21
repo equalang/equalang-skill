@@ -12,6 +12,17 @@
 
 **Przetłumacz plik, zachowaj układ.** [Agent Skill](https://agentskills.io) dla [Equalang](https://equalang.com) – tłumacza AI, który pracuje na całych plikach: PDF wraca jako PDF, prezentacja jako prezentacja, a tabele, obrazy i wzory zostają tam, gdzie były. Tłumaczy też napisy i obrazy, zamienia audio i wideo w przetłumaczone napisy albo transkrypcję i hurtowo tłumaczy krótkie teksty. Działa w Claude Code, Codex, Cursor, CodeBuddy i każdym innym agencie, który ładuje Agent Skills.
 
+## Spróbuj poprosić
+
+- „Przetłumacz ~/Documents/contract.pdf na polski, zachowując układ.”
+- „Przetłumacz pitch-deck.pptx na angielski i niemiecki.”
+- „Przetłumacz https://example.com/whitepaper.pdf na polski i zapisz w ~/Downloads.”
+- „Ile kosztowałoby przetłumaczenie thesis.docx na angielski?”
+- „Zrób polskie napisy do interview.mp4, z oryginalną linią nad każdym tłumaczeniem.”
+- „Zrób transkrypcję standup.m4a ze znacznikami czasu.”
+- „Przetłumacz na polski tekst z menu.jpg.”
+- „Przetłumacz teksty z locales/en.json na niemiecki, czeski i ukraiński.”
+
 ## Funkcje
 
 - **Dokumenty** – PDF, DOCX, PPTX, XLSX, EPUB, HTML i TXT wracają w tym samym formacie, nadal edytowalne, z tabelami, obrazami, wzorami i układem strony na swoich miejscach

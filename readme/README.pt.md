@@ -12,6 +12,17 @@
 
 **Traduza o arquivo, mantenha o layout.** Uma [Agent Skill](https://agentskills.io) para o [Equalang](https://equalang.com), um tradutor com IA que trabalha com arquivos inteiros: um PDF volta como PDF, uma apresentação como apresentação, com tabelas, imagens e fórmulas onde estavam. Também traduz legendas e imagens, transforma áudio e vídeo em legendas traduzidas ou em transcrição, e traduz textos curtos em lote. Funciona no Claude Code, Codex, Cursor, CodeBuddy e em qualquer outro agente que carregue Agent Skills.
 
+## Experimente pedir
+
+- “Traduza ~/Documents/contract.pdf para o português, mantendo o layout.”
+- “Traduza pitch-deck.pptx para o inglês e o espanhol.”
+- “Traduza https://example.com/whitepaper.pdf para o português e salve em ~/Downloads.”
+- “Quanto custaria traduzir thesis.docx para o inglês?”
+- “Faça legendas em português para interview.mp4, com a linha original acima de cada tradução.”
+- “Transcreva standup.m4a com marcações de tempo.”
+- “Traduza para o português o texto de menu.jpg.”
+- “Traduza os textos de locales/en.json para espanhol, francês e alemão.”
+
 ## Recursos
 
 - **Documentos**: PDF, DOCX, PPTX, XLSX, EPUB, HTML e TXT voltam no mesmo formato, ainda editáveis, com tabelas, imagens, fórmulas e layout de página no lugar

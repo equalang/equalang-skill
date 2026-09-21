@@ -12,6 +12,17 @@
 
 **Dịch tệp, giữ nguyên bố cục.** Một [Agent Skill](https://agentskills.io) cho [Equalang](https://equalang.com) - trình dịch AI làm việc trên trọn tệp: PDF trả về vẫn là PDF, bản trình chiếu vẫn là bản trình chiếu, bảng, hình ảnh và công thức nằm nguyên chỗ cũ. Nó còn dịch phụ đề và hình ảnh, biến âm thanh và video thành phụ đề đã dịch hoặc bản chép lời, và dịch hàng loạt văn bản ngắn. Dùng được trong Claude Code, Codex, Cursor, CodeBuddy và mọi agent khác có tải Agent Skills.
 
+## Thử nói thế này
+
+- “Dịch ~/Documents/contract.pdf sang tiếng Việt, giữ nguyên bố cục.”
+- “Dịch pitch-deck.pptx sang tiếng Anh và tiếng Nhật.”
+- “Dịch https://example.com/whitepaper.pdf sang tiếng Việt rồi lưu vào ~/Downloads.”
+- “Dịch thesis.docx sang tiếng Anh thì tốn bao nhiêu?”
+- “Làm phụ đề tiếng Việt cho interview.mp4, giữ dòng gốc phía trên mỗi dòng dịch.”
+- “Chép lời standup.m4a kèm mốc thời gian.”
+- “Dịch chữ trong menu.jpg sang tiếng Việt.”
+- “Dịch các chuỗi trong locales/en.json sang tiếng Hàn, tiếng Nhật và tiếng Thái.”
+
 ## Tính năng
 
 - **Tài liệu** - PDF, DOCX, PPTX, XLSX, EPUB, HTML và TXT trả về đúng định dạng cũ, vẫn chỉnh sửa được, bảng, hình ảnh, công thức và bố cục trang giữ nguyên

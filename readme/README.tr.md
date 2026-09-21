@@ -12,6 +12,17 @@
 
 **Dosyayı çevirin, düzeni koruyun.** [Equalang](https://equalang.com) için bir [Agent Skill](https://agentskills.io). Equalang, dosyaları bütün halinde çeviren bir yapay zekâ çevirmenidir: PDF yine PDF olarak, sunum yine sunum olarak geri gelir; tablolar, görseller ve formüller yerli yerinde kalır. Altyazıları ve resimleri de çevirir, ses ve videoyu çevrilmiş altyazıya ya da döküme dönüştürür, kısa metinleri toplu halde çevirir. Claude Code, Codex, Cursor, CodeBuddy ve Agent Skills yükleyen diğer tüm ajanlarda çalışır.
 
+## Şöyle isteyebilirsiniz
+
+- “~/Documents/contract.pdf dosyasını Türkçeye çevir, sayfa düzeni aynı kalsın.”
+- “pitch-deck.pptx dosyasını İngilizceye ve Almancaya çevir.”
+- “https://example.com/whitepaper.pdf dosyasını Türkçeye çevirip ~/Downloads içine kaydet.”
+- “thesis.docx dosyasını İngilizceye çevirmek ne kadar tutar?”
+- “interview.mp4 için Türkçe altyazı hazırla; her satırın üstünde orijinali kalsın.”
+- “standup.m4a kaydını zaman damgalarıyla yazıya dök.”
+- “menu.jpg içindeki yazıyı Türkçeye çevir.”
+- “locales/en.json içindeki metinleri Almancaya, Fransızcaya ve Arapçaya çevir.”
+
 ## Özellikler
 
 - **Belgeler** – PDF, DOCX, PPTX, XLSX, EPUB, HTML ve TXT aynı biçimde, düzenlenebilir halde geri gelir; tablolar, görseller, formüller ve sayfa düzeni yerinde kalır
