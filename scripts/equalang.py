@@ -104,9 +104,9 @@ def _call(method, path, *, body=None, content_type=None, creates=False, keyless=
                 envelope = {}
             message = str(envelope.get('message') or exc.reason)
             if exc.code == 401:
-                message += f' Check EQUALANG_API_KEY, or create a key at {KEYS_URL}.'
+                message = f'{message.rstrip(". ")}. Check EQUALANG_API_KEY, or create a key at {KEYS_URL}.'
             if exc.code == 402:
-                message += f' Top up at {SITE}/pricing.'
+                message = f'{message.rstrip(". ")}. Top up at {SITE}/pricing.'
             failure = EqualangError(message, str(envelope.get('code') or f'HTTP_{exc.code}'),
                                     bool(envelope.get('retryable', exc.code >= 500)), envelope.get('data'))
             if not failure.retryable or attempt == ATTEMPTS:
