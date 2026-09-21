@@ -35,7 +35,7 @@
 
 Zarejestruj się na <https://equalang.com> i utwórz klucz na <https://equalang.com/api-keys>. Nowe konta zaczynają z darmowymi kredytami – wystarczy, żeby przetłumaczyć jeden dokument na próbę.
 
-Zapisz go raz na komputer w `~/.config/equalang/.env`: ten skill i serwer MCP Equalang odczytują go właśnie stamtąd, a plik zostaje na miejscu, gdy któryś z nich zostanie przeinstalowany lub zaktualizowany.
+Zapisz go raz w `~/.config/equalang/.env`, a będzie działał na stałe: w każdym agencie – Claude Code, Codex, WorkBuddy, Cursor czy innym – w każdej nowej sesji, także po ponownej instalacji i aktualizacji, bez export. Serwer MCP Equalang czyta ten sam plik.
 
 ```bash
 mkdir -p ~/.config/equalang

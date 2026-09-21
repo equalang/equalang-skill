@@ -35,7 +35,7 @@
 
 <https://equalang.com>에서 가입하고 <https://equalang.com/api-keys>에서 키를 만드세요. 새 계정에는 무료 크레딧이 들어 있어, 문서 하나쯤은 번역해 볼 수 있습니다.
 
-키는 기기마다 한 번, `~/.config/equalang/.env`에 저장하세요. 이 스킬과 Equalang MCP 서버가 모두 여기서 읽으며, 둘 중 어느 것을 다시 설치하거나 업데이트해도 그대로 남습니다.
+키를 `~/.config/equalang/.env`에 한 번 저장하면 계속 유효합니다. Claude Code, Codex, WorkBuddy, Cursor 등 어떤 에이전트에서든, 새 세션에서도, 다시 설치하거나 업데이트한 뒤에도 쓸 수 있고 export할 필요가 없습니다. Equalang MCP 서버도 같은 파일을 읽습니다.
 
 ```bash
 mkdir -p ~/.config/equalang

@@ -35,7 +35,7 @@
 
 在 <https://equalang.com> 注册，然后在 <https://equalang.com/api-keys> 创建密钥。新账户自带免费积分，够翻一份文档试试手。
 
-把密钥保存在 `~/.config/equalang/.env`，每台机器存一次：这个技能和 Equalang MCP 服务器都从这里读取，重装或升级其中任何一个，它都还在。
+把密钥保存到 `~/.config/equalang/.env`，一次就永久生效：Claude Code、Codex、WorkBuddy、Cursor 等任何 Agent 都能用，每次新开会话、重装或升级之后也不受影响，不用每次 export。Equalang MCP 服务器读的也是这个文件。
 
 ```bash
 mkdir -p ~/.config/equalang

@@ -35,7 +35,7 @@
 
 Đăng ký tại <https://equalang.com> và tạo khóa tại <https://equalang.com/api-keys>. Tài khoản mới có sẵn credit miễn phí, đủ để dịch thử một tài liệu.
 
-Lưu khóa vào `~/.config/equalang/.env`, mỗi máy một lần: skill này và máy chủ MCP của Equalang đều đọc khóa từ đó, và tệp vẫn giữ nguyên khi cài lại hoặc cập nhật bất kỳ bên nào.
+Lưu khóa một lần vào `~/.config/equalang/.env` là dùng được mãi: trong mọi agent - Claude Code, Codex, WorkBuddy, Cursor hay agent khác - ở mọi phiên mới, kể cả sau khi cài lại hay cập nhật, không cần export. Máy chủ MCP của Equalang cũng đọc chính tệp này.
 
 ```bash
 mkdir -p ~/.config/equalang

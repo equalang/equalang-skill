@@ -35,7 +35,7 @@
 
 <https://equalang.com> で登録し、<https://equalang.com/api-keys> でキーを作成します。新規アカウントには無料クレジットが付いてきます。ドキュメントを 1 本試すには十分です。
 
-キーはマシンごとに一度、`~/.config/equalang/.env` に保存します。このスキルと Equalang MCP サーバーの両方がここから読み取り、どちらを再インストール・更新してもそのまま残ります。
+キーは `~/.config/equalang/.env` に一度保存すれば、ずっと有効です。Claude Code、Codex、WorkBuddy、Cursor などどのエージェントでも、新しいセッションでも、再インストールや更新の後でも使え、export は不要です。Equalang MCP サーバーも同じファイルを読みます。
 
 ```bash
 mkdir -p ~/.config/equalang

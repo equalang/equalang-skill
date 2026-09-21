@@ -35,7 +35,7 @@
 
 سجّل في <https://equalang.com> وأنشئ مفتاحًا من <https://equalang.com/api-keys>. تبدأ الحسابات الجديدة بنقاط مجانية تكفي لترجمة مستند واحد للتجربة.
 
-احفظه في `~/.config/equalang/.env` مرة واحدة لكل جهاز: تقرؤه هذه المهارة وخادم Equalang MCP من هناك، ويبقى في مكانه عند إعادة تثبيت أيٍّ منهما أو تحديثه.
+احفظه مرة واحدة في `~/.config/equalang/.env` فيبقى نافذًا: في أي وكيل - Claude Code أو Codex أو WorkBuddy أو Cursor أو غيرها - وفي كل جلسة جديدة، وبعد إعادة التثبيت والتحديث، دون أي export. ويقرأ خادم Equalang MCP الملف نفسه.
 
 ```bash
 mkdir -p ~/.config/equalang

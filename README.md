@@ -35,7 +35,7 @@
 
 Sign up at <https://equalang.com> and create a key at <https://equalang.com/api-keys>. New accounts start with free credits, enough to put a document through.
 
-Save it in `~/.config/equalang/.env`, once per machine: this skill and the Equalang MCP server both read it there, and it stays put when either is reinstalled or updated.
+Save it once in `~/.config/equalang/.env` and it stays in effect: in every agent - Claude Code, Codex, WorkBuddy, Cursor or any other - in every new session, and through reinstalls and updates, with nothing to export. The Equalang MCP server reads the same file.
 
 ```bash
 mkdir -p ~/.config/equalang

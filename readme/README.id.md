@@ -35,7 +35,7 @@
 
 Daftar di <https://equalang.com> dan buat kunci di <https://equalang.com/api-keys>. Akun baru langsung mendapat kredit gratis, cukup untuk mencoba satu dokumen.
 
-Simpan di `~/.config/equalang/.env`, cukup sekali per mesin: skill ini dan server MCP Equalang sama-sama membacanya dari sana, dan file itu tetap ada saat salah satunya dipasang ulang atau diperbarui.
+Simpan sekali di `~/.config/equalang/.env` dan kunci itu tetap berlaku: di agent mana pun - Claude Code, Codex, WorkBuddy, Cursor, atau lainnya - di setiap sesi baru, juga setelah dipasang ulang atau diperbarui, tanpa perlu export. Server MCP Equalang membaca file yang sama.
 
 ```bash
 mkdir -p ~/.config/equalang

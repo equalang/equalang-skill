@@ -35,7 +35,7 @@
 
 Crie uma conta em <https://equalang.com> e gere uma chave em <https://equalang.com/api-keys>. Contas novas vêm com créditos gratuitos, o suficiente para traduzir um documento e experimentar.
 
-Salve-a em `~/.config/equalang/.env`, uma vez por máquina: esta skill e o servidor MCP do Equalang a leem dali, e ela continua lá quando qualquer um dos dois é reinstalado ou atualizado.
+Salve-a uma vez em `~/.config/equalang/.env` e ela continua valendo: em qualquer agente (Claude Code, Codex, WorkBuddy, Cursor ou outro), em cada nova sessão e depois de reinstalar ou atualizar, sem export. O servidor MCP do Equalang lê o mesmo arquivo.
 
 ```bash
 mkdir -p ~/.config/equalang

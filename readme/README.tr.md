@@ -35,7 +35,7 @@
 
 <https://equalang.com> adresinde kaydolun ve <https://equalang.com/api-keys> adresinde bir anahtar oluşturun. Yeni hesaplar ücretsiz kredilerle başlar – bir belgeyi çevirip denemeye yeter.
 
-Anahtarı makine başına bir kez `~/.config/equalang/.env` dosyasına kaydedin: bu beceri de Equalang MCP sunucusu da onu oradan okur ve ikisinden biri yeniden kurulduğunda ya da güncellendiğinde dosya yerinde kalır.
+Anahtarı bir kez `~/.config/equalang/.env` dosyasına kaydedin, kalıcı olarak geçerli olur: hangi ajanı kullanırsanız kullanın - Claude Code, Codex, WorkBuddy, Cursor ya da başka biri - her yeni oturumda, yeniden kurulum ve güncellemelerden sonra da, export gerekmeden. Equalang MCP sunucusu da aynı dosyayı okur.
 
 ```bash
 mkdir -p ~/.config/equalang
