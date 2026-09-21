@@ -12,11 +12,14 @@ Point it at a file and it uploads the file, waits for the job, and writes the re
 
 ## Setup
 
+The key is one line, `EQUALANG_API_KEY=el_...`, in `~/.config/equalang/.env` (under `$XDG_CONFIG_HOME` if that is set): one file per machine, shared with the Equalang MCP server and kept when this skill is reinstalled or updated. The user creates the key at https://equalang.com/api-keys.
+
 ```bash
-export EQUALANG_API_KEY=el_...   # the user creates one at https://equalang.com/api-keys
+dir="${XDG_CONFIG_HOME:-$HOME/.config}/equalang"
+mkdir -p "$dir" && (umask 077 && echo 'EQUALANG_API_KEY=el_...' > "$dir/.env")
 ```
 
-Or put it in this skill's `.env`. Without a key every command answers with how to get one. **Never invent a key - ask the user.**
+`EQUALANG_API_KEY` in the environment wins over the file. Without a key every command answers with how to get one and where it goes. **Never invent a key - ask the user.**
 
 ## Commands
 

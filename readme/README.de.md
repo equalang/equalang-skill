@@ -24,11 +24,15 @@
 
 Registriere dich unter <https://equalang.com> und erstelle einen Schlüssel unter <https://equalang.com/api-keys>. Neue Konten bekommen kostenlose Credits – genug, um ein Dokument zu übersetzen und es auszuprobieren.
 
+Speichere ihn einmal pro Rechner in `~/.config/equalang/.env`: Dieser Skill und der Equalang-MCP-Server lesen ihn beide dort, und er bleibt erhalten, wenn einer von beiden neu installiert oder aktualisiert wird.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Oder kopiere `.env.example` in diesem Verzeichnis nach `.env` – die Datei wird von git ignoriert.
+Ein in der Umgebung gesetztes `EQUALANG_API_KEY` hat Vorrang – für einen anderen Schlüssel in einem einzelnen Projekt.
 
 ## Installation
 

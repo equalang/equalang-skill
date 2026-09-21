@@ -24,11 +24,15 @@
 
 سجّل في <https://equalang.com> وأنشئ مفتاحًا من <https://equalang.com/api-keys>. تبدأ الحسابات الجديدة بنقاط مجانية تكفي لترجمة مستند واحد للتجربة.
 
+احفظه في `~/.config/equalang/.env` مرة واحدة لكل جهاز: تقرؤه هذه المهارة وخادم Equalang MCP من هناك، ويبقى في مكانه عند إعادة تثبيت أيٍّ منهما أو تحديثه.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-أو انسخ `.env.example` إلى `.env` في هذا المجلد - وهو مُدرج في gitignore.
+متغير البيئة `EQUALANG_API_KEY` له الأولوية - استخدمه حين يحتاج مشروع ما إلى مفتاح مختلف.
 
 ## التثبيت
 

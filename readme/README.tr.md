@@ -24,11 +24,15 @@
 
 <https://equalang.com> adresinde kaydolun ve <https://equalang.com/api-keys> adresinde bir anahtar oluşturun. Yeni hesaplar ücretsiz kredilerle başlar – bir belgeyi çevirip denemeye yeter.
 
+Anahtarı makine başına bir kez `~/.config/equalang/.env` dosyasına kaydedin: bu beceri de Equalang MCP sunucusu da onu oradan okur ve ikisinden biri yeniden kurulduğunda ya da güncellendiğinde dosya yerinde kalır.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Ya da bu dizinde `.env.example` dosyasını `.env` olarak kopyalayın – git tarafından yok sayılır.
+Ortamda tanımlı `EQUALANG_API_KEY` önceliklidir; tek bir projede farklı bir anahtar kullanmak için bunu kullanın.
 
 ## Kurulum
 

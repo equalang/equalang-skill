@@ -24,11 +24,15 @@
 
 สมัครที่ <https://equalang.com> แล้วสร้างคีย์ที่ <https://equalang.com/api-keys> บัญชีใหม่มีเครดิตฟรีให้ตั้งแต่เริ่ม พอสำหรับลองแปลเอกสารสักฉบับ
 
+บันทึกคีย์ไว้ใน `~/.config/equalang/.env` เครื่องละครั้ง ทั้งสกิลนี้และเซิร์ฟเวอร์ Equalang MCP อ่านคีย์จากที่นั่น และไฟล์จะยังอยู่แม้ติดตั้งใหม่หรืออัปเดตตัวใดตัวหนึ่ง
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-หรือคัดลอก `.env.example` เป็น `.env` ในไดเรกทอรีนี้ - ไฟล์นี้อยู่ใน gitignore แล้ว
+ถ้าตั้ง `EQUALANG_API_KEY` ไว้ในตัวแปรสภาพแวดล้อม ค่านั้นจะมีผลก่อนไฟล์ - ใช้เมื่อโปรเจกต์ใดโปรเจกต์หนึ่งต้องใช้คีย์อื่น
 
 ## ติดตั้ง
 

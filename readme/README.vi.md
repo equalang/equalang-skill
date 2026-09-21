@@ -24,11 +24,15 @@
 
 Đăng ký tại <https://equalang.com> và tạo khóa tại <https://equalang.com/api-keys>. Tài khoản mới có sẵn credit miễn phí, đủ để dịch thử một tài liệu.
 
+Lưu khóa vào `~/.config/equalang/.env`, mỗi máy một lần: skill này và máy chủ MCP của Equalang đều đọc khóa từ đó, và tệp vẫn giữ nguyên khi cài lại hoặc cập nhật bất kỳ bên nào.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Hoặc sao chép `.env.example` thành `.env` trong thư mục này - tệp đó đã được gitignore.
+`EQUALANG_API_KEY` đặt trong biến môi trường sẽ được ưu tiên - dùng khi một dự án cần khóa khác.
 
 ## Cài đặt
 

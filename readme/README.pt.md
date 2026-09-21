@@ -24,11 +24,15 @@
 
 Crie uma conta em <https://equalang.com> e gere uma chave em <https://equalang.com/api-keys>. Contas novas vêm com créditos gratuitos, o suficiente para traduzir um documento e experimentar.
 
+Salve-a em `~/.config/equalang/.env`, uma vez por máquina: esta skill e o servidor MCP do Equalang a leem dali, e ela continua lá quando qualquer um dos dois é reinstalado ou atualizado.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Ou copie `.env.example` para `.env` neste diretório; ele é ignorado pelo git.
+`EQUALANG_API_KEY` definida no ambiente tem prioridade - útil para usar outra chave em um projeto específico.
 
 ## Instalação
 

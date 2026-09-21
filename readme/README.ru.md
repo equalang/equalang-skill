@@ -24,11 +24,15 @@
 
 Зарегистрируйтесь на <https://equalang.com> и создайте ключ на <https://equalang.com/api-keys>. Новые аккаунты получают бесплатные кредиты — их хватит, чтобы попробовать на одном документе.
 
+Сохраните его один раз на компьютер в `~/.config/equalang/.env`: этот скилл и MCP-сервер Equalang читают его оттуда, и файл остаётся на месте при переустановке или обновлении любого из них.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Или скопируйте `.env.example` в `.env` в этом каталоге — он в gitignore.
+Переменная окружения `EQUALANG_API_KEY` имеет приоритет — так можно задать другой ключ для отдельного проекта.
 
 ## Установка
 

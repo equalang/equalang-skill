@@ -2,6 +2,6 @@
   "name": "equalang",
   "owner": { "name": "Equalang", "email": "support@equalang.com" },
   "plugins": [
-    { "name": "equalang", "description": "Translate whole files with their layout kept, and transcribe recordings.", "version": "0.1.0", "source": "./" }
+    { "name": "equalang", "description": "Translate whole files with their layout kept, and transcribe recordings.", "version": "0.2.0", "source": "./" }
   ]
 }

@@ -30,7 +30,7 @@ import uuid
 from pathlib import Path
 from urllib import error, request
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 SITE = 'https://equalang.com'
 KEYS_URL = f'{SITE}/api-keys'
 MAX_UPLOAD_BYTES = 100 * 1024 * 1024
@@ -48,14 +48,27 @@ class EqualangError(Exception):
         self.code, self.retryable, self.data = code, retryable, data or {}
 
 
+def _config_file():
+    """The one place on this machine that keeps Equalang's settings, however this script was installed.
+
+    Not beside the script: a skill's folder is replaced when it is reinstalled or
+    updated -- a plugin lives in a cache named by its version -- and a key kept
+    there goes with it. The Equalang MCP server reads the same file.
+    """
+    return Path(os.environ.get('XDG_CONFIG_HOME') or Path.home() / '.config') / 'equalang' / '.env'
+
+
 def _setting(name):
-    """A variable from the environment, or else its line in this skill's .env."""
+    """A setting from the environment, or else its `NAME=value` line in the config file."""
     value = (os.environ.get(name) or '').strip()
-    env_file = Path(__file__).resolve().parent.parent / '.env'
-    if not value and env_file.exists():
-        for line in env_file.read_text(encoding='utf-8').splitlines():
+    path = _config_file()
+    if not value and path.is_file():
+        for line in path.read_text(encoding='utf-8').splitlines():
             key, _, found = line.partition('=')
-            if key.strip() == name:
+            key = key.strip()
+            if key.startswith('export '):
+                key = key[len('export '):].strip()
+            if key == name:
                 value = found.strip().strip('"').strip("'")
     return value
 
@@ -64,8 +77,9 @@ def _api_key():
     key = _setting('EQUALANG_API_KEY')
     if not key:
         raise EqualangError(
-            f'No API key. Ask the user for one, or to create one at {KEYS_URL}; then `export EQUALANG_API_KEY=el_...` '
-            'or put it in this skill\'s .env. Never invent a key.', 'MISSING_API_KEY')
+            f'No API key. Ask the user for one, or to create one at {KEYS_URL}; then save it as the line '
+            f'EQUALANG_API_KEY=el_... in {_config_file()}, or set EQUALANG_API_KEY in the environment. '
+            'Never invent a key.', 'MISSING_API_KEY')
     return key
 
 

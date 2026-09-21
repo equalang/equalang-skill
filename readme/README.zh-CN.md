@@ -24,11 +24,15 @@
 
 在 <https://equalang.com> 注册，然后在 <https://equalang.com/api-keys> 创建密钥。新账户自带免费积分，够翻一份文档试试手。
 
+把密钥保存在 `~/.config/equalang/.env`，每台机器存一次：这个技能和 Equalang MCP 服务器都从这里读取，重装或升级其中任何一个，它都还在。
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-也可以把本目录下的 `.env.example` 复制为 `.env`——它已被 git 忽略。
+环境变量里设置的 `EQUALANG_API_KEY` 优先——某个项目要用另一把密钥时就用它。
 
 ## 安装
 

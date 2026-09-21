@@ -24,11 +24,15 @@
 
 <https://equalang.com>에서 가입하고 <https://equalang.com/api-keys>에서 키를 만드세요. 새 계정에는 무료 크레딧이 들어 있어, 문서 하나쯤은 번역해 볼 수 있습니다.
 
+키는 기기마다 한 번, `~/.config/equalang/.env`에 저장하세요. 이 스킬과 Equalang MCP 서버가 모두 여기서 읽으며, 둘 중 어느 것을 다시 설치하거나 업데이트해도 그대로 남습니다.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-또는 이 디렉터리의 `.env.example`을 `.env`로 복사하세요. 이 파일은 gitignore에 들어 있습니다.
+환경 변수 `EQUALANG_API_KEY`가 설정되어 있으면 그것이 우선합니다. 특정 프로젝트에서만 다른 키를 쓸 때 사용하세요.
 
 ## 설치
 

@@ -24,11 +24,15 @@
 
 Daftar di <https://equalang.com> dan buat kunci di <https://equalang.com/api-keys>. Akun baru langsung mendapat kredit gratis, cukup untuk mencoba satu dokumen.
 
+Simpan di `~/.config/equalang/.env`, cukup sekali per mesin: skill ini dan server MCP Equalang sama-sama membacanya dari sana, dan file itu tetap ada saat salah satunya dipasang ulang atau diperbarui.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Atau salin `.env.example` menjadi `.env` di direktori ini - file itu sudah masuk gitignore.
+`EQUALANG_API_KEY` yang diatur di environment lebih diutamakan - gunakan untuk kunci lain di satu proyek tertentu.
 
 ## Instalasi
 

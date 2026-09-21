@@ -24,11 +24,15 @@
 
 Sign up at <https://equalang.com> and create a key at <https://equalang.com/api-keys>. New accounts start with free credits, enough to put a document through.
 
+Save it in `~/.config/equalang/.env`, once per machine: this skill and the Equalang MCP server both read it there, and it stays put when either is reinstalled or updated.
+
 ```bash
-export EQUALANG_API_KEY=el_your_key
+mkdir -p ~/.config/equalang
+echo 'EQUALANG_API_KEY=el_your_key' > ~/.config/equalang/.env
+chmod 600 ~/.config/equalang/.env
 ```
 
-Or copy `.env.example` to `.env` in this directory - it is gitignored.
+`EQUALANG_API_KEY` set in the environment takes precedence - for a different key in one project.
 
 ## Install
 
