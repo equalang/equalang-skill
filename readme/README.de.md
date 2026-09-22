@@ -20,8 +20,8 @@
 - „Was würde es kosten, thesis.docx ins Englische zu übersetzen?“
 - „Erstelle deutsche Untertitel für interview.mp4, mit der Originalzeile über jeder Übersetzung.“
 - „Transkribiere standup.m4a mit Zeitstempeln.“
-- „Übersetze den Text in menu.jpg ins Deutsche.“
-- „Übersetze die Texte in locales/en.json ins Französische, Spanische und Italienische.“
+- „Erstelle eine deutsche Version von menu.jpg.“
+- „Übersetze novel.epub ins Deutsche.“
 
 ## Funktionen
 

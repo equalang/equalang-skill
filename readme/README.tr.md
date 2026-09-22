@@ -20,8 +20,8 @@
 - “thesis.docx dosyasını İngilizceye çevirmek ne kadar tutar?”
 - “interview.mp4 için Türkçe altyazı hazırla; her satırın üstünde orijinali kalsın.”
 - “standup.m4a kaydını zaman damgalarıyla yazıya dök.”
-- “menu.jpg içindeki yazıyı Türkçeye çevir.”
-- “locales/en.json içindeki metinleri Almancaya, Fransızcaya ve Arapçaya çevir.”
+- “menu.jpg görselinin Türkçe bir sürümünü hazırla.”
+- “novel.epub dosyasını Türkçeye çevir.”
 
 ## Özellikler
 

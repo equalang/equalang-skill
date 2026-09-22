@@ -20,8 +20,8 @@
 - “Berapa biaya menerjemahkan thesis.docx ke bahasa Inggris?”
 - “Buatkan subtitle bahasa Indonesia untuk interview.mp4, dengan baris aslinya di atas setiap terjemahan.”
 - “Transkripsikan standup.m4a lengkap dengan stempel waktu.”
-- “Terjemahkan teks di menu.jpg ke bahasa Indonesia.”
-- “Terjemahkan string di locales/en.json ke bahasa Melayu, Thai, dan Vietnam.”
+- “Buatkan versi bahasa Indonesia dari gambar menu.jpg.”
+- “Terjemahkan novel.epub ke bahasa Indonesia.”
 
 ## Fitur
 

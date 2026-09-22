@@ -20,8 +20,8 @@
 - “把 thesis.docx 翻译成英文，大概要花多少积分？”
 - “给 interview.mp4 做中文字幕，每句上面保留原文。”
 - “把 standup.m4a 转成带时间戳的文字稿。”
-- “把 menu.jpg 里的文字翻译成中文。”
-- “把 locales/en.json 里的文案翻译成日文、韩文和西班牙文。”
+- “把 menu.jpg 翻成中文，给我一张翻好的图片。”
+- “把 novel.epub 翻译成中文。”
 
 ## 功能
 

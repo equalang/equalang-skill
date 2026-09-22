@@ -20,8 +20,8 @@
 - « Combien coûterait la traduction de thesis.docx en anglais ? »
 - « Fais des sous-titres français pour interview.mp4, avec la ligne d'origine au-dessus de chaque traduction. »
 - « Transcris standup.m4a avec les horodatages. »
-- « Traduis en français le texte de menu.jpg. »
-- « Traduis les textes de locales/en.json en espagnol, en allemand et en italien. »
+- « Fais une version française de menu.jpg. »
+- « Traduis novel.epub en français. »
 
 ## Fonctionnalités
 

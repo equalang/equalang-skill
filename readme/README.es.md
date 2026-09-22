@@ -20,8 +20,8 @@
 - «¿Cuánto costaría traducir thesis.docx al inglés?»
 - «Haz subtítulos en español para interview.mp4, con la línea original encima de cada una.»
 - «Transcribe standup.m4a con marcas de tiempo.»
-- «Traduce al español el texto de menu.jpg.»
-- «Traduce los textos de locales/en.json al francés, al alemán y al portugués.»
+- «Haz una versión en español de menu.jpg.»
+- «Traduce novel.epub al español.»
 
 ## Características
 

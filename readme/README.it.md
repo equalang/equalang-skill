@@ -20,8 +20,8 @@
 - «Quanto costerebbe tradurre thesis.docx in inglese?»
 - «Crea i sottotitoli in italiano per interview.mp4, con la riga originale sopra ogni traduzione.»
 - «Trascrivi standup.m4a con i timestamp.»
-- «Traduci in italiano il testo di menu.jpg.»
-- «Traduci le stringhe di locales/en.json in francese, spagnolo e tedesco.»
+- «Crea una versione in italiano di menu.jpg.»
+- «Traduci novel.epub in italiano.»
 
 ## Funzionalità
 
