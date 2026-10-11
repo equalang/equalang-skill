@@ -29,7 +29,8 @@
 - **Subtitle dan gambar** - SRT dan VTT mempertahankan timing-nya, dengan opsi baris asli di atas terjemahan; JPG, PNG, WebP, dan BMP kembali dengan teks di dalam gambar sudah diterjemahkan
 - **Audio dan video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM, dan MKV menjadi subtitle terjemahan, atau transkrip dalam bahasa yang diucapkan (SRT, VTT, TXT, JSON)
 - **Teks secara massal** - teks-teks pendek diterjemahkan sesuai urutan, atau satu teks panjang (hingga 100,000 karakter) yang dipotong sendiri oleh Equalang per kalimat
-- **Bahasa** - 100+ untuk teks dan 12 untuk file, dengan bahasa sumber terdeteksi otomatis saat Anda mengosongkannya
+- **Bahasa** — 152 bahasa untuk teks dan dokumen; lihat daftar langsung untuk bahasa yang tersedia saat ini. Bahasa sumber dideteksi otomatis jika tidak diisi.
+- **Rumus PDF** — Pengoptimalan rumus bersifat opsional dan secara default nonaktif. Hanya berlaku untuk file PDF. `--optimize-math-formula`
 
 ## Dapatkan kunci
 

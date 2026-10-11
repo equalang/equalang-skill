@@ -29,7 +29,8 @@
 - **Legendas e imagens**: SRT e VTT mantêm a sincronização, opcionalmente com a linha original acima da tradução; JPG, PNG, WebP e BMP voltam com o texto da imagem traduzido
 - **Áudio e vídeo**: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM e MKV viram legendas traduzidas ou uma transcrição no idioma falado (SRT, VTT, TXT, JSON)
 - **Texto em lote**: textos curtos traduzidos em ordem, ou um único texto longo (até 100.000 caracteres) que o próprio Equalang corta por frases
-- **Idiomas**: mais de 100 para texto e 12 para arquivos, com o idioma de origem detectado quando você o omite
+- **Idiomas** — 152 para textos e documentos; consulte a lista atual para saber quais estão disponíveis. O idioma de origem é detectado quando não é informado.
+- **Fórmulas em PDF** — A otimização de fórmulas é opcional e fica desativada por padrão. Só se aplica a arquivos PDF. `--optimize-math-formula`
 
 ## Obtenha uma chave
 

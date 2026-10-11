@@ -25,7 +25,7 @@ FIELDS = {
     'JobOutput': ['kind', 'format', 'filename', 'download_url'],
     'JobUsage': ['credits_reserved', 'credits_charged'],
     'ErrorResponse': ['code', 'message', 'retryable'],
-    'DocumentTranslateOptions': ['subtitle_bilingual', 'output_formats'],
+    'DocumentTranslateOptions': ['subtitle_bilingual', 'output_formats', 'optimize_math_formula'],
 }
 
 

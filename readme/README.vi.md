@@ -29,7 +29,8 @@
 - **Phụ đề và hình ảnh** - SRT và VTT giữ nguyên mốc thời gian, tùy chọn kèm dòng gốc phía trên bản dịch; JPG, PNG, WebP và BMP trả về với phần chữ trong ảnh đã được dịch
 - **Âm thanh và video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM và MKV trở thành phụ đề đã dịch, hoặc bản chép lời bằng chính ngôn ngữ được nói (SRT, VTT, TXT, JSON)
 - **Văn bản hàng loạt** - các văn bản ngắn được dịch theo đúng thứ tự, hoặc một văn bản dài (tối đa 100,000 ký tự) do Equalang tự cắt theo câu
-- **Ngôn ngữ** - hơn 100 cho văn bản và 12 cho tệp, tự động phát hiện ngôn ngữ nguồn khi bạn bỏ trống
+- **Ngôn ngữ** — 152 ngôn ngữ cho văn bản và tài liệu; xem danh sách trực tiếp để biết các ngôn ngữ hiện có. Ngôn ngữ nguồn được tự động nhận diện nếu bạn bỏ trống.
+- **Công thức PDF** — Tối ưu công thức là tùy chọn và mặc định tắt. Chỉ áp dụng cho tệp PDF. `--optimize-math-formula`
 
 ## Lấy khóa
 

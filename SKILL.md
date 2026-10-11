@@ -32,6 +32,7 @@ python3 scripts/equalang.py estimate report.pdf
 
 # Translate a file. A path, a public URL (Equalang fetches it), or --file-id from estimate.
 python3 scripts/equalang.py translate report.pdf --to zh-CN
+python3 scripts/equalang.py translate report.pdf --to uk --optimize-math-formula
 python3 scripts/equalang.py translate --file-id <file_id> --to zh-CN        # no second upload
 python3 scripts/equalang.py translate https://example.com/deck.pptx --to ja -o ./out
 
@@ -63,6 +64,7 @@ A failure prints `{"error", "code", "retryable"}` and exits 1. Retry only when `
 - **Results never overwrite.** They land beside a local source (or in `-o DIR`, or the current directory for a URL) under the name Equalang gives them; a taken name gets ` (1)`. Asking `status` again about a finished job names the files it already wrote rather than copying them.
 - **Minutes, not seconds, for long files.** The command waits and prints progress to stderr. Interrupting it does **not** cancel the job: `status <job_id>` picks it up, `cancel <job_id>` stops it. A cancelled or failed job is not charged.
 - **A recording is charged for the speech actually heard** - silence and music are not - so it usually costs less than `estimate` said; a document costs what `estimate` said.
-- **Language codes** look like `en`, `zh-CN`, `zh-TW`, `ja`, `pt`. They are read from the live API, never from memory: `languages` lists the ones files take, `languages --kind text` the wider set `text` takes, and `languages chinese` finds one by name. Omit `--source-language` to have it detected.
+- **Language codes** look like `en`, `zh-CN`, `zh-TW`, `ja`, `pt`. Text and documents support 152 languages, subject to the deployment's active catalog. Read the live API, never a copied list: `languages` lists the ones files take, `languages --kind text` those `text` takes, and `languages chinese` finds one by name. Omit `--source-language` to have it detected.
+- **PDF formulas.** Add `--optimize-math-formula` when the user requests formula optimization; it works with a path, URL or `--file-id`. Off by default; `--no-optimize-math-formula` explicitly disables it. Other formats reject the enabled option before reserving credits. Do not automatically enable it for every document.
 - **Several files?** Estimate each, add the numbers up, and ask once - never loop over a folder on your own say-so.
 - The API behind this, for anything the script does not do: https://equalang.com/llms.txt

@@ -29,7 +29,8 @@
 - **Subtítulos e imágenes**: SRT y VTT conservan sus tiempos, con la línea original encima de la traducción si se quiere; JPG, PNG, WebP y BMP vuelven con el texto de la imagen traducido
 - **Audio y vídeo**: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM y MKV se convierten en subtítulos traducidos, o en una transcripción en el idioma hablado (SRT, VTT, TXT, JSON)
 - **Texto en lote**: textos cortos traducidos en orden, o un solo texto largo (hasta 100.000 caracteres) que Equalang corta por frases por sí mismo
-- **Idiomas**: más de 100 para texto y 12 para archivos, con el idioma de origen detectado cuando no lo indicas
+- **Idiomas** — 152 para textos y documentos; consulta la lista actual para ver cuáles están disponibles. El idioma de origen se detecta si no lo indicas.
+- **Fórmulas en PDF** — La optimización de fórmulas es opcional y está desactivada por defecto. Solo se aplica a archivos PDF. `--optimize-math-formula`
 
 ## Consigue una clave
 

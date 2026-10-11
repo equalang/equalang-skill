@@ -29,7 +29,8 @@
 - **Subtitles and pictures** - SRT and VTT keep their timing, optionally with the source line above the translation; JPG, PNG, WebP and BMP come back with the text in the picture translated
 - **Audio and video** - MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM and MKV become translated subtitles, or a transcript in the language spoken (SRT, VTT, TXT, JSON)
 - **Text in bulk** - short texts translated in order, or one long text (up to 100,000 characters) that Equalang cuts at sentences itself
-- **Languages** - 100+ for text and 12 for files; leave the source language out and it is detected
+- **Languages** — 152 for text and documents; the live language list reflects the current deployment. Omit the source language to detect it automatically.
+- **PDF formulas** — Formula optimization is optional and off by default. Enable it only for PDF files. `--optimize-math-formula`
 
 ## Get a key
 

@@ -30,7 +30,7 @@ import uuid
 from pathlib import Path
 from urllib import error, request
 
-VERSION = '0.2.0'
+VERSION = '0.3.0'
 SITE = 'https://equalang.com'
 KEYS_URL = f'{SITE}/api-keys'
 MAX_UPLOAD_BYTES = 100 * 1024 * 1024
@@ -155,7 +155,7 @@ def create_job(task, source, *, file_id=None, target=None, source_language=None,
     A URL is handed to the API, which fetches it itself: nothing is downloaded
     here only to be uploaded again.
     """
-    options = {key: value for key, value in (options or {}).items() if value not in (None, [], False)}
+    options = {key: value for key, value in (options or {}).items() if value is not None and value != []}
     fields = {'target_language': target if task == 'translate' else None, 'source_language': source_language}
     if file_id or source.lower().startswith(('http://', 'https://')):
         named = {'file_id': file_id} if file_id else {'file_url': source}
@@ -242,7 +242,8 @@ def _run(task, args, **job):
 
 def cmd_translate(args):
     return _run('translate', args, target=args.to, source_language=args.source_language,
-                options={'subtitle_bilingual': args.bilingual, 'output_formats': args.format})
+                options={'subtitle_bilingual': args.bilingual or None, 'output_formats': args.format,
+                         'optimize_math_formula': args.optimize_math_formula})
 
 
 def cmd_transcribe(args):
@@ -328,6 +329,12 @@ def main(argv=None):
     translate = job_command('translate', cmd_translate, 'translate a whole file, keeping its layout (spends credits)')
     translate.add_argument('--to', required=True, help='language to translate into, e.g. zh-CN, en, ja')
     translate.add_argument('--bilingual', action='store_true', help='subtitles and recordings: keep the original line above each translated one')
+    formulas = translate.add_mutually_exclusive_group()
+    formulas.add_argument('--optimize-math-formula', dest='optimize_math_formula', action='store_true',
+                          help='PDF only: optimize mathematical formula layout (off by default)')
+    formulas.add_argument('--no-optimize-math-formula', dest='optimize_math_formula', action='store_false',
+                          help='explicitly disable PDF formula optimization')
+    translate.set_defaults(optimize_math_formula=None)
     job_command('transcribe', cmd_transcribe, 'write down what a recording says, as timed text (spends credits)')
 
     text = commands.add_parser('text', help='translate short plain texts (spends a little)')
