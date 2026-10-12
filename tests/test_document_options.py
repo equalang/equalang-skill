@@ -59,6 +59,26 @@ class DocumentOptionsTest(unittest.TestCase):
                         self.assertEqual(fields['target_language'], 'uk')
                         self.assertEqual(options, {} if enabled is None else {'optimize_math_formula': enabled})
 
+    def test_estimate_includes_optional_formula_fee_without_starting_a_job(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'paper.pdf'
+            path.write_bytes(b'%PDF-1.7')
+            upload = {'file_id': 'pdf', 'filename': 'paper.pdf', 'size_bytes': 9, 'expires_at': 'later',
+                      'quote': {'translate': 31.42, 'transcribe': None,
+                                'formula_optimization': {'credits_per_page': 10, 'credits': 30}}}
+            for flags, expected in [([], 31.42), (['--optimize-math-formula'], 61.42)]:
+                output = io.StringIO()
+                with patch.object(equalang, '_call', return_value=(upload, {})) as call, contextlib.redirect_stdout(output):
+                    self.assertEqual(equalang.main(['estimate', str(path), *flags]), 0)
+                result = json.loads(output.getvalue())
+                self.assertEqual(result['credits_to_translate'], expected)
+                self.assertEqual(result['formula_optimization']['credits'], 30)
+                self.assertEqual(call.call_count, 1)
+                self.assertEqual(call.call_args.args[:2], ('POST', '/files'))
+            upload['quote']['formula_optimization']['credits'] = None
+            with patch.object(equalang, '_call', return_value=(upload, {})), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(equalang.main(['estimate', str(path), '--optimize-math-formula']), 1)
+
     def test_incompatible_flags_are_rejected_before_http(self):
         for args in [
             ['translate', 'a.pdf', '--to', 'uk', '--optimize-math-formula', '--no-optimize-math-formula'],

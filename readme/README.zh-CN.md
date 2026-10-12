@@ -30,7 +30,7 @@
 - **音频和视频**：MP3、M4A、WAV、FLAC、OGG、AAC、Opus、MP4、MOV、WebM 和 MKV 可变成翻译好的字幕，或原语言的转写文本（SRT、VTT、TXT、JSON）
 - **批量文本**：多条短文本按原顺序翻译，或一整篇长文本（最多 100,000 字符），由 Equalang 自行按句切分
 - **语言**：文本与文档支持 152 种语言，具体以实时查询结果为准；不填源语言则自动识别。
-- **PDF 公式**：公式优化为可选项，默认关闭，仅适用于 PDF。 `--optimize-math-formula`
+- **PDF 公式**：公式优化为可选项，默认关闭，仅适用于 PDF。 `--optimize-math-formula` 默认按原始 PDF 页数每页额外收取 10 积分，预估费用时也需传入相同选项。 `estimate --optimize-math-formula`
 
 ## 获取密钥
 

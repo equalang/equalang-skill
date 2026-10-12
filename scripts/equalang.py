@@ -30,7 +30,7 @@ import uuid
 from pathlib import Path
 from urllib import error, request
 
-VERSION = '0.3.0'
+VERSION = '0.3.1'
 SITE = 'https://equalang.com'
 KEYS_URL = f'{SITE}/api-keys'
 MAX_UPLOAD_BYTES = 100 * 1024 * 1024
@@ -284,8 +284,13 @@ def cmd_estimate(args):
     body, content_type = _multipart({}, Path(args.path).expanduser().resolve())
     upload, _ = _call('POST', '/files', body=body, content_type=content_type)
     quote = upload.get('quote') or {}
+    formula = quote.get('formula_optimization')
+    base = quote.get('translate')
+    if args.optimize_math_formula and (base is None or not formula or formula.get('credits') is None):
+        raise EqualangError('Formula optimization requires a PDF with a measured page count. Upload the PDF again or leave the option off.', 'FORMULA_QUOTE_UNAVAILABLE')
+    total = None if base is None else round(base + (formula['credits'] if args.optimize_math_formula else 0), 3)
     return {'file_id': upload['file_id'], 'filename': upload['filename'], 'size_bytes': upload['size_bytes'],
-            'credits_to_translate': quote.get('translate'), 'credits_to_transcribe': quote.get('transcribe'),
+            'credits_to_translate': total, 'formula_optimization': formula, 'credits_to_transcribe': quote.get('transcribe'),
             'kept_until': upload['expires_at']}
 
 
@@ -331,7 +336,7 @@ def main(argv=None):
     translate.add_argument('--bilingual', action='store_true', help='subtitles and recordings: keep the original line above each translated one')
     formulas = translate.add_mutually_exclusive_group()
     formulas.add_argument('--optimize-math-formula', dest='optimize_math_formula', action='store_true',
-                          help='PDF only: optimize mathematical formula layout (off by default)')
+                          help='PDF only: optimize mathematical formula layout (off by default; adds a per-page fee, 10 credits by default). Use the same flag with estimate')
     formulas.add_argument('--no-optimize-math-formula', dest='optimize_math_formula', action='store_false',
                           help='explicitly disable PDF formula optimization')
     translate.set_defaults(optimize_math_formula=None)
@@ -347,6 +352,7 @@ def main(argv=None):
 
     estimate = commands.add_parser('estimate', help='upload a file without starting anything; prints the most a job on it can cost (free)')
     estimate.add_argument('path')
+    estimate.add_argument('--optimize-math-formula', action='store_true', help='include the PDF formula optimization surcharge in the estimate')
     estimate.set_defaults(function=cmd_estimate)
 
     status = commands.add_parser('status', help='look a job up and, if it has finished, save its results')

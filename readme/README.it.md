@@ -30,7 +30,7 @@
 - **Audio e video** – MP3, M4A, WAV, FLAC, OGG, AAC, Opus, MP4, MOV, WebM e MKV diventano sottotitoli tradotti, oppure una trascrizione nella lingua parlata (SRT, VTT, TXT, JSON)
 - **Testo in blocco** – testi brevi tradotti nell'ordine dato, oppure un unico testo lungo (fino a 100.000 caratteri) che Equalang divide da sé in frasi
 - **Lingue** — 152 per testi e documenti; consulta l’elenco aggiornato per quelle disponibili. La lingua di origine viene rilevata se non la specifichi.
-- **Formule nei PDF** — L’ottimizzazione delle formule è facoltativa e disattivata per impostazione predefinita. Si applica solo ai file PDF. `--optimize-math-formula`
+- **Formule nei PDF** — L’ottimizzazione delle formule è facoltativa e disattivata per impostazione predefinita. Si applica solo ai file PDF. `--optimize-math-formula` La tariffa predefinita aggiunge 10 crediti per pagina del PDF originale. Usa la stessa opzione per stimare il costo. `estimate --optimize-math-formula`
 
 ## Ottieni una chiave
 

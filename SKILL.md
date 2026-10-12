@@ -8,7 +8,7 @@ license: Apache-2.0
 
 Point it at a file and it uploads the file, waits for the job, and writes the results beside the source. You get paths back, **never the file's contents** - layout, tables, images and formulas survive, and nothing large enters the conversation.
 
-**Work spends the user's credits. Say what it will cost and get their agreement before `translate` or `transcribe`.** `estimate` gives the number for a file, for free.
+**Work spends the user's credits. Say what it will cost and get their agreement before `translate` or `transcribe`.** `estimate` gives the number for a file, for free. PDF formula optimization is off by default and adds 10 credits per original PDF page at the default rate. If enabling it, pass `--optimize-math-formula` to both `estimate` and `translate`; `credits_to_translate` then includes the surcharge. Never enable it without an available page quote.
 
 ## Setup
 
