@@ -83,6 +83,18 @@ git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
 </details>
 
 <details>
+<summary><b>DeepSeek Harness</b></summary>
+
+يحمّل DeepSeek Harness المهارات من `~/.agents/skills/`، وهو المجلد الذي يستخدمه Codex، لذا يكفي استنساخ واحد لكليهما:
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+تُشغّل المهارة `python3`. وإذا لم يكن موجودًا في PATH (غالبًا على Windows؛ إذ إن Python الخاص بتطبيق سطح المكتب ليس ضمنه)، ثبّت [ملحق Equalang لـ DeepSeek Harness](https://github.com/equalang/equalang-dsh-plugin) بدلًا من ذلك، فهو لا يتطلب Python.
+</details>
+
+<details>
 <summary><b>CodeBuddy / WorkBuddy</b></summary>
 
 ```bash

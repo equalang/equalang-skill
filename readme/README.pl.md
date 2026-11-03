@@ -83,6 +83,18 @@ Codex czyta też `.agents/skills/` wewnątrz repozytorium, co pozwala ograniczy�
 </details>
 
 <details>
+<summary><b>DeepSeek Harness</b></summary>
+
+DeepSeek Harness ładuje skille z `~/.agents/skills/`, katalogu używanego przez Codex, więc jeden klon obsługuje oba:
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+Skill uruchamia `python3`. Jeśli nie ma go w PATH (często w systemie Windows; własny Python aplikacji desktopowej się w nim nie znajduje), zainstaluj zamiast tego [wtyczkę Equalang dla DeepSeek Harness](https://github.com/equalang/equalang-dsh-plugin), która nie wymaga Pythona.
+</details>
+
+<details>
 <summary><b>CodeBuddy / WorkBuddy</b></summary>
 
 ```bash

@@ -83,6 +83,18 @@ Codex, beceriyi tek bir projeyle sınırlamak için bir deponun içindeki `.agen
 </details>
 
 <details>
+<summary><b>DeepSeek Harness</b></summary>
+
+DeepSeek Harness, becerileri Codex'in kullandığı dizin olan `~/.agents/skills/` dizininden yükler; bu sayede tek bir klon her ikisine de hizmet eder:
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+Beceri `python3` çalıştırır. PATH üzerinde bulunmadığında (genellikle Windows'ta; masaüstü uygulamasının kendi Python'ı burada yer almaz), bunun yerine Python gerektirmeyen [DeepSeek Harness için Equalang eklentisini](https://github.com/equalang/equalang-dsh-plugin) kurun.
+</details>
+
+<details>
 <summary><b>CodeBuddy / WorkBuddy</b></summary>
 
 ```bash

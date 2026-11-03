@@ -83,6 +83,18 @@ Codex는 저장소 안의 `.agents/skills/`도 읽으므로, 한 프로젝트로
 </details>
 
 <details>
+<summary><b>DeepSeek Harness</b></summary>
+
+DeepSeek Harness는 Codex가 사용하는 디렉터리인 `~/.agents/skills/`에서 스킬을 불러오므로, 클론 하나로 둘 다 사용할 수 있습니다:
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+이 스킬은 `python3`을 실행합니다. PATH에 `python3`이 없는 경우(Windows에서 흔하며, 데스크톱 앱 자체 Python은 PATH에 포함되지 않음) 대신 Python이 필요 없는 [DeepSeek Harness용 Equalang 플러그인](https://github.com/equalang/equalang-dsh-plugin)을 설치하세요.
+</details>
+
+<details>
 <summary><b>CodeBuddy / WorkBuddy</b></summary>
 
 ```bash

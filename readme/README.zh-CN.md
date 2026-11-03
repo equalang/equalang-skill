@@ -83,6 +83,18 @@ Codex 也会读取仓库内的 `.agents/skills/`，可以借此把技能限定�
 </details>
 
 <details>
+<summary><b>DeepSeek Harness</b></summary>
+
+DeepSeek Harness 从 Codex 使用的目录 `~/.agents/skills/` 加载技能，因此只需克隆一份即可同时供两者使用：
+
+```bash
+git clone https://github.com/equalang/equalang-skill ~/.agents/skills/equalang
+```
+
+该技能运行 `python3`。如果 PATH 中没有（常见于 Windows；桌面应用自带的 Python 不在其中），请改为安装无需 Python 的 [适用于 DeepSeek Harness 的 Equalang 插件](https://github.com/equalang/equalang-dsh-plugin)。
+</details>
+
+<details>
 <summary><b>CodeBuddy / WorkBuddy</b></summary>
 
 ```bash
